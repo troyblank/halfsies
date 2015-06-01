@@ -7,7 +7,7 @@ module.exports = function(config) {
         ],
 
         files: [
-            'test/js/**/*.spec.js',
+            'app/assets/test/self.spec.js'
         ],
 
         browsers: ['PhantomJS'],
