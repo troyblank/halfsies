@@ -1,41 +1,42 @@
-var selfTest = (function() {
+var selfTest = (function () {
+    'use strict';
 
     function addListeners() {
         document.getElementById('test-button').onclick = selfTest.clickHand;
     }
 
     return {
-        init: function() {
+        init: function () {
             addListeners();
         },
 
-        callback: function() {
-            //callback
+        callback: function () {
+            return true;
         },
 
-        clickHand: function() {
+        clickHand: function () {
             this.className = 'has-been-clicked';
         }
-    }
-})();
+    };
+}());
 
 
-describe('Self', function() {
+describe('Self', function () {
     'use strict';
 
-    beforeEach(function() {
+    beforeEach(function () {
         document.getElementsByTagName('html')[0].innerHTML = '<a id="test-button">Click me</a>';
     });
 
-    afterEach(function() {
+    afterEach(function () {
         document.getElementsByTagName('html')[0].innerHTML = '';
     });
 
-    it('should be able to use chai assert', function() {
+    it('should be able to use chai assert', function () {
         assert.equal(true, true);
     });
 
-    it('should be able to use sinon spies', function() {
+    it('should be able to use sinon spies', function () {
         var callback = sinon.spy(selfTest, 'callback');
 
         selfTest.callback();
@@ -43,11 +44,11 @@ describe('Self', function() {
         assert.equal(callback.called, true);
     });
 
-    it('should allow DOM interaction with phantomjs', function() {
-        var clickHand = sinon.spy(selfTest, 'clickHand');
-        selfTest.init();
+    it('should allow DOM interaction with phantomjs', function () {
+        var clickHand = sinon.spy(selfTest, 'clickHand'),
+            testButton = document.getElementById('test-button');
 
-        var testButton = document.getElementById('test-button');
+        selfTest.init();
         testButton.onclick();
 
         assert.equal(clickHand.called, true);

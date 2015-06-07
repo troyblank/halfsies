@@ -8,26 +8,26 @@ var app;
 var server;
 var port = 8001;
 
-describe('app', function() {
+describe('app', function () {
     'use strict';
 
-    before(function() {
+    beforeEach(function () {
         app = express();
         server = app.listen(port);
         module.exports = app;
     });
 
-    after(function() {
+    afterEach(function () {
         server.close();
     });
 
-    it('should exist', function() {
+    it('should exist', function () {
         assert.notStrictEqual(app, undefined);
     });
 
-    it('should be listening at localhost:8001', function(done) {
+    it('should be listening at localhost:8001', function (done) {
         var header = pathingHelper.getGetOptions('/', port);
-        http.get(header, function(res) {
+        http.get(header, function (res) {
             assert.equal(res.statusCode, 200);
             done();
         });

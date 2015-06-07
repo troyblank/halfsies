@@ -1,4 +1,4 @@
-exports.getGetOptions = function(path, port) {
+exports.getGetOptions = function (path, port) {
     'use strict';
 
     var options = {
