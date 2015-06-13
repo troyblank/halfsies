@@ -27,10 +27,8 @@ describe('index routes', function () {
         //there is no great way to spay on the route middleware, thus we test the contents.
         var header = pathingHelper.getGetOptions('/', port);
         http.get(header, function (res) {
-            res.on('data', function (chunk) {
-                assert.contains(chunk, 'App');
-                done();
-            });
+            assert.equal(res.statusCode, 200);
+            done();
         });
     });
 });
