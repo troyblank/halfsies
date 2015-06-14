@@ -1,3 +1,5 @@
-require('./app/self.spec.js');
-require('./app/server.spec.js');
-require('./app/controllers/index.controller.spec.js');
+require('./app/self.spec');
+require('./app/server.spec');
+require('./app/controllers/index.controller.spec');
+require('./app/controllers/log.controller.spec');
+require('./app/models/log.model.spec');

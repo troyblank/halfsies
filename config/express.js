@@ -20,6 +20,7 @@ module.exports = function () {
     app.use(express.static(__dirname + '/../app/static'));
 
 
-    require('../app/routes/index.routes.js')(app);
+    require('../app/routes/index.routes')(app);
+    require('../app/routes/logs.routes')(app);
     return app;
 };

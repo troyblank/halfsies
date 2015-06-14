@@ -1,7 +1,7 @@
 var assert = require('assert');
 var sinon = require('sinon');
-require('../../helpers/assert.helper.js')(assert);
-var pathingHelper = require('../../helpers/pathing.helper.js');
+require('../../helpers/assert.helper')(assert);
+var pathingHelper = require('../../helpers/pathing.helper');
 
 var express = require('../../../config/express');
 var http = require('http');

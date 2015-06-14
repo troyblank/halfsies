@@ -1,5 +1,5 @@
 var assert = require('assert');
-var pathingHelper = require('../helpers/pathing.helper.js');
+var pathingHelper = require('../helpers/pathing.helper');
 
 var express = require('../../config/express');
 var http = require('http');

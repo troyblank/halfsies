@@ -1,7 +1,7 @@
 var assert = require('assert');
 var sinon = require('sinon');
 require('../helpers/assert.helper.js')(assert);
-var pathingHelper = require('../helpers/pathing.helper.js');
+var pathingHelper = require('../helpers/pathing.helper');
 
 var selfTest = (function () {
     'use strict';
