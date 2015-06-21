@@ -16,3 +16,15 @@ exports.create = function (req, res, next) {
         res.json(log);
     });
 };
+
+exports.list = function (req, res, next) {
+    'use strict';
+
+    Log.find({}).sort({created: 'desc'}).exec(function (err, logs) {
+        if (err) {
+            return next(err);
+        }
+
+        res.json(logs);
+    });
+};

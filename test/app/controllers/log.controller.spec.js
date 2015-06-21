@@ -5,7 +5,7 @@ var assert = require('assert'),
     logs = require('../../../app/controllers/log.controller'),
     mongoose = require('mongoose');
 
-describe('log model', function () {
+describe('log controller', function () {
     'use strict';
 
     beforeEach(function (done) {
@@ -21,12 +21,29 @@ describe('log model', function () {
     });
 
     it('should be able to save a log', function () {
-        var data = {},
-            res = {json: function () { return true; } };
+        var req = {},
+            res = {
+                json: function () {
+                    return true;
+                }
+            };
 
-        data.body = {amount: 100, user: 'troy', description: 'just a test log.'};
+        req.body = {amount: 100, user: 'troy', description: 'just a test log.'};
 
-        logs.create(data, res, null);
+        logs.create(req, res, null);
         assert.notEqual(logs, undefined);
+    });
+
+    it('should be able to get a logs list', function (done) {
+        var req = {},
+            res = {
+                send: function () { return this; },
+                json: function (data) {
+                    assert.notEqual(data, undefined);
+                    done();
+                }
+            };
+
+        logs.list(req, res);
     });
 });
