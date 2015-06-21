@@ -24,10 +24,23 @@ describe('log model', function () {
             Log = mongoose.model('Log'),
             log = new Log(data);
 
-        log.save(function () {
+        log.save(function (err) {
+            assert.equal(err, null);
             assert.equal(log.amount, data.amount);
             assert.equal(log.user, data.user);
             assert.equal(log.description, data.description);
+            done();
+        });
+    });
+
+    it('should reject an invalid log', function (done) {
+        var data = {user: 'troy', description: 'just a test log.'},
+            Log = mongoose.model('Log'),
+            log = new Log(data);
+
+        log.save(function (err) {
+            assert.notEqual(err, null);
+            assert.equal(err.name, 'ValidationError');
             done();
         });
     });
