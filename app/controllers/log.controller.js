@@ -20,7 +20,7 @@ exports.create = function (req, res, next) {
 exports.list = function (req, res, next) {
     'use strict';
 
-    Log.find({}).sort({created: 'desc'}).exec(function (err, logs) {
+    Log.find({}).sort({created: 'desc'}).limit(10).exec(function (err, logs) {
         if (err) {
             return next(err);
         }
