@@ -1,4 +1,5 @@
 var compress = require('compression');
+var bodyParser = require('body-parser');
 var express = require('express');
 var handlebars = require('express-handlebars');
 var morgan = require('morgan');
@@ -12,6 +13,9 @@ module.exports = function () {
     } else {
         app.use(morgan('dev'));
     }
+
+    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.json());
 
     app.engine('hbs', handlebars({layoutsDir: 'app/views/layouts/', extname: ".hbs"}));
     app.set('views', __dirname + '/../app/views');

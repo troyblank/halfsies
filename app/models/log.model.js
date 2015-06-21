@@ -4,7 +4,11 @@ var mongoose = require('mongoose'),
 var LogSchema = new Schema({
     amount: Number,
     user: String,
-    description: String
+    description: String,
+    created: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 mongoose.model('Log', LogSchema);
