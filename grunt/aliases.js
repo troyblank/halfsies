@@ -1,5 +1,6 @@
+'use strict';
+
 module.exports = function (grunt, options) {
-    'use strict';
     return {
         'test': [
             'jslint',

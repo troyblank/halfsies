@@ -1,3 +1,5 @@
+'use strict';
+
 require('../../../app/models/log.model');
 
 var assert = require('assert'),
@@ -5,7 +7,6 @@ var assert = require('assert'),
     mongoose = require('mongoose');
 
 describe('log model', function () {
-    'use strict';
 
     beforeEach(function (done) {
         if (mongoose.connection.db) {

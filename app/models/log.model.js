@@ -1,19 +1,21 @@
+'use strict';
+
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var LogSchema = new Schema({
     amount: {
         type: Number,
-        required: true
+        required: 'Amount is required'
     },
     user: {
         type: String,
-        required: true
+        required: 'User is required'
     },
     description: {
         type: String,
         trim: true,
-        required: true
+        required: 'Description is required'
     },
     created: {
         type: Date,

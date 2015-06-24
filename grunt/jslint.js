@@ -5,7 +5,8 @@ module.exports = {
         directives: {
             node: true,
             unparam: true,
-            nomen: true
+            nomen: true,
+            regexp: true
         }
     },
 

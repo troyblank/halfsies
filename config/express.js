@@ -1,11 +1,13 @@
+'use strict';
+
 var compress = require('compression');
 var bodyParser = require('body-parser');
 var express = require('express');
 var handlebars = require('express-handlebars');
 var morgan = require('morgan');
+var passport = require('passport');
 
 module.exports = function () {
-    'use strict';
     var app = express();
 
     if (process.env.NODE_ENV === 'production') {
@@ -21,8 +23,10 @@ module.exports = function () {
     app.set('views', __dirname + '/../app/views');
     app.set('view engine', 'hbs');
 
-    app.use(express.static(__dirname + '/../app/static'));
+    app.use(passport.initialize());
+    app.use(passport.session());
 
+    app.use(express.static(__dirname + '/../app/static'));
 
     require('../app/routes/index.routes')(app);
     require('../app/routes/logs.routes')(app);

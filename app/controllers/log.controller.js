@@ -1,7 +1,8 @@
+'use strict';
+
 var Log = require('mongoose').model('Log');
 
 exports.create = function (req, res, next) {
-    'use strict';
 
     if (!req.body) {
         return res.sendStatus(400);
@@ -18,7 +19,6 @@ exports.create = function (req, res, next) {
 };
 
 exports.list = function (req, res, next) {
-    'use strict';
 
     Log.find({}).sort({created: 'desc'}).limit(10).exec(function (err, logs) {
         if (err) {
