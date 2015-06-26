@@ -12,7 +12,7 @@ var mongoose = require('./config/mongoose'),
         provider: 'local'
     });
 
-exports.getErrorMessage = function (err) {
+var getErrorMessage = function (err) {
     var message = '',
         errName;
 
@@ -40,7 +40,7 @@ exports.getErrorMessage = function (err) {
 
 user.save(function (err) {
     if (err) {
-        var message = exports.getErrorMessage(err);
+        var message = getErrorMessage(err);
         console.log(colors.red('error: ' + message));
         setTimeout(function () {
             process.exit(1);
