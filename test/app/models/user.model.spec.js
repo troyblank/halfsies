@@ -1,5 +1,6 @@
 'use strict';
 
+var sinon = require('sinon');
 require('../../../app/models/user.model');
 
 var assert = require('assert'),
@@ -21,7 +22,7 @@ describe('user model', function () {
     });
 
     it('should be able to save a user', function (done) {
-        var data = {name: 'troy', password: 'password'},
+        var data = {username: 'troy', password: 'password', provider: 'local'},
             User = mongoose.model('User'),
             user = new User(data);
 
@@ -29,13 +30,12 @@ describe('user model', function () {
             assert.equal(err, null);
             assert.equal(user.amount, data.amount);
             assert.equal(user.name, data.name);
-            assert.equal(user.password, data.password);
             done();
         });
     });
 
     it('should reject an invalid user password', function (done) {
-        var data = {username: 'troy', password: 'short'},
+        var data = {username: 'troy', password: 'short', provider: 'local'},
             User = mongoose.model('User'),
             user = new User(data);
 

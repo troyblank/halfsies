@@ -7,6 +7,7 @@
         "test": "echo \"Error: no text specified\" && exit 1"
     },
     "dependencies": {
+        "colors": "1.1.2",
         "compression": "1.5.0",
         "body-parser": "1.12.4",
         "express": "4.12.3",
