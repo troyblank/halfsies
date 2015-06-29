@@ -14,7 +14,7 @@ module.exports = {
         src: ['test/**/*.js'],
         directives: {
             node: true,
-            predef: ['describe', 'beforeEach', 'afterEach', 'it']
+            predef: ['describe', 'before', 'after', 'beforeEach', 'afterEach', 'it']
         }
     },
 

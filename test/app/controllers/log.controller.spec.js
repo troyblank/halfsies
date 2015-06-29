@@ -8,7 +8,7 @@ var assert = require('assert'),
 describe('log controller', function () {
     'use strict';
 
-    beforeEach(function (done) {
+    before(function (done) {
         if (mongoose.connection.db) {
             return done();
         }
@@ -16,7 +16,7 @@ describe('log controller', function () {
         mongoose.connect(config.db, done);
     });
 
-    afterEach(function () {
+    after(function () {
         mongoose.connection.db.dropDatabase();
     });
 
