@@ -41,21 +41,30 @@ var UserSchema = new Schema({
 
 UserSchema.pre('save', function (next) {
 
-    var User = mongoose.model('User');
+    var User = mongoose.model('User'),
+        user = this;
 
     User.count({}, function (err, count) {
         if (count >= 2) {
             next(new Error('You can only have two users in Halfsies'));
         }
 
-        if (this.password) {
-            this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
-            this.password = this.hashPassword(this.password);
-        }
-
-        next();
+        //salt password
+        user.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
+        user.hashPassword(user.password, function (password) {
+            user.password = password;
+            next();
+        });
     });
 });
+
+UserSchema.methods.authenticate = function (password, callback) {
+    var user = this;
+
+    user.hashPassword(password, function (password) {
+        callback(user.password === password);
+    });
+};
 
 UserSchema.methods.hashPassword = function (password, callback) {
     crypto.pbkdf2(password, this.salt, 10000, 64, function (err, key) {
@@ -63,7 +72,7 @@ UserSchema.methods.hashPassword = function (password, callback) {
             throw err;
         }
 
-        return key.toString('base64');
+        callback(key.toString('base64'));
     });
 };
 

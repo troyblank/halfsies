@@ -1,11 +1,14 @@
 'use strict';
 
-var compress = require('compression');
-var bodyParser = require('body-parser');
-var express = require('express');
-var handlebars = require('express-handlebars');
-var morgan = require('morgan');
-var passport = require('passport');
+var compress = require('compression'),
+    config = require('./config'),
+    bodyParser = require('body-parser'),
+    express = require('express'),
+    flash = require('connect-flash'),
+    handlebars = require('express-handlebars'),
+    morgan = require('morgan'),
+    passport = require('passport'),
+    session = require('express-session');
 
 module.exports = function () {
     var app = express();
@@ -23,6 +26,13 @@ module.exports = function () {
     app.set('views', __dirname + '/../app/views');
     app.set('view engine', 'hbs');
 
+    app.use(session({
+        saveUninitialized: true,
+        resave: true,
+        secret: config.sessionSecret
+    }));
+
+    app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
 
@@ -30,5 +40,6 @@ module.exports = function () {
 
     require('../app/routes/index.routes')(app);
     require('../app/routes/logs.routes')(app);
+    require('../app/routes/user.routes')(app);
     return app;
 };

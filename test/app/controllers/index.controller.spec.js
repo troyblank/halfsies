@@ -27,7 +27,7 @@ describe('index routes', function () {
         //there is no great way to spay on the route middleware, thus we test the contents.
         var header = pathingHelper.getGetOptions('/', port);
         http.get(header, function (res) {
-            assert.equal(res.statusCode, 200);
+            assert.equal(res.statusCode, 302);
             done();
         });
     });

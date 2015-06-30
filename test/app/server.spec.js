@@ -4,6 +4,9 @@ var pathingHelper = require('../helpers/pathing.helper');
 var express = require('../../config/express');
 var http = require('http');
 
+require('../../app/models/log.model');
+require('../../app/models/user.model');
+
 var app;
 var server;
 var port = 8001;
@@ -11,13 +14,13 @@ var port = 8001;
 describe('app', function () {
     'use strict';
 
-    beforeEach(function () {
+    before(function () {
         app = express();
         server = app.listen(port);
         module.exports = app;
     });
 
-    afterEach(function () {
+    after(function () {
         server.close();
     });
 
@@ -26,7 +29,7 @@ describe('app', function () {
     });
 
     it('should be listening at localhost:8001', function (done) {
-        var header = pathingHelper.getGetOptions('/', port);
+        var header = pathingHelper.getGetOptions('/signin', port);
         http.get(header, function (res) {
             assert.equal(res.statusCode, 200);
             done();

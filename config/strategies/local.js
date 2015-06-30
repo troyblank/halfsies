@@ -19,14 +19,15 @@ module.exports = function () {
                 });
             }
 
-            if (!user.authenticate(password)) {
-                return done(null, false, {
-                    message: 'Invalid password'
-                });
-            }
+            user.authenticate(password, function (isValid) {
+                if (!isValid) {
+                    return done(null, false, {
+                        message: 'Invalid password'
+                    });
+                }
 
-            return done(null, user);
-
+                return done(null, user);
+            });
         });
     }));
 };
