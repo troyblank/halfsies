@@ -20,7 +20,7 @@ describe('user model', function () {
     });
 
     it('should be able to save a user', function (done) {
-        //order given to by-pass behavior with mongoose-auto-increment
+        //order given to by-pass strange behavior with mongoose-auto-increment
         var data = {username: 'troy', password: 'password', provider: 'local', order: 0},
             User = mongoose.model('User'),
             user = new User(data);
