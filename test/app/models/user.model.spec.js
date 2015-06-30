@@ -1,15 +1,13 @@
 'use strict';
 
-var sinon = require('sinon');
-require('../../../app/models/user.model');
-
-var assert = require('assert'),
+var sinon = require('sinon'),
+    assert = require('assert'),
     config = require('../../helpers/mongoose.helper'),
     mongoose = require('mongoose');
 
 describe('user model', function () {
 
-    beforeEach(function (done) {
+    before(function (done) {
         if (mongoose.connection.db) {
             return done();
         }
@@ -17,12 +15,13 @@ describe('user model', function () {
         mongoose.connect(config.db, done);
     });
 
-    afterEach(function () {
+    after(function () {
         mongoose.connection.db.dropDatabase();
     });
 
     it('should be able to save a user', function (done) {
-        var data = {username: 'troy', password: 'password', provider: 'local'},
+        //order given to by-pass behavior with mongoose-auto-increment
+        var data = {username: 'troy', password: 'password', provider: 'local', order: 0},
             User = mongoose.model('User'),
             user = new User(data);
 

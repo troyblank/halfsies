@@ -15,7 +15,7 @@ exports.getErrorMessage = function (err) {
         default:
             message = 'Something went wrong';
         }
-    } else {
+    } else if (err.errors) {
         for (errName in err.errors) {
             if (err.errors.hasOwnProperty(errName)) {
                 if (err.errors[errName].message) {
@@ -23,6 +23,8 @@ exports.getErrorMessage = function (err) {
                 }
             }
         }
+    } else {
+        message = err.message;
     }
 
     return message;

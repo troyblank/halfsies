@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose'),
     crypto = require('crypto'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    autoIncrement = require('mongoose-auto-increment');
 
 var UserSchema = new Schema({
     username: {
@@ -18,6 +19,10 @@ var UserSchema = new Schema({
                 return password && password.length > 6;
             }, 'Password should be longer'
         ]
+    },
+    order: {
+        type: Number,
+        unique: true
     },
     salt: {
         type: String
@@ -35,12 +40,21 @@ var UserSchema = new Schema({
 });
 
 UserSchema.pre('save', function (next) {
-    if (this.password) {
-        this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
-        this.password = this.hashPassword(this.password);
-    }
 
-    next();
+    var User = mongoose.model('User');
+
+    User.count({}, function (err, count) {
+        if (count >= 2) {
+            next(new Error('You can only have two users in Halfsies'));
+        }
+
+        if (this.password) {
+            this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
+            this.password = this.hashPassword(this.password);
+        }
+
+        next();
+    });
 });
 
 UserSchema.methods.hashPassword = function (password, callback) {
@@ -52,5 +66,8 @@ UserSchema.methods.hashPassword = function (password, callback) {
         return key.toString('base64');
     });
 };
+
+autoIncrement.initialize(mongoose.connection);
+UserSchema.plugin(autoIncrement.plugin, {model: 'User', field: 'order'});
 
 mongoose.model('User', UserSchema);
