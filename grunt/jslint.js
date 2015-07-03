@@ -1,7 +1,7 @@
 module.exports = {
     server: {
         src: ['app/**/*.js', 'server.js', 'createUser.js', 'config/**/*.js'],
-        exclude: ['app/assets/**/*.js'],
+        exclude: ['app/assets/**/*.js', 'app/public/**/*.js'],
         directives: {
             node: true,
             unparam: true,

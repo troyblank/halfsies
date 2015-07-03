@@ -1,6 +1,6 @@
 {
     "name": "Halfsies",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
@@ -22,6 +22,7 @@
     },
     "devDependencies": {
         "grunt": "0.4.5",
+        "grunt-bower-task": "0.4.0",
         "grunt-mocha-test": "0.12.7",
         "grunt-jslint": "1.1.14",
         "grunt-karma": "0.10.1",
