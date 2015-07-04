@@ -3,7 +3,8 @@
 module.exports = function (grunt, options) {
     return {
         'deploy': [
-            'bower'
+            'bower',
+            'uglify'
         ],
 
         'test': [

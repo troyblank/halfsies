@@ -1,7 +1,7 @@
 module.exports = {
     install: {
         options: {
-            targetDir: "app/public/lib",
+            targetDir: "app/assets/js/bower",
             cleanBowerDir: true
         }
     }

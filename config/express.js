@@ -36,7 +36,7 @@ module.exports = function () {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.use(express.static(__dirname + '/../app/static'));
+    app.use(express.static(__dirname + '/../app/public'));
 
     require('../app/routes/index.routes')(app);
     require('../app/routes/logs.routes')(app);
