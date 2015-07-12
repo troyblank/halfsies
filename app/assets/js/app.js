@@ -1,6 +1,6 @@
 var Halfsies = angular.module('halfsies', ['ngRoute']);
 
-Halfsies.config(['$routeProvider', '$locationProvider', function ($routeProvider) {
+Halfsies.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
     'use strict';
 
     $routeProvider.when('/', {
@@ -9,4 +9,6 @@ Halfsies.config(['$routeProvider', '$locationProvider', function ($routeProvider
     }).otherwise({
         redirectTo: '/'
     });
+
+    $locationProvider.hashPrefix('!');
 }]);
