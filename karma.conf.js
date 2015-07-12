@@ -9,7 +9,15 @@ module.exports = function (config) {
         ],
 
         files: [
-            'app/assets/test/self.spec.js'
+            'app/assets/js/bower/angular/angular.js',
+            'app/assets/js/bower/**/*.js',
+
+            'app/assets/test/helpers/**/*.js',
+
+            'app/assets/js/halfsies.js',
+            'app/assets/js/app.js',
+            'app/assets/js/controllers/**/*.js',
+            'app/assets/test/**/*.js'
         ],
 
         browsers: ['PhantomJS'],

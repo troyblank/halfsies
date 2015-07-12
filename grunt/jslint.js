@@ -18,11 +18,21 @@ module.exports = {
         }
     },
 
-    client_test : {
-        src: ['app/assets/test/**/*.js'],
+    client : {
+        src: ['app/assets/js/**/*.js'],
+        exclude: ['app/assets/js/bower/**/*.js', 'app/assets/js/views.js'],
         directives: {
             browser: true,
-            predef: ['describe', 'beforeEach', 'afterEach', 'it', 'assert', 'expect', 'sinon']
+            predef: ['Halfsies', 'halfsies', 'angular']
+        }
+    },
+
+    client_test : {
+        src: ['app/assets/test/**/*.js'],
+        exclude: ['app/assets/test/helpers/**/*.js'],
+        directives: {
+            browser: true,
+            predef: ['describe', 'beforeEach', 'afterEach', 'it', 'assert', 'expect', 'sinon', 'module', 'inject', 'halfsies']
         }
     },
 
