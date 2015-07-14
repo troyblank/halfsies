@@ -24,7 +24,9 @@ exports.list = function (req, res, next) {
 
     Log.find({}).sort({created: 'desc'}).limit(10).exec(function (err, logs) {
         if (err) {
-            return next(err);
+            return res.status(400).send({
+                'message': exports.getErrorMessage(err)
+            });
         }
 
         res.json(logs);

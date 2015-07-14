@@ -1,6 +1,7 @@
 require('../../../app/models/user.model');
 
 var assert = require('assert'),
+    sinon = require('sinon'),
     config = require('../../helpers/mongoose.helper'),
     users = require('../../../app/controllers/user.controller'),
     mongoose = require('mongoose'),
@@ -42,5 +43,37 @@ describe('user controller', function () {
         assert.equal(users.getErrorMessage({code: 11001}), 'Username already exists');
         assert.equal(users.getErrorMessage({code: 1}), 'Something went wrong');
         assert.equal(users.getErrorMessage({errors: {foo: {message: 'bar'}}}), 'bar');
+    });
+
+    it('should be able to use require login middleware', function () {
+        var req = {},
+            res = {
+                status: function () {
+                    return {
+                        send: function (message) {
+                            return message;
+                        }
+                    };
+                }
+            },
+            next = {
+                next: function () {
+                    return true;
+                }
+            },
+            callback = sinon.spy(next, 'next');
+
+        req.isAuthenticated = function () {
+            return false;
+        };
+
+        assert.equal(users.requiresLogin(req, res, next.next).message, 'User is not logged in');
+
+        req.isAuthenticated = function () {
+            return true;
+        };
+
+        users.requiresLogin(req, res, next.next);
+        assert.equal(callback.called, true);
     });
 });
