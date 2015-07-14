@@ -46,4 +46,15 @@ describe('log controller', function () {
 
         logs.list(req, res);
     });
+
+    it('should be able to get an error message', function () {
+        var err = {
+            'errors': {
+                'validationError': { 'message': 'User is required.' }
+            }
+        };
+
+        assert.equal(logs.getErrorMessage(err), 'User is required.');
+        assert.equal(logs.getErrorMessage({}), 'Unknown server error');
+    });
 });

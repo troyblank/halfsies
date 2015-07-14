@@ -11,7 +11,9 @@ exports.create = function (req, res, next) {
     var log = new Log(req.body);
     log.save(function (err) {
         if (err) {
-            return next(err);
+            return res.status(400).send({
+                'message': exports.getErrorMessage(err)
+            });
         }
 
         res.json(log);
@@ -27,4 +29,18 @@ exports.list = function (req, res, next) {
 
         res.json(logs);
     });
+};
+
+exports.getErrorMessage = function (err) {
+    var errName;
+
+    if (err.errors) {
+        for (errName in err.errors) {
+            if (err.errors.hasOwnProperty(errName) && err.errors[errName].message) {
+                return err.errors[errName].message;
+            }
+        }
+    } else {
+        return 'Unknown server error';
+    }
 };
