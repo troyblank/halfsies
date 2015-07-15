@@ -28,15 +28,14 @@ describe('user controller', function () {
         });
     });
 
-    // set aside to by-pass behavior with mongoose-auto-increment
-    // it('should be able to create a user', function (done) {
-    //     users.create('john', 'somepassword', function (state) {
-    //         assert.notEqual(users, undefined);
-    //         assert.equal(state.status, 'success');
-    //         done();
-    //     });
+    it('should be able to create a user', function (done) {
+        users.create('john', 'somepassword', function (state) {
+            assert.notEqual(users, undefined);
+            assert.equal(state.status, 'success');
+            done();
+        });
 
-    // });
+    });
 
     it('should be able to get an error message', function () {
         assert.equal(users.getErrorMessage({code: 11000}), 'Username already exists');

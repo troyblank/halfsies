@@ -2,8 +2,7 @@
 
 var mongoose = require('mongoose'),
     crypto = require('crypto'),
-    Schema = mongoose.Schema,
-    autoIncrement = require('mongoose-auto-increment');
+    Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
     username: {
@@ -75,8 +74,5 @@ UserSchema.methods.hashPassword = function (password, callback) {
         callback(key.toString('base64'));
     });
 };
-
-autoIncrement.initialize(mongoose.connection);
-UserSchema.plugin(autoIncrement.plugin, {model: 'User', field: 'order'});
 
 mongoose.model('User', UserSchema);
