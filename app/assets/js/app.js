@@ -6,6 +6,9 @@ Halfsies.config(['$routeProvider', '$locationProvider', function ($routeProvider
     $routeProvider.when('/', {
         templateUrl: 'app/views/partials/overview.html',
         controller: 'overview'
+    }).when('/log/create', {
+        templateUrl: 'app/views/partials/logCreate.html',
+        controller: 'logCreate'
     }).otherwise({
         redirectTo: '/'
     });

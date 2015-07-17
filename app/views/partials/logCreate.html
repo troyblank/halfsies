@@ -1,0 +1,24 @@
+<section>
+    <h1>Create a new log</h1>
+    <form data-ng-submit="create()" novalidate>
+        <div>
+            <label for="amount">Amount</label>
+            <div>
+                <input type="number" data-ng-model="amount" id="amount" placeholder="Amount" required />
+            </div>
+        </div>
+        <div>
+            <label for="description">Description</label>
+            <div>
+                <textarea data-ng-model="description" id="description" cols="30" rows="10" placeholder="Description" required ></textarea>
+            </div>
+        </div>
+        <div>
+            <input type="submit" />
+            <a href="/#!/">Cancel</a>
+        </div>
+        <div data-ng-show="error">
+            <strong data-ng-bind="error"></strong>
+        </div>
+    </form>
+</section>

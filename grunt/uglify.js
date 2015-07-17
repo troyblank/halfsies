@@ -12,7 +12,8 @@ module.exports = {
                 'app/assets/js/halfsies.js',
                 'app/assets/js/app.js',
                 'app/assets/js/views.js',
-                'app/assets/js/controllers/overview.js'
+                'app/assets/js/controllers/overview.js',
+                'app/assets/js/controllers/logCreate.js'
             ]
         }
     }
