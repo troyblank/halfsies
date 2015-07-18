@@ -1,19 +1,18 @@
 describe('overview controller', function () {
     'use strict';
 
-    var scope,
-        createController;
+    var createController,
+        $rootScope;
 
     beforeEach(module('halfsies'));
 
     beforeEach(inject(function ($injector) {
-        var $rootScope = $injector.get('$rootScope'),
-            $controller = $injector.get('$controller');
+        var $controller = $injector.get('$controller');
 
-        scope = $rootScope.$new();
+        $rootScope = $injector.get('$rootScope');
 
         createController = function () {
-            return $controller('overview', {$scope: scope});
+            return $controller('overview', {'$scope': $rootScope});
         };
     }));
 

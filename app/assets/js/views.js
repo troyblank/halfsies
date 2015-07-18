@@ -32,17 +32,17 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
+    "        <div data-ng-show=\"error\">\r" +
+    "\n" +
+    "            <strong data-ng-bind=\"error\"></strong>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
     "        <div>\r" +
     "\n" +
     "            <input type=\"submit\" />\r" +
     "\n" +
     "            <a href=\"/#!/\">Cancel</a>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div data-ng-show=\"error\">\r" +
-    "\n" +
-    "            <strong data-ng-bind=\"error\"></strong>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +

@@ -8,6 +8,8 @@ exports.create = function (req, res, next) {
         return res.sendStatus(400);
     }
 
+    req.body.user = req.user.username;
+
     var log = new Log(req.body);
     log.save(function (err) {
         if (err) {

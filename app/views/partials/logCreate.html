@@ -13,12 +13,12 @@
                 <textarea data-ng-model="description" id="description" cols="30" rows="10" placeholder="Description" required ></textarea>
             </div>
         </div>
+        <div data-ng-show="error">
+            <strong data-ng-bind="error"></strong>
+        </div>
         <div>
             <input type="submit" />
             <a href="/#!/">Cancel</a>
-        </div>
-        <div data-ng-show="error">
-            <strong data-ng-bind="error"></strong>
         </div>
     </form>
 </section>

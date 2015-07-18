@@ -21,7 +21,11 @@ describe('log controller', function () {
     });
 
     it('should be able to save a log', function () {
-        var req = {},
+        var req = {
+                'user': {
+                    'username': 'troy'
+                }
+            },
             res = {
                 json: function () {
                     return true;

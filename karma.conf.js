@@ -16,6 +16,7 @@ module.exports = function (config) {
 
             'app/assets/js/halfsies.js',
             'app/assets/js/app.js',
+            'app/assets/js/utils/**/*.js',
             'app/assets/js/controllers/**/*.js',
             'app/assets/test/**/*.js'
         ],
