@@ -21,7 +21,7 @@ describe('balance model', function () {
     });
 
     it('should be able to save a balance', function (done) {
-        var data = {userPrimary: 'troy', userSecondary: 'chelsey'},
+        var data = {'userPrimary': 'troy', 'userSecondary': 'chelsey'},
             Balance = mongoose.model('Balance'),
             balance = new Balance(data);
 
@@ -42,6 +42,20 @@ describe('balance model', function () {
             assert.notEqual(err, null);
             assert.equal(err.name, 'ValidationError');
             done();
+        });
+    });
+
+    it('should be able to save only one balance', function (done) {
+        var data = {'userPrimary': 'troy', 'userSecondary': 'chelsey'},
+            Balance = mongoose.model('Balance'),
+            balance = new Balance(data),
+            balanceTwo = new Balance(data);
+
+        balance.save(function () {
+            balanceTwo.save(function (err) {
+                assert.equal(err.message, 'You can only have one balance in Halfsies.');
+                done();
+            });
         });
     });
 });

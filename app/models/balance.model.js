@@ -23,8 +23,14 @@ var BalanceSchema = new Schema({
 });
 
 BalanceSchema.pre('save', function (next) {
-    this.updated_at = new Date();
-    next();
+    mongoose.model('Balance').count({}, function (err, count) {
+        if (count >= 1) {
+            next(new Error('You can only have one balance in Halfsies.'));
+        }
+
+        this.updated_at = new Date();
+        next();
+    });
 });
 
 mongoose.model('Balance', BalanceSchema);
