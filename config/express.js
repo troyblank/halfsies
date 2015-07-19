@@ -4,14 +4,17 @@ var compress = require('compression'),
     config = require('./config'),
     bodyParser = require('body-parser'),
     express = require('express'),
+    redis = require('redis'),
     flash = require('connect-flash'),
     handlebars = require('express-handlebars'),
     morgan = require('morgan'),
     passport = require('passport'),
-    session = require('express-session');
+    session = require('express-session'),
+    RedisStore = require('connect-redis')(session);
 
 module.exports = function () {
-    var app = express();
+    var app = express(),
+        client = redis.createClient();
 
     if (process.env.NODE_ENV === 'production') {
         app.use(compress());
@@ -29,7 +32,8 @@ module.exports = function () {
     app.use(session({
         saveUninitialized: true,
         resave: true,
-        secret: config.sessionSecret
+        secret: config.sessionSecret,
+        store: new RedisStore({ host: 'localhost', port: 6379, client: client })
     }));
 
     app.use(flash());
