@@ -7,3 +7,4 @@ require('./app/controllers/log.controller.spec');
 require('./app/controllers/user.controller.spec');
 require('./app/models/log.model.spec');
 require('./app/models/user.model.spec');
+require('./app/utils/mongooseError.spec');
