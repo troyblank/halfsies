@@ -53,11 +53,31 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/views/partials/overview.html',
-    "<h2>This is the overview ng partial<h2>\r" +
+    "<a href=\"/#!/log/create\">Create a log</a>.\r" +
     "\n" +
     "\r" +
     "\n" +
-    "<a href=\"/#!/log/create\">Create a log</a>."
+    "<ul data-ng-controller=\"logList\">\r" +
+    "\n" +
+    "    <li data-ng-repeat=\"log in logs\">\r" +
+    "\n" +
+    "        <span>{{ log.amount }}</span>\r" +
+    "\n" +
+    "        <span>{{ log.description }}</span>\r" +
+    "\n" +
+    "        <span>{{ log.user }}</span>\r" +
+    "\n" +
+    "    </li>\r" +
+    "\n" +
+    "    <span ng-show=\"(logs).length == 0\">No purchase log yet.</span>\r" +
+    "\n" +
+    "    <div data-ng-show=\"error\">\r" +
+    "\n" +
+    "        <strong data-ng-bind=\"error\"></strong>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</ul>"
   );
 
 }]);

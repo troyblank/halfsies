@@ -1,3 +1,13 @@
-<h2>This is the overview ng partial<h2>
-
 <a href="/#!/log/create">Create a log</a>.
+
+<ul data-ng-controller="logList">
+    <li data-ng-repeat="log in logs">
+        <span>{{ log.amount }}</span>
+        <span>{{ log.description }}</span>
+        <span>{{ log.user }}</span>
+    </li>
+    <span ng-show="(logs).length == 0">No purchase log yet.</span>
+    <div data-ng-show="error">
+        <strong data-ng-bind="error"></strong>
+    </div>
+</ul>
