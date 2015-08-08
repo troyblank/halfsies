@@ -18,3 +18,16 @@ exports.create = function (userPrimary, userSecondary) {
         return true;
     });
 };
+
+exports.get = function (req, res, next) {
+
+    Balance.find({}).exec(function (err, balance) {
+        if (err) {
+            return res.status(400).send({
+                'message': mongooseError.getErrorMessage(err)
+            });
+        }
+
+        res.json(balance);
+    });
+};

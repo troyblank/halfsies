@@ -6,6 +6,7 @@ var config = require('./config'),
 module.exports = function () {
     var db = mongoose.connect(config.db);
 
+    require('../app/models/balance.model');
     require('../app/models/log.model');
     require('../app/models/user.model');
 

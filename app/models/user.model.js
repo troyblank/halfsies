@@ -19,10 +19,6 @@ var UserSchema = new Schema({
             }, 'Password should be longer'
         ]
     },
-    order: {
-        type: Number,
-        unique: true
-    },
     salt: {
         type: String
     },

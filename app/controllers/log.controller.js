@@ -35,4 +35,3 @@ exports.list = function (req, res, next) {
         res.json(logs);
     });
 };
-

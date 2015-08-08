@@ -24,4 +24,17 @@ describe('balance controller', function () {
         var status = balance.create('troy', 'chelsey');
         assert.notEqual(status, true);
     });
+
+    it('should be able to get a balance', function (done) {
+        var req = {},
+            res = {
+                send: function () { return this; },
+                json: function (data) {
+                    assert.notEqual(data, undefined);
+                    done();
+                }
+            };
+
+        balance.get(req, res);
+    });
 });

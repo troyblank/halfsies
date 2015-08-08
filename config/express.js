@@ -42,6 +42,7 @@ module.exports = function () {
 
     app.use(express.static(__dirname + '/../app/public'));
 
+    require('../app/routes/balance.routes')(app);
     require('../app/routes/index.routes')(app);
     require('../app/routes/logs.routes')(app);
     require('../app/routes/user.routes')(app);
