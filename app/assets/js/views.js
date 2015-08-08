@@ -53,6 +53,16 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/views/partials/overview.html',
+    "<section data-ng-controller=\"balance\">\r" +
+    "\n" +
+    "    {{ balance.userPrimary }} : {{ balance.owedPrimary }}<br/>\r" +
+    "\n" +
+    "    {{ balance.userSecondary }} : {{ balance.owedSecondary }}<br/>\r" +
+    "\n" +
+    "</section>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
     "<a href=\"/#!/log/create\">Create a log</a>.\r" +
     "\n" +
     "\r" +
