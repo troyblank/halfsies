@@ -16,7 +16,7 @@ You will need two users to use the app. This can done by running something like 
 
     node createuser someusername somepassword
   
-In order to run the project run:
+In order to run the project be sure redis is running and then run:
 
     node server
 
