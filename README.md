@@ -14,7 +14,7 @@ First thing you want to do is install all node packages run:
     
 You will need two users to use the app. This can done by running something like the following two times with unique usernames:
 
-    node createuser someusername somepassword
+    node createUser someusername somepassword
   
 In order to run the project be sure redis is running and then run:
 
