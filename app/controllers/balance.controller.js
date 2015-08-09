@@ -31,3 +31,39 @@ exports.get = function (req, res, next) {
         res.json(balance);
     });
 };
+
+exports.getNewPrimaryBalance = function (username, charge, balance) {
+    if (username === balance.userPrimary) {
+        return balance.balancePrimary + Number(charge);
+    }
+
+    return balance.balancePrimary - Number(charge);
+};
+
+exports.update = function (username, charge, callback) {
+    var newBlance;
+
+    Balance.find({}).exec(function (err, balance) {
+        if (err) {
+            callback({
+                'message': mongooseError.getErrorMessage(err)
+            });
+        }
+
+        if (balance) {
+            newBlance = exports.getNewPrimaryBalance(username, charge, balance[0]);
+
+            Balance.findByIdAndUpdate(balance[0].id, {'balancePrimary': newBlance}, function () {
+                if (err) {
+                    callback({
+                        'message': mongooseError.getErrorMessage(err)
+                    });
+                }
+
+                callback(null);
+            });
+        } else {
+            callback({'message': 'balance does not exist'});
+        }
+    });
+};

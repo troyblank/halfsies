@@ -1,7 +1,8 @@
 'use strict';
 
 var Log = require('mongoose').model('Log'),
-    mongooseError = require('../utils/mongooseError');
+    mongooseError = require('../utils/mongooseError'),
+    balance = require('../controllers/balance.controller');
 
 exports.create = function (req, res, next) {
 
@@ -19,7 +20,15 @@ exports.create = function (req, res, next) {
             });
         }
 
-        res.json(log);
+        balance.update(req.body.user, req.body.amount, function (err) {
+            if (err) {
+                return res.status(400).send({
+                    'message': err.message
+                });
+            }
+
+            res.json(log);
+        });
     });
 };
 

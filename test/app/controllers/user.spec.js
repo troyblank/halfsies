@@ -34,7 +34,6 @@ describe('user controller', function () {
             assert.equal(state.status, 'success');
             done();
         });
-
     });
 
     it('should be able to get an error message', function () {
