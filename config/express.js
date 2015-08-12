@@ -25,7 +25,7 @@ module.exports = function () {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
 
-    app.engine('hbs', handlebars({layoutsDir: 'app/views/layouts/', extname: ".hbs"}));
+    app.engine('hbs', handlebars({layoutsDir: __dirname + '/../app/views/layouts/', extname: ".hbs"}));
     app.set('views', __dirname + '/../app/views');
     app.set('view engine', 'hbs');
 
