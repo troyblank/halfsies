@@ -13,6 +13,11 @@ module.exports = function (grunt, options) {
             'jslint',
             'mochaTest:test',
             'karma:test'
+        ],
+
+        'icon': [
+            'grunticon',
+            'clean:icon'
         ]
     };
 };

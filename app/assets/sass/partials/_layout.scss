@@ -1,3 +1,9 @@
 body {
+    margin: 50px 0;
     background: $COLOR-BLUE-DARK;
+}
+
+.page-wrap {
+    max-width: 75%;
+    margin: 0 auto;
 }
