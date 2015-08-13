@@ -5,7 +5,8 @@ module.exports = function (grunt, options) {
         'deploy': [
             'bower',
             'ngtemplates',
-            'uglify'
+            'uglify',
+            'sass'
         ],
 
         'test': [

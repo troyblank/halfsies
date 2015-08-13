@@ -30,6 +30,7 @@
         "grunt-mocha-test": "0.12.7",
         "grunt-jslint": "1.1.14",
         "grunt-karma": "0.10.1",
+        "grunt-sass": "1.0.0",
         "karma": "0.12.31",
         "karma-chai": "0.1.0",
         "karma-mocha": "0.1.10",
