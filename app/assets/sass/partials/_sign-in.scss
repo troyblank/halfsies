@@ -1,3 +1,11 @@
+header {
+    margin-bottom: 50px;
+
+    @include breakpoint($SIZE_MOBILE){
+        margin-bottom: 30px;
+    }
+}
+
 .icon-logo {
     width: 100px;
     height: 100px;

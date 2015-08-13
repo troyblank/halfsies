@@ -1,0 +1,18 @@
+input {
+    width: 100%;
+    margin: 0 0 20px 0;
+    padding: 10px;
+    color: $COLOR-BLUE-DARK;
+    box-shadow: inset 5px 5px 5px 2px rgba(0,0,0,0.1);
+    background: $COLOR-WHITE-WHITE;
+    border: none;
+
+    &[type="submit"] {
+        margin-top: 20px;
+        padding: 15px 10px;
+        background: #a9a1ff;
+        box-shadow: 5px 5px 5px 2px rgba(0,0,0,0.1);
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+}
