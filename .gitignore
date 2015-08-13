@@ -20,5 +20,6 @@ npm-debug.log
 ehthumbs.db
 Thumbs.db
 
+app/public/css
 app/public/js
 app/assets/js/bower
