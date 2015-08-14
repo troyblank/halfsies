@@ -1,13 +1,16 @@
-header {
-    margin-bottom: 50px;
+.sign-in {
+    header {
+        margin: 50px 0;
 
-    @include breakpoint($SIZE_MOBILE){
-        margin-bottom: 30px;
+        @include breakpoint($SIZE_MOBILE){
+            margin-bottom: 30px;
+        }
     }
-}
 
-.icon-logo {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto;
+    .icon-logo {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        float: none;
+    }
 }
