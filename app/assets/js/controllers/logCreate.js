@@ -30,8 +30,10 @@
                 'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function () {
                 halfsies.controllers.logCreate.showSuccess();
+                halfsies.util.eventDispatcher.dispatchEvent(halfsies.util.eventDispatcher.HTTP_FINISH_EVENT);
             }).error(function (data) {
                 $scope.error = data.message;
+                halfsies.util.eventDispatcher.dispatchEvent(halfsies.util.eventDispatcher.HTTP_FINISH_EVENT);
             });
         },
 

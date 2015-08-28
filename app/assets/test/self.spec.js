@@ -21,7 +21,7 @@ var selfTest = (function () {
 }());
 
 
-describe('Self', function () {
+describe('self', function () {
     'use strict';
 
     beforeEach(function () {

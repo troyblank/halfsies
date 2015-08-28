@@ -32,7 +32,20 @@ module.exports = {
         exclude: ['app/assets/test/helpers/**/*.js'],
         directives: {
             browser: true,
-            predef: ['describe', 'beforeEach', 'afterEach', 'it', 'assert', 'expect', 'sinon', 'module', 'inject', 'halfsies']
+            predef: ['describe',
+                     'before',
+                     'after',
+                     'beforeEach',
+                     'afterEach',
+                     'it',
+                     'assert',
+                     'expect',
+                     'sinon',
+                     'module',
+                     'inject',
+                     'halfsies',
+                     'angular',
+                     'helpers']
         }
     },
 

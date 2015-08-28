@@ -12,6 +12,7 @@ module.exports = function (config) {
             'app/assets/js/bower/angular/angular.js',
             'app/assets/js/bower/**/*.js',
 
+            'app/assets/test/helpers/helpers.js',
             'app/assets/test/helpers/**/*.js',
 
             'app/assets/js/halfsies.js',

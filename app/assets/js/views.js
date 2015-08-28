@@ -40,7 +40,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "        <div>\r" +
     "\n" +
-    "            <input type=\"submit\" />\r" +
+    "            <input type=\"submit\" value=\"Submit\" />\r" +
     "\n" +
     "            <a href=\"/#!/\">Cancel</a>\r" +
     "\n" +
