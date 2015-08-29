@@ -1,18 +1,14 @@
 describe('submit button controller', function () {
     'use strict';
 
-    before(function () {
-        var html = '<input type="submit" value="Submit" />';
+    beforeEach(function () {
+        var html = '<input type="submit" value="Submit" data-pending-value="" />';
         angular.element(document.getElementsByTagName('html')).html(html);
 
         helpers.dom.triggerDomReady();
     });
 
     afterEach(function () {
-        angular.element(document.getElementsByTagName('input')).removeAttr('class');
-    });
-
-    after(function () {
         angular.element(document.getElementsByTagName('html')).html('');
     });
 
@@ -45,5 +41,22 @@ describe('submit button controller', function () {
         halfsies.util.eventDispatcher.dispatchEvent(halfsies.util.eventDispatcher.HTTP_FINISH_EVENT);
 
         assert.equal(targ.hasClass('pending'), false);
+    });
+
+    it('should be able to set pending state', function () {
+        var targ = angular.element(document.getElementsByTagName('input'));
+
+        halfsies.controllers.submitButtons.setPendingState(targ);
+
+        assert.equal(targ.val(), '');
+    });
+
+    it('should be able to remove pending state', function () {
+        var targ = angular.element(document.getElementsByTagName('input'));
+
+        targ.triggerHandler('click');
+        halfsies.controllers.submitButtons.removePendingState(targ);
+
+        assert.equal(targ.val(), 'Submit');
     });
 });

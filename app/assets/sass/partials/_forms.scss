@@ -10,10 +10,15 @@ input, textarea {
     &[type="submit"] {
         margin-top: 20px;
         padding: 15px 10px;
-        background: #a9a1ff;
+        background: #a9a1ff no-repeat 50% 50%;
         box-shadow: 5px 5px 5px 2px rgba(0,0,0,0.1);
         text-transform: uppercase;
         cursor: pointer;
+
+        &.pending {
+            background-image: image-url("svg/pending.svg");
+            cursor: default;
+        }
     }
 }
 

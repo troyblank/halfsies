@@ -1,7 +1,9 @@
 (function (halfsies) {
     'use strict';
 
-    var PENDING_CLASS = 'pending';
+    var PENDING_CLASS = 'pending',
+        PENDING_VAL_ATTR = 'data-pending-value',
+        ORIGINAL_VAL = 'original-val';
 
     function addEventListeners() {
         angular.element(document.querySelectorAll('input[type="submit"]')).on('click', halfsies.controllers.submitButtons.submitHand);
@@ -19,7 +21,15 @@
                 return false;
             }
 
-            angular.element(this).addClass(PENDING_CLASS);
+            halfsies.controllers.submitButtons.setPendingState(this);
+        },
+
+        setPendingState: function (targ) {
+            //first store original value while we conveniently have the targ looked up.
+            angular.element(targ).data(ORIGINAL_VAL, angular.element(targ).val());
+
+            angular.element(targ).addClass(PENDING_CLASS);
+            angular.element(targ).val(angular.element(targ).attr(PENDING_VAL_ATTR));
         },
 
         hasPendingClass: function (ele) {
@@ -30,7 +40,12 @@
         },
 
         httpFinishHand: function () {
-            angular.element(document.querySelectorAll('input[type="submit"]')).removeClass(PENDING_CLASS);
+            halfsies.controllers.submitButtons.removePendingState(document.querySelectorAll('input[type="submit"]'));
+        },
+
+        removePendingState: function (targ) {
+            angular.element(targ).removeClass(PENDING_CLASS);
+            angular.element(targ).val(angular.element(targ).data(ORIGINAL_VAL));
         }
     });
 }(halfsies));
