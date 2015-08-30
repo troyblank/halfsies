@@ -63,7 +63,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "\r" +
     "\n" +
-    "<a href=\"/#!/log/create\" class=\"btn\">Create a log</a>.\r" +
+    "<a href=\"/#!/log/create\" class=\"btn\">Create a halfsie</a>\r" +
     "\n" +
     "\r" +
     "\n" +
