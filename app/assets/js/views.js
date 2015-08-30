@@ -14,7 +14,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div>\r" +
     "\n" +
-    "                <input type=\"number\" data-ng-model=\"amount\" id=\"amount\" placeholder=\"Amount\" required />\r" +
+    "                <input type=\"number\" data-ng-model=\"amount\" id=\"amount\" required />\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -26,7 +26,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <div>\r" +
     "\n" +
-    "                <textarea data-ng-model=\"description\" id=\"description\" cols=\"30\" rows=\"10\" placeholder=\"Description\" required ></textarea>\r" +
+    "                <textarea data-ng-model=\"description\" id=\"description\" cols=\"30\" rows=\"10\" required ></textarea>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -42,7 +42,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "            <input type=\"submit\" value=\"Submit\" data-pending-value=\"\" />\r" +
     "\n" +
-    "            <a href=\"/#!/\">Cancel</a>\r" +
+    "            <a href=\"/#!/\" class=\"btn btn--alt\">Cancel</a>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -63,7 +63,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "\r" +
     "\n" +
-    "<a href=\"/#!/log/create\">Create a log</a>.\r" +
+    "<a href=\"/#!/log/create\" class=\"btn\">Create a log</a>.\r" +
     "\n" +
     "\r" +
     "\n" +

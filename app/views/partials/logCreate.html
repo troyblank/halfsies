@@ -4,13 +4,13 @@
         <div>
             <label for="amount">Amount</label>
             <div>
-                <input type="number" data-ng-model="amount" id="amount" placeholder="Amount" required />
+                <input type="number" data-ng-model="amount" id="amount" required />
             </div>
         </div>
         <div>
             <label for="description">Description</label>
             <div>
-                <textarea data-ng-model="description" id="description" cols="30" rows="10" placeholder="Description" required ></textarea>
+                <textarea data-ng-model="description" id="description" cols="30" rows="10" required ></textarea>
             </div>
         </div>
         <div class="alert alert__error icon-alert-error" data-ng-show="error">
@@ -18,7 +18,7 @@
         </div>
         <div>
             <input type="submit" value="Submit" data-pending-value="" />
-            <a href="/#!/">Cancel</a>
+            <a href="/#!/" class="btn btn--alt">Cancel</a>
         </div>
     </form>
 </section>
