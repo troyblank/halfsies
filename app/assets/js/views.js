@@ -4,7 +4,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
   $templateCache.put('app/views/partials/logCreate.html',
     "<section>\r" +
     "\n" +
-    "    <h1>Create a new log</h1>\r" +
+    "    <h1>Create a new Halfsie</h1>\r" +
     "\n" +
     "    <form data-ng-submit=\"create()\" novalidate>\r" +
     "\n" +
