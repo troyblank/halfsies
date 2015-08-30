@@ -29,7 +29,9 @@ module.exports = function () {
     app.set('views', __dirname + '/../app/views');
     app.set('view engine', 'hbs');
 
+    //2592000000ms is one month
     app.use(session({
+        cookie: { maxAge: 2592000000 },
         saveUninitialized: true,
         resave: true,
         secret: config.sessionSecret,
