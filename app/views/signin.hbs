@@ -2,9 +2,6 @@
     <header>
         <div class="icon-logo"></div>
     </header>
-    {{#each messages}}
-        <div>{{this}}</div>
-    {{/each}}
     <form action="/signin" method="post">
         <div>
             <label>Username:</label>
@@ -14,6 +11,11 @@
             <label>Password:</label>
             <input type="password" name="password" />
         </div>
+        {{#each messages}}
+            <div class="alert alert__error icon-alert-error">
+                <strong>{{this}}</strong>
+            </div>
+        {{/each}}
         <div>
             <input type="submit" value="Login" data-pending-value="" />
         </div>

@@ -32,7 +32,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div data-ng-show=\"error\">\r" +
+    "        <div class=\"alert alert__error icon-alert-error\" data-ng-show=\"error\">\r" +
     "\n" +
     "            <strong data-ng-bind=\"error\"></strong>\r" +
     "\n" +
