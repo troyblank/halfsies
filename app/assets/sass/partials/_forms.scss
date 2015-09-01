@@ -6,20 +6,27 @@ input, textarea {
     box-shadow: inset 5px 5px 5px 2px rgba(0,0,0,0.1);
     background: $COLOR-WHITE-WHITE;
     border: none;
+    border-radius: 0;
 
     &[type="submit"] {
         margin-top: 20px;
         padding: 15px 10px;
-        background: $COLOR_PURPLE no-repeat 50% 50%;
+        background: $COLOR-PURPLE no-repeat 50% 50%;
         box-shadow: 5px 5px 5px 2px rgba(0,0,0,0.1);
         text-transform: uppercase;
         cursor: pointer;
+        -webkit-appearance: none;
+        border-radius: 0;
 
         &.pending {
             background-image: image-url("svg/pending.svg");
             cursor: default;
         }
     }
+}
+
+textarea {
+    height: 150px;
 }
 
 input:-webkit-autofill {

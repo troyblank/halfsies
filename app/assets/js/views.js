@@ -2,7 +2,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
   'use strict';
 
   $templateCache.put('app/views/partials/logCreate.html',
-    "<section>\r" +
+    "<section class=\"page-wrap\">\r" +
     "\n" +
     "    <h1>Create a new Halfsie</h1>\r" +
     "\n" +
@@ -53,41 +53,81 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/views/partials/overview.html',
-    "<section data-ng-controller=\"balance\">\r" +
+    "<section class=\"balance\" data-ng-controller=\"balance\">\r" +
     "\n" +
-    "    {{ balance.userPrimary }} : {{ balance.owedPrimary }}<br/>\r" +
+    "    <div class=\"page-wrap\">\r" +
     "\n" +
-    "    {{ balance.userSecondary }} : {{ balance.owedSecondary }}<br/>\r" +
+    "        <div class=\"balance__circle\">\r" +
     "\n" +
-    "</section>\r" +
+    "            <div class=\"balance__circle-content\">\r" +
     "\n" +
-    "\r" +
+    "                <div class=\"icon\"><span>$<span></div>\r" +
     "\n" +
-    "<a href=\"/#!/log/create\" class=\"btn\">Create a halfsie</a>\r" +
+    "                <div class=\"number\">{{ balance.owedPrimary }}</div>\r" +
     "\n" +
-    "\r" +
+    "                <div class=\"user\">{{ balance.userPrimary }}</div>\r" +
     "\n" +
-    "<ul data-ng-controller=\"logList\">\r" +
+    "            </div>\r" +
     "\n" +
-    "    <li data-ng-repeat=\"log in logs\">\r" +
+    "            <div class=\"balance__circle-highlight\"><div></div></div>\r" +
     "\n" +
-    "        <span>{{ log.amount }}</span>\r" +
+    "        </div>\r" +
     "\n" +
-    "        <span>{{ log.description }}</span>\r" +
+    "        <div class=\"balance__vs\">\r" +
     "\n" +
-    "        <span>{{ log.user }}</span>\r" +
+    "            <h1>Vs</h1>\r" +
     "\n" +
-    "    </li>\r" +
+    "        </div>\r" +
     "\n" +
-    "    <span ng-show=\"(logs).length == 0\">No purchase log yet.</span>\r" +
+    "        <div class=\"balance__circle\">\r" +
     "\n" +
-    "    <div data-ng-show=\"error\">\r" +
+    "            <div class=\"balance__circle-content\">\r" +
     "\n" +
-    "        <strong data-ng-bind=\"error\"></strong>\r" +
+    "                <div class=\"icon\"><span>$<span></div>\r" +
+    "\n" +
+    "                <div class=\"number\">{{ balance.owedSecondary }}</div>\r" +
+    "\n" +
+    "                <div class=\"user\">{{ balance.userSecondary }}</div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"balance__circle-highlight\"><div></div></div>\r" +
+    "\n" +
+    "        </div>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
-    "</ul>"
+    "</section>\r" +
+    "\n" +
+    "<div class=\"page-wrap\">\r" +
+    "\n" +
+    "    <a href=\"/#!/log/create\" class=\"btn\">Create a halfsie</a>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "    <ul data-ng-controller=\"logList\">\r" +
+    "\n" +
+    "        <li data-ng-repeat=\"log in logs\">\r" +
+    "\n" +
+    "            <span>{{ log.amount }}</span>\r" +
+    "\n" +
+    "            <span>{{ log.description }}</span>\r" +
+    "\n" +
+    "            <span>{{ log.user }}</span>\r" +
+    "\n" +
+    "        </li>\r" +
+    "\n" +
+    "        <span ng-show=\"(logs).length == 0\">No purchase log yet.</span>\r" +
+    "\n" +
+    "        <div data-ng-show=\"error\">\r" +
+    "\n" +
+    "            <strong data-ng-bind=\"error\"></strong>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </ul>\r" +
+    "\n" +
+    "</div>"
   );
 
 }]);
