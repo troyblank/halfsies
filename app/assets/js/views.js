@@ -57,11 +57,13 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <div class=\"page-wrap\">\r" +
     "\n" +
-    "        <div class=\"balance__circle\">\r" +
+    "        <div class=\"balance__circle\" data-ng-class=\"{active: !balance.owedPrimary}\">\r" +
     "\n" +
     "            <div class=\"balance__circle-content\">\r" +
     "\n" +
-    "                <div class=\"icon\"><span>$<span></div>\r" +
+    "                <div class=\"icon icon-balance-skull\"></div>\r" +
+    "\n" +
+    "                <div class=\"dollar-icon\">$</div>\r" +
     "\n" +
     "                <div class=\"number\">{{ balance.owedPrimary }}</div>\r" +
     "\n" +
@@ -79,11 +81,13 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "        </div>\r" +
     "\n" +
-    "        <div class=\"balance__circle\">\r" +
+    "        <div class=\"balance__circle\" data-ng-class=\"{active: !balance.owedSecondary}\">\r" +
     "\n" +
     "            <div class=\"balance__circle-content\">\r" +
     "\n" +
-    "                <div class=\"icon\"><span>$<span></div>\r" +
+    "                <div class=\"icon icon-balance-sheep\"></div>\r" +
+    "\n" +
+    "                <div class=\"dollar-icon\">$</div>\r" +
     "\n" +
     "                <div class=\"number\">{{ balance.owedSecondary }}</div>\r" +
     "\n" +
