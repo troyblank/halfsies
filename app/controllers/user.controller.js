@@ -50,7 +50,7 @@ exports.create = function (username, password, callback) {
 
 exports.renderSignin = function (req, res) {
     if (!req.user) {
-        res.render('signin', {
+        res.set('content-language', 'en').render('signin', {
             layout: 'main',
             title: 'Signin - Halfsies',
             messages: req.flash('error') || req.flash('info')
