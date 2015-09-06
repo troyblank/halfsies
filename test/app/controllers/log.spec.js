@@ -42,7 +42,7 @@ describe('log controller', function () {
     });
 
     it('should be able to get a logs list', function (done) {
-        var req = {},
+        var req = { user: { username: 'troy' } },
             res = {
                 send: function () { return this; },
                 json: function (data) {

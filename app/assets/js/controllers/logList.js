@@ -19,7 +19,8 @@
                 'url': END_POINT,
                 'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
             }).success(function (data) {
-                $scope.logs = data;
+                $scope.currentUser = data.currentUser;
+                $scope.logs = data.logs;
             }).error(function (data) {
                 $scope.error = data.message;
             });

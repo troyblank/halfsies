@@ -5,10 +5,13 @@ describe('logList controller', function () {
         $rootScope,
         $httpBackend,
         END_POINT = '/logs',
-        MOCK_DATA = [
-            {'amount': 30,  'description': 'dinner',  'user': 'troy'},
-            {'amount': 20,  'description': 'movie',  'user': 'chelsey'}
-        ];
+        MOCK_DATA = {
+            currentUser: 'troy',
+            logs: [
+                {'amount': 30,  'description': 'dinner',  'user': 'troy'},
+                {'amount': 20,  'description': 'movie',  'user': 'chelsey'}
+            ]
+        };
 
     beforeEach(module('halfsies'));
 
@@ -35,7 +38,7 @@ describe('logList controller', function () {
         createController();
         $httpBackend.flush();
 
-        assert.equal($rootScope.logs[0].description, MOCK_DATA[0].description);
-        assert.equal($rootScope.logs[1].amount, MOCK_DATA[1].amount);
+        assert.equal($rootScope.logs[0].description, MOCK_DATA.logs[0].description);
+        assert.equal($rootScope.logs[1].amount, MOCK_DATA.logs[1].amount);
     });
 });

@@ -41,6 +41,9 @@ exports.list = function (req, res, next) {
             });
         }
 
-        res.json(logs);
+        res.json({
+            'currentUser': req.user.username,
+            'logs': logs
+        });
     });
 };
