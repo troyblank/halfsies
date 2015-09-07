@@ -1,4 +1,4 @@
-<section class="balance" data-ng-controller="balance">
+<section class="balance" data-ng-controller="balance" data-ng-show="balance">
     <div class="page-wrap">
         <div class="balance__circle" data-ng-class="{active: !balance.owedPrimary}">
             <div class="balance__circle-content">
@@ -26,7 +26,7 @@
 <div class="page-wrap">
     <a href="/#!/log/create" class="btn">Create a halfsie</a>
 
-    <ul data-ng-controller="logList" class="log-list">
+    <ul data-ng-controller="logList" class="log-list" data-ng-show="logs">
         <li data-ng-repeat="log in logs" data-ng-class="{negative: currentUser !== log.user}">
             <span>{{ log.amount }}</span>
             <span>{{ log.description }}</span>

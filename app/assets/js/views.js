@@ -53,7 +53,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
 
 
   $templateCache.put('app/views/partials/overview.html',
-    "<section class=\"balance\" data-ng-controller=\"balance\">\r" +
+    "<section class=\"balance\" data-ng-controller=\"balance\" data-ng-show=\"balance\">\r" +
     "\n" +
     "    <div class=\"page-wrap\">\r" +
     "\n" +
@@ -109,7 +109,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "\r" +
     "\n" +
-    "    <ul data-ng-controller=\"logList\" class=\"log-list\">\r" +
+    "    <ul data-ng-controller=\"logList\" class=\"log-list\" data-ng-show=\"logs\">\r" +
     "\n" +
     "        <li data-ng-repeat=\"log in logs\" data-ng-class=\"{negative: currentUser !== log.user}\">\r" +
     "\n" +
