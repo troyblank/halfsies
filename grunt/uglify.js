@@ -7,6 +7,7 @@ module.exports = {
     deploy: {
         files: {
             'app/public/js/main.js': [
+                'app/assets/js/bower/jquery/jquery.js',
                 'app/assets/js/bower/angular/angular.js',
                 'app/assets/js/bower/angular-route/angular-route.js',
                 'app/assets/js/halfsies.js',

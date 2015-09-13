@@ -9,6 +9,7 @@ module.exports = function (config) {
         ],
 
         files: [
+            'app/assets/js/bower/jquery/jquery.js',
             'app/assets/js/bower/angular/angular.js',
             'app/assets/js/bower/**/*.js',
 

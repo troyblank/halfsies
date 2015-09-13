@@ -8,6 +8,10 @@ input, textarea {
     border: none;
     border-radius: 0;
 
+    &:focus {
+        outline: 0;
+    }
+
     &[type="submit"] {
         margin-top: 20px;
         padding: 15px 10px;

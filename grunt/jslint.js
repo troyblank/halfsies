@@ -23,7 +23,7 @@ module.exports = {
         exclude: ['app/assets/js/bower/**/*.js', 'app/assets/js/views.js'],
         directives: {
             browser: true,
-            predef: ['Halfsies', 'halfsies', 'angular']
+            predef: ['Halfsies', 'halfsies', 'angular', '$']
         }
     },
 
@@ -45,6 +45,7 @@ module.exports = {
                      'inject',
                      'halfsies',
                      'angular',
+                     '$',
                      'helpers']
         }
     },

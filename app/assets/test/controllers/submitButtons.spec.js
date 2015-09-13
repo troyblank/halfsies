@@ -13,17 +13,17 @@ describe('submit button controller', function () {
     });
 
     it('should have pending class after click', function () {
-        var targ = angular.element(document.getElementsByTagName('input'));
+        var targ = $('input');
 
-        targ.triggerHandler('click');
+        targ.trigger('click');
 
         assert.equal(targ.hasClass('pending'), true);
     });
 
     it('should be able to detect when it has pending class', function () {
-        var targ = angular.element(document.getElementsByTagName('input'));
+        var targ = $('input');
 
-        targ.triggerHandler('click');
+        targ.trigger('click');
 
         assert.equal(halfsies.controllers.submitButtons.hasPendingClass(targ), true);
     });
@@ -35,9 +35,9 @@ describe('submit button controller', function () {
     });
 
     it('should be able to react to an http finish event', function () {
-        var targ = angular.element(document.getElementsByTagName('input'));
+        var targ = $('input');
 
-        targ.triggerHandler('click');
+        targ.trigger('click');
         halfsies.util.eventDispatcher.dispatchEvent(halfsies.util.eventDispatcher.HTTP_FINISH_EVENT);
 
         assert.equal(targ.hasClass('pending'), false);
@@ -52,9 +52,9 @@ describe('submit button controller', function () {
     });
 
     it('should be able to remove pending state', function () {
-        var targ = angular.element(document.getElementsByTagName('input'));
+        var targ = $('input');
 
-        targ.triggerHandler('click');
+        targ.trigger('click');
         halfsies.controllers.submitButtons.removePendingState(targ);
 
         assert.equal(targ.val(), 'Submit');

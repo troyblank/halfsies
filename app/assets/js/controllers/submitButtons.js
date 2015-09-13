@@ -6,7 +6,7 @@
         ORIGINAL_VAL = 'original-val';
 
     function addEventListeners() {
-        angular.element(document.querySelectorAll('input[type="submit"]')).on('click', halfsies.controllers.submitButtons.submitHand);
+        angular.element(document.querySelector('html')).on('click', 'input[type="submit"]', halfsies.controllers.submitButtons.submitHand);
         halfsies.util.eventDispatcher.addEventListener(halfsies.util.eventDispatcher.HTTP_FINISH_EVENT, halfsies.controllers.submitButtons.httpFinishHand);
     }
 
