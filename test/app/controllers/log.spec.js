@@ -53,4 +53,27 @@ describe('log controller', function () {
 
         logs.list(req, res);
     });
+
+    it('should be able to inject log direction', function () {
+        var mockLogs = [{
+            amount: -5,
+            user: 'troy'
+        }, {
+            amount: 5,
+            user: 'troy'
+        }, {
+            amount: -5,
+            user: 'chelsey'
+        }, {
+            amount: 5,
+            user: 'chelsey'
+        }];
+
+        logs.injectLogDirection(mockLogs, 'troy');
+
+        assert.equal(mockLogs[0].isNegative, true);
+        assert.equal(mockLogs[1].isNegative, false);
+        assert.equal(mockLogs[2].isNegative, false);
+        assert.equal(mockLogs[3].isNegative, true);
+    });
 });

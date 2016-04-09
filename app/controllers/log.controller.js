@@ -32,17 +32,38 @@ exports.create = function (req, res, next) {
     });
 };
 
-exports.list = function (req, res, next) {
+exports.injectLogDirection = function (logs, currentUser) {
+    // determines if log in logs is a negative value for the user.
+    var i = logs.length - 1,
+        log,
+        logIsUsers;
 
-    Log.find({}).sort({created: 'desc'}).limit(10).exec(function (err, logs) {
+
+    while (i >= 0) {
+        log = logs[i];
+        logIsUsers = currentUser === log.user;
+        log.isNegative = false;
+
+        if ((!logIsUsers && log.amount >= 0) || (logIsUsers && log.amount <= 0)) {
+            log.isNegative = true;
+        }
+
+        i -= 1;
+    }
+};
+
+exports.list = function (req, res, next) {
+    // lean to append isNegative
+    Log.find({}).lean().sort({created: 'desc'}).limit(10).exec(function (err, logs) {
         if (err) {
             return res.status(400).send({
                 'message': mongooseError.getErrorMessage(err)
             });
         }
 
+        exports.injectLogDirection(logs, req.user.username);
+
         res.json({
-            'currentUser': req.user.username,
             'logs': logs
         });
     });

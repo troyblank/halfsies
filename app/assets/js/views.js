@@ -111,7 +111,7 @@ angular.module('halfsies').run(['$templateCache', function($templateCache) {
     "\n" +
     "    <ul data-ng-controller=\"logList\" class=\"log-list\" data-ng-show=\"logs\">\r" +
     "\n" +
-    "        <li data-ng-repeat=\"log in logs\" data-ng-class=\"{negative: currentUser !== log.user}\">\r" +
+    "        <li data-ng-repeat=\"log in logs\" data-ng-class=\"{negative: log.isNegative}\">\r" +
     "\n" +
     "            <span>{{ log.amount }}</span>\r" +
     "\n" +
