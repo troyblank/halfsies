@@ -27,6 +27,13 @@ To build all front end assets run:
 To lint and test run:
 
     grunt test
+    
+## Production
+In order to configure production you will need to copy the development env file and make a production one.
+
+    cp config/env/development.js config/env/production.js
+    
+From here fill out the production.js with whatever database name, session secret, and port you perfer.
 
 ##License
 
