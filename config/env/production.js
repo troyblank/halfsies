@@ -1,5 +1,5 @@
 module.exports = {
-    db: 'mongodb://localhost/services',
+    db: 'mongodb://localhost/halfsies',
     sessionSecret: 'productionSessionSecret',
-    port: 8003
+    port: 8001
 };
