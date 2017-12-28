@@ -54,7 +54,7 @@ exports.injectLogDirection = function (logs, currentUser) {
 
 exports.list = function (req, res, next) {
     // lean to append isNegative
-    Log.find({}).lean().sort({created: 'desc'}).limit(10).exec(function (err, logs) {
+    Log.find({}).lean().sort({created: 'desc'}).limit(50).exec(function (err, logs) {
         if (err) {
             return res.status(400).send({
                 'message': mongooseError.getErrorMessage(err)
