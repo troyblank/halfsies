@@ -24,21 +24,23 @@ describe('log controller', function () {
     });
 
     it('should be able to save a log', function (done) {
-        var req = {
-                'user': {
-                    'username': 'troy'
-                }
-            },
-            res = {
-                json: function () {
-                    assert.notEqual(logs, undefined);
-                    done();
-                }
-            };
+        balance.update('troy', 150, function () {
+            var req = {
+                    'user': {
+                        'username': 'troy'
+                    }
+                },
+                res = {
+                    json: function () {
+                        assert.notEqual(logs, undefined);
+                        done();
+                    }
+                };
 
-        req.body = {amount: 100, user: 'troy', description: 'just a test log.'};
+            req.body = {amount: 100, user: 'troy', description: 'just a test log.'};
 
-        logs.create(req, res, null);
+            logs.create(req, res, null);
+        });
     });
 
     it('should be able to get a logs list', function (done) {

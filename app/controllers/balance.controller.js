@@ -50,7 +50,7 @@ exports.update = function (username, charge, callback) {
             });
         }
 
-        if (balance) {
+        if (balance && 1 <= balance.length) {
             newBlance = exports.getNewPrimaryBalance(username, charge, balance[0]);
 
             Balance.findByIdAndUpdate(balance[0].id, {'balancePrimary': newBlance}, function () {
