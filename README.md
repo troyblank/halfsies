@@ -21,7 +21,7 @@ In order to run the project be sure redis is running and then run:
 
 To build all front end assets run:
 
-    grunt deploy
+    grunt build
 
 To lint and test run:
 

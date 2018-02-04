@@ -2,11 +2,12 @@
 
 module.exports = function (grunt, options) {
     return {
-        'deploy': [
+        'build': [
             'bower',
             'ngtemplates',
             'uglify',
-            'sass'
+            'sass',
+            'icon'
         ],
 
         'test': [
