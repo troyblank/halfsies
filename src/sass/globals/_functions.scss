@@ -1,0 +1,8 @@
+@function rem($size) {
+    $rem-sizee: $size / $base-font-size;
+    @return #{$rem-sizee}rem;
+}
+
+@function image-url($image) {
+    @return url('#{$image-path}#{$image}');
+}

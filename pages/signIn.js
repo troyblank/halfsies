@@ -1,9 +1,11 @@
 import React from 'react';
+import { Head, SignIn } from '../src/components';
 
-export default function SignIn() {
+export default function SignInPage() {
     return (
       <x>
-        <div>Hello, you need to sign in!</div>
+        <Head />
+        <SignIn />
       </x>
     );
 }

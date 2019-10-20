@@ -33,3 +33,4 @@ config/env/production.js
 app/public/css
 app/public/js
 app/assets/js/bower
+static/grunticons

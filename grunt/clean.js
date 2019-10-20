@@ -1,3 +1,3 @@
 module.exports = {
-    icon: ['app/public/css/png', 'app/public/css/*.js', 'app/public/css/*.html', 'app/public/css/*.png.css', 'app/public/css/*.fallback.css']
+    icon: ['static/grunticons/png', 'static/grunticons/*.js', 'static/grunticons/*.html', 'static/grunticons/*.png.css', 'static/grunticons/*.fallback.css']
 };
