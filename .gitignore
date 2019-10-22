@@ -4,6 +4,12 @@
 #########
 node_modules
 npm-debug.log
+package-lock.json
+
+# NEXT #
+########
+.next
+out
 
 # SASS #
 ########
@@ -19,6 +25,9 @@ npm-debug.log
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+coverage
+.nyc_output
 
 config/env/production.js
 app/public/css
