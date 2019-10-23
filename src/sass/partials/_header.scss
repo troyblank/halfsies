@@ -1,17 +1,17 @@
 header {
+    @extend %clearfix;
+
     margin-bottom: 30px;
     text-align: right;
-
-    @extend %clearfix;
 
     .icon-logo {
         width: 25px;
         height: 25px;
-        background-size: 100%;
         float: left;
+        background-size: 100%;
     }
 
     .username {
-        padding-top: 0px;
+        padding-top: 0;
     }
 }

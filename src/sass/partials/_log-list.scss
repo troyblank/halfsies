@@ -2,11 +2,11 @@
     li {
         margin-bottom: 5px;
         padding: 10px;
-        background: $COLOR_PURPLE_DARK;
+        background: $color-purple-dark;
 
         &.negative {
             span:nth-child(1) {
-                color: $COLOR-RED;
+                color: $color-red;
             }
         }
 
@@ -16,20 +16,20 @@
             &:nth-child(1) {
                 width: 6%;
                 padding: 0 5px 0 0;
+                border-right: 3px solid $color-blue-dark;
+                color: $color-green;
                 font-size: rem(20px);
-                border-right: 3px solid $COLOR-BLUE-DARK;
-                text-shadow: 1px 1px $COLOR-BLUE-DARK;
-                color: $COLOR-GREEN;
+                text-shadow: 1px 1px $color-blue-dark;
 
-                @include breakpoint($SIZE_DESKTOP_SMALL) {
+                @include breakpoint($size-desktop-small) {
                     width: 12%;
                 }
 
-                @include breakpoint($SIZE_TABLET) {
+                @include breakpoint($size-tablet) {
                     width: 15%;
                 }
 
-                @include breakpoint($SIZE_MOBILE) {
+                @include breakpoint($size-mobile) {
                     width: 20%;
                     font-size: rem(16px);
                 }
@@ -38,45 +38,45 @@
                     position: relative;
                     top: -5px;
                     left: -1px;
-                    content: "$";
                     font-size: rem(12px);
+                    content: '$';
                 }
             }
 
             &:nth-child(2) {
-                width: 87%;
-                padding: 0 10px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
                 position: relative;
                 top: 5px;
+                width: 87%;
+                padding: 0 10px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
 
-                @include breakpoint($SIZE_DESKTOP_SMALL) {
+                @include breakpoint($size-desktop-small) {
                     width: 77%;
                 }
 
-                @include breakpoint($SIZE_TABLET) {
-                    width: 74%;
+                @include breakpoint($size-tablet) {
                     top: 7px;
+                    width: 74%;
                 }
             }
 
             &:nth-child(3) {
                 width: 5%;
                 float: right;
-                border-left: 3px solid $COLOR-BLUE-DARK;
+                border-left: 3px solid $color-blue-dark;
                 text-align: right;
 
-                @include breakpoint($SIZE_DESKTOP_SMALL) {
+                @include breakpoint($size-desktop-small) {
                     width: 9%;
                 }
 
-                @include breakpoint($SIZE_TABLET) {
+                @include breakpoint($size-tablet) {
                     width: 10%;
                 }
 
-                @include breakpoint($SIZE_MOBILE) {
+                @include breakpoint($size-mobile) {
                     display: none;
                 }
             }

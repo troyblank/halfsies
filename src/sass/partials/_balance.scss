@@ -1,25 +1,25 @@
 .balance {
     margin-bottom: 30px;
     padding: 30px 0;
-    background: $COLOR-PURPLE-DARK;
+    background: $color-purple-dark;
     text-align: center;
 
     &__circle {
-        width: 200px;
-        height: 200px;
         display: inline-block;
-        background: $COLOR-WHITE-WHITE-WHITE;
-        border-radius: 50%;
         position: relative;
         top: 0;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: $color-white-white-white;
 
-        @include breakpoint($SIZE_TABLET) {
+        @include breakpoint($size-tablet) {
             &:first-child {
                 margin-right: 5%;
             }
         }
 
-        @include breakpoint($SIZE_MOBILE) {
+        @include breakpoint($size-mobile) {
             width: 125px;
             height: 125px;
         }
@@ -28,39 +28,39 @@
     &__circle-content {
         position: relative;
         top: 0;
+        color: $color-purple-dark;
         z-index: 2;
-        color: $COLOR-PURPLE-DARK;
 
         .icon {
-            height: 100px;
-            width: 100px;
-            margin-left: -50px;
             display: none;
             position: absolute;
             top: 30px;
             left: 50%;
+            width: 100px;
+            height: 100px;
+            margin-left: -50px;
             background-size: 100%;
 
             .active & {
                 display: block;
             }
 
-            @include breakpoint($SIZE_MOBILE) {
+            @include breakpoint($size-mobile) {
                 top: 23px;
-                height: 66px;
                 width: 66px;
+                height: 66px;
                 margin-left: -33px;
             }
         }
 
         .dollar-icon {
-            height: 0;
             position: relative;
             top: 20px;
+            height: 0;
+            color: $color-white-white-white;
             font-size: rem(30px);
-            color: $COLOR-WHITE-WHITE-WHITE;
-          
-            @include breakpoint($SIZE_MOBILE) {
+
+            @include breakpoint($size-mobile) {
                 top: 15px;
                 font-size: rem(18px);
             }
@@ -71,12 +71,12 @@
         }
 
         .number {
-            height: 0;
             position: relative;
             top: 90px;
+            height: 0;
             font-size: rem(65px);
 
-            @include breakpoint($SIZE_MOBILE) {
+            @include breakpoint($size-mobile) {
                 top: 60px;
                 font-size: rem(40px);
             }
@@ -90,52 +90,52 @@
             position: relative;
             top: 160px;
 
-            @include breakpoint($SIZE_MOBILE) {
+            @include breakpoint($size-mobile) {
                 top: 100px;
             }
         }
     }
 
     &__vs {
+        display: inline-block;
         margin: 0 5%;
         padding-top: 80px;
-        display: inline-block;
         vertical-align: top;
 
-        @include breakpoint($SIZE_TABLET) {
+        @include breakpoint($size-tablet) {
             display: none;
         }
     }
 
     &__circle-highlight {
-        height: 50px;
-        padding: 10px;
         position: absolute;
         top: 0;
         left: 0;
+        height: 50px;
+        padding: 10px;
         overflow: hidden;
         z-index: 1;
 
-        @include breakpoint($SIZE_MOBILE) {
+        @include breakpoint($size-mobile) {
             height: 35px;
         }
 
         .active & {
             height: 150px;
 
-            @include breakpoint($SIZE_MOBILE) {
+            @include breakpoint($size-mobile) {
                 height: 100px;
             }
         }
 
         div {
+            display: inline-block;
             width: 180px;
             height: 180px;
-            display: inline-block;
-            background: $COLOR-PURPLE-DARK;
             border-radius: 50%;
+            background: $color-purple-dark;
 
-            @include breakpoint($SIZE_MOBILE) {
+            @include breakpoint($size-mobile) {
                 width: 105px;
                 height: 105px;
             }

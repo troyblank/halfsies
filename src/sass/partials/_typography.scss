@@ -1,36 +1,36 @@
-//Add this to head: <link href='http://fonts.googleapis.com/css?family=Ovo|Muli' rel='stylesheet' type='text/css'>>
+@import url('//fonts.googleapis.com/css?family=Ovo|Muli');
 
 body {
+    color: $color-white;
     font-family: 'Muli', sans-serif;
     line-height: rem(21px);
-    color: $COLOR-WHITE;
 }
 
 html {
-    font-size: $BASE-FONT-SIZE;
+    font-size: $base-font-size;
 }
 
-input, select, textarea, button{
-    font-family:inherit;
+input, select, textarea, button {
+    font-family: inherit;
     font-size: inherit;
     line-height: inherit;
 }
 
 h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 10px;
+    color: $color-turquoise;
     font-family: 'Ovo', serif;
-    color: $COLOR-TURQUOISE;
-    margin: 0 0 10px 0;
 }
 
 h1 {
-    font-size: rem(36px);
-    line-height: rem(40px);
-    font-weight: 600;
-    letter-spacing: rem(-0.7px);
-    text-align: center;
     margin-bottom: 30px;
+    font-size: rem(36px);
+    font-weight: 600;
+    letter-spacing: rem(-.7px);
+    line-height: rem(40px);
+    text-align: center;
 
-    @include breakpoint($SIZE_MOBILE) {
+    @include breakpoint($size-mobile) {
         font-size: rem(26px);
         line-height: rem(30px);
     }
@@ -38,23 +38,23 @@ h1 {
 
 h2 {
     font-size: rem(20px);
-    line-height: rem(26px);
     font-weight: 600;
-    letter-spacing: rem(-0.7px);
+    letter-spacing: rem(-.7px);
+    line-height: rem(26px);
 }
 
 p {
-    margin: 0 0 15px 0;
+    margin: 0 0 15px;
     padding: 0;
     font-size: rem(14px);
     line-height: rem(22px);
 }
 
 a {
+    background: $color-white;
+    color: $color-blue-dark;
     text-decoration: none;
     cursor: pointer;
-    color: $COLOR-BLUE-DARK;
-    background: $COLOR-WHITE;
 }
 
 strong {

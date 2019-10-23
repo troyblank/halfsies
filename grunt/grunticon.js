@@ -4,7 +4,7 @@ module.exports = {
             expand: true,
             cwd: 'app/assets/svg',
             src: ['*.svg'],
-            dest: "app/public/css"
+            dest: "static/grunticons"
         }]
     }
 };

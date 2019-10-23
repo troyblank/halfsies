@@ -14,7 +14,7 @@
         "lint": "npm run eslint && npm run sasslint",
         "eslint": "eslint './{pages,src}/**/*.js'",
         "eslintFix": "eslint --fix './{pages,src}/**/*.js'",
-        "sasslint": "sass-lint -c ./node_modules/@troyblank/sasslint-config-troyblank/.sass-lint.yml ./src/**/*.scss -v -q"
+        "sasslint": "sass-lint -c ./node_modules/@troyblank/sasslint-config-troyblank/.sass-lint.yml './src/**/*.scss' -v -q"
     },
     "nyc": {
         "temp-directory": "./coverage/.nyc_output"
@@ -24,6 +24,7 @@
         "@zeit/next-sass": "1.0.1",
         "next": "9.1.1",
         "node-sass": "4.12.0",
+        "normalize.css": "8.0.1",
         "react": "16.10.2",
         "react-dom": "16.10.1",
 

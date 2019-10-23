@@ -1,13 +1,12 @@
 .alert {
-
     padding: 10px 10px 10px 35px;
-    color: $COLOR-WHITE-WHITE;
     background-position: 10px 50%;
-    text-transform: uppercase;
+    color: $color-white-white;
     font-size: rem(12px);
     letter-spacing: 2px;
+    text-transform: uppercase;
 
     &__error {
-        background-color: $COLOR-RED;
+        background-color: $color-red;
     }
 }

@@ -2,7 +2,7 @@
     header {
         margin: 50px 0;
 
-        @include breakpoint($SIZE_MOBILE){
+        @include breakpoint($size-mobile) {
             margin-bottom: 30px;
         }
     }
