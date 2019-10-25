@@ -1,39 +1,25 @@
 # Halfsies
-Halfies is an MEAN stack web app that keeps track of money owed between two moderately specific people.
-
-## Requirements
-* Node >= 0.12.6
-* MongoDB >= 3.04
-* Redis >= 3.0.3
+Halfies is an Serverless web app that keeps track of money owed between two moderately specific people. Utilizes AWS Cognito, and Lambdas.
 
 ## Setup
-First thing you want to do is install all node packages run:
+You will need two users to use the app. This is done by creating two users in AWS Cognito and adjusting `src/config/awsCognito.js` to match your user pool.
+
+You will then want to install all node packages run:
 
     npm install
-    
-You will need two users to use the app. This can done by running something like the following two times with unique usernames:
+  
+To build all front end assets run:
 
-    node createUser someusername somepassword
+    npm run build
   
 In order to run the project be sure redis is running and then run:
 
-    node server
-
-To build all front end assets run:
-
-    grunt build
+    npm start
 
 To lint and test run:
 
-    grunt test
+    npm test
     
-## Production
-In order to configure production you will need to copy the development env file and make a production one.
-
-    cp config/env/development.js config/env/production.js
-    
-From here fill out the production.js with whatever database name, session secret, and port you perfer.
-
 ##License
 
 (The MIT License)

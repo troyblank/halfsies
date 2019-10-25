@@ -1,0 +1,16 @@
+.sign-in {
+    header {
+        margin: 50px 0;
+
+        @include breakpoint($size-mobile) {
+            margin-bottom: 30px;
+        }
+    }
+
+    .icon-logo {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        float: none;
+    }
+}

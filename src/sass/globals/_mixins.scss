@@ -1,0 +1,11 @@
+@mixin breakpoint($size) {
+    @media only screen and (max-width: $size) { @content; }
+}
+
+@mixin breakpoint-landscape($size) {
+    @media only screen and (max-width: $size) and (orientation: 'landscape') { @content; }
+}
+
+@mixin breakpoint-height($size) {
+    @media only screen and (max-height: $size) { @content; }
+}

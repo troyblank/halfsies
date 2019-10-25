@@ -1,12 +1,36 @@
 {
     "name": "Halfsies",
-    "version": "0.2.0",
+    "version": "1.0.0",
     "main": "server.js",
     "scripts": {
-        "start": "grunt build && node server",
-        "test": "grunt test"
+        "start": "next -p 8888",
+        "startOld": "grunt build && node server",
+        "preview": "npm run build && cd out && serve -p 8888",
+        "build": "grunt build && next build && next export",
+        "clean": "rm -rf .next && rm -rf out",
+        "testOld": "grunt test",
+        "test": "npm run unit && npm run lint",
+        "unit": "nyc --reporter=text-summary --reporter=lcov --reporter=cobertura mocha \"./src/**/*.spec.js\"",
+        "lint": "npm run eslint && npm run sasslint",
+        "eslint": "eslint './{pages,src}/**/*.js'",
+        "eslintFix": "eslint --fix './{pages,src}/**/*.js'",
+        "sasslint": "sass-lint -c ./node_modules/@troyblank/sasslint-config-troyblank/.sass-lint.yml './src/**/*.scss' -v -q"
+    },
+    "nyc": {
+        "temp-directory": "./coverage/.nyc_output"
     },
     "dependencies": {
+        "@babel/plugin-proposal-export-default-from": "7.5.2",
+        "@zeit/next-sass": "1.0.1",
+        "amazon-cognito-identity-js": "3.1.2",
+        "next": "9.1.1",
+        "node-sass": "4.12.0",
+        "normalize.css": "8.0.1",
+        "react": "16.10.2",
+        "react-dom": "16.10.1",
+        "react-redux": "7.1.1",
+        "redux": "4.0.4",
+        "redux-thunk": "2.3.0",
         "colors": "1.1.2",
         "compression": "1.5.0",
         "connect-flash": "0.1.1",
@@ -22,6 +46,11 @@
         "redis": "0.12.1"
     },
     "devDependencies": {
+        "@babel/register": "7.6.2",
+        "@testing-library/react": "9.3.0",
+        "@troyblank/eslint-config-troyblank": "1.1.0",
+        "@troyblank/mocha-base-troyblank": "1.0.0",
+        "@troyblank/sasslint-config-troyblank": "1.0.0",
         "chai": "4.1.2",
         "grunt": "0.4.5",
         "grunt-angular-templates": "0.5.7",

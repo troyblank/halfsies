@@ -1,0 +1,85 @@
+.log-list {
+    li {
+        margin-bottom: 5px;
+        padding: 10px;
+        background: $color-purple-dark;
+
+        &.negative {
+            span:nth-child(1) {
+                color: $color-red;
+            }
+        }
+
+        span {
+            display: inline-block;
+
+            &:nth-child(1) {
+                width: 6%;
+                padding: 0 5px 0 0;
+                border-right: 3px solid $color-blue-dark;
+                color: $color-green;
+                font-size: rem(20px);
+                text-shadow: 1px 1px $color-blue-dark;
+
+                @include breakpoint($size-desktop-small) {
+                    width: 12%;
+                }
+
+                @include breakpoint($size-tablet) {
+                    width: 15%;
+                }
+
+                @include breakpoint($size-mobile) {
+                    width: 20%;
+                    font-size: rem(16px);
+                }
+
+                &:before {
+                    position: relative;
+                    top: -5px;
+                    left: -1px;
+                    font-size: rem(12px);
+                    content: '$';
+                }
+            }
+
+            &:nth-child(2) {
+                position: relative;
+                top: 5px;
+                width: 87%;
+                padding: 0 10px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+
+                @include breakpoint($size-desktop-small) {
+                    width: 77%;
+                }
+
+                @include breakpoint($size-tablet) {
+                    top: 7px;
+                    width: 74%;
+                }
+            }
+
+            &:nth-child(3) {
+                width: 5%;
+                float: right;
+                border-left: 3px solid $color-blue-dark;
+                text-align: right;
+
+                @include breakpoint($size-desktop-small) {
+                    width: 9%;
+                }
+
+                @include breakpoint($size-tablet) {
+                    width: 10%;
+                }
+
+                @include breakpoint($size-mobile) {
+                    display: none;
+                }
+            }
+        }
+    }
+}

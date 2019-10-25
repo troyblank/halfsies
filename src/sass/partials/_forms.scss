@@ -1,0 +1,49 @@
+input, textarea {
+    width: 100%;
+    margin: 0 0 20px;
+    padding: 10px;
+    border: 0;
+    border-radius: 0;
+    background: $color-white-white;
+    color: $color-blue-dark;
+    box-shadow: inset 5px 5px 5px 2px $color-transparent-black;
+
+    &:focus {
+        outline: 0;
+    }
+
+    &[type='submit'] {
+        margin-top: 20px;
+        padding: 15px 10px;
+        border-radius: 0;
+        background: $color-purple no-repeat 50% 50%;
+        text-transform: uppercase;
+        box-shadow: 5px 5px 5px 2px $color-transparent-black;
+        cursor: pointer;
+        -webkit-appearance: none;
+
+        &.pending {
+            background-image: image-url('svg/pending.svg');
+            cursor: default;
+        }
+    }
+}
+
+textarea {
+    height: 150px;
+}
+
+input:-webkit-autofill {
+    -webkit-box-shadow: inset 5px 5px 5px 2px $color-transparent-black, inset 0 0 0 50px $color-white-white;
+}
+
+input {
+    &[type=number] {
+        -moz-appearance: textfield;
+
+        &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+            margin: 0;
+            -webkit-appearance: none;
+        }
+    }
+}
