@@ -1,13 +1,26 @@
 import { assert } from 'chai';
 import Chance from 'chance';
 import {
+    SIGN_IN_SUCCESS,
     SIGN_IN_ERROR,
-    signIn,
+    signInSuccess,
+    signInUser,
     signInError
 } from './actions';
 
 describe('SignIn Actions', () => {
     const chance = new Chance();
+    const userName = chance.word();
+
+    it('should be able to generate a sign in error action', () => {
+        const token = chance.word();
+        const expireTime = chance.word();
+        const refreshToken = chance.word();
+        const user = { userName, token, expireTime, refreshToken };
+        const action = signInSuccess(user);
+
+        assert.deepEqual(action, { type: SIGN_IN_SUCCESS, ...user });
+    });
 
     it('should be able to generate a sign in error action', () => {
         const errorMessage = chance.word();
@@ -17,9 +30,8 @@ describe('SignIn Actions', () => {
     });
 
     it('should be able to sign in as a sanity check', () => {
-        const userName = chance.word();
         const password = chance.word();
 
-        assert.equal('function', typeof signIn({ userName, password }));
+        assert.equal('function', typeof signInUser({ userName, password }));
     });
 });

@@ -1,11 +1,13 @@
 import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 import { userPool } from '../../config/awsCognito';
 
+export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_IN_ERROR = 'SIGN_IN_ERROR';
 
+export const signInSuccess = ({ userName, token, expireTime, refreshToken }) => ({ type: SIGN_IN_SUCCESS, userName, token, expireTime, refreshToken });
 export const signInError = (errorMessage) => ({ type: SIGN_IN_ERROR, errorMessage });
 
-export const signIn = ({ userName, password }) => (
+export const signInUser = ({ userName, password }) => (
     /* istanbul ignore next */
     (dispatch) => {
         const authenticationData = {
@@ -17,6 +19,14 @@ export const signIn = ({ userName, password }) => (
         const cognitoUser = new CognitoUser(userData);
 
         cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: (result) => {
+                const t = result.getAccessToken();
+                const token = t.getJwtToken();
+                const expireTime = new Date(t.payload.exp * 1000);
+                const refreshToken = result.getRefreshToken().getToken();
+
+                dispatch(signInSuccess({ userName, token, expireTime, refreshToken }));
+            },
             onFailure: (err) => {
                 dispatch(signInError(err.message));
             }

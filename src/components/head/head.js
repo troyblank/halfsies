@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import './head.scss';
 
 export default function HeadComponent() {
     return (

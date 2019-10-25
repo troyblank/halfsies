@@ -5,6 +5,7 @@ import { assert } from 'chai';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import { render, fireEvent } from '@testing-library/react';
+import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import SignIn from './signIn';
 
 describe('Sign In', () => {
@@ -12,7 +13,7 @@ describe('Sign In', () => {
 
     it('should render', () => {
         const user = {};
-        const wrapper = shallow(<SignIn user={user} />);
+        const wrapper = shallow(<SignIn signIn={user} />);
 
         assert.isTrue(wrapper.find('.sign-in').exists());
         assert.isFalse(wrapper.find('.alert__error').exists());
@@ -21,7 +22,7 @@ describe('Sign In', () => {
     it('should show sign in error message if there is one', () => {
         const errorMessage = chance.word();
         const user = { errorMessage };
-        const wrapper = shallow(<SignIn user={user} />);
+        const wrapper = shallow(<SignIn signIn={user} />);
 
         assert.isTrue(wrapper.find('.alert__error').exists());
         assert.equal(errorMessage, wrapper.find('.alert__error strong').text());
@@ -30,8 +31,8 @@ describe('Sign In', () => {
     it('should keep user name in state', () => {
         const user = {};
         const value = chance.word();
-        const wrapper = shallow(<SignIn user={user} />);
-        const { getByLabelText } = render(<SignIn user={user} />);
+        const wrapper = shallow(<SignIn signIn={user} />);
+        const { getByLabelText } = render(<SignIn signIn={user} />);
         const userNameInputDummy = wrapper.find('#username');
         const userNameInput = getByLabelText('Username:');
 
@@ -45,8 +46,8 @@ describe('Sign In', () => {
     it('should keep user name in password', () => {
         const user = {};
         const value = chance.word();
-        const wrapper = shallow(<SignIn user={user} />);
-        const { getByLabelText } = render(<SignIn user={user} />);
+        const wrapper = shallow(<SignIn signIn={user} />);
+        const { getByLabelText } = render(<SignIn signIn={user} />);
         const passwordInputDummy = wrapper.find('#password');
         const passwordInput = getByLabelText('Password:');
 
@@ -61,12 +62,26 @@ describe('Sign In', () => {
         const user = {};
         const dispatch = sinon.spy();
         const preventDefault = sinon.spy();
-        const wrapper = shallow(<SignIn user={user} dispatch={dispatch} />);
+        const wrapper = shallow(<SignIn signIn={user} dispatch={dispatch} />);
         const form = wrapper.find('form');
 
         form.simulate('submit', { preventDefault });
 
         assert.isTrue(dispatch.calledOnce);
         assert.isTrue(preventDefault.calledOnce);
+    });
+
+    it('should be able to redirect to root of website after successful sign in', () => {
+        const signedInUser = { needsRedirect: true };
+        const push = sinon.spy();
+        const mockRouter = { push };
+        render(
+          <RouterContext.Provider value={mockRouter}>
+            <SignIn signIn={signedInUser} />
+          </RouterContext.Provider>
+        );
+
+        assert.isTrue(push.calledOnce);
+        assert.isTrue(push.calledWith('/'));
     });
 });
