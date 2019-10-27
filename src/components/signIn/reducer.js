@@ -1,13 +1,19 @@
-import { SIGN_IN_ERROR } from './actions';
+import { SIGN_IN_SUCCESS, SIGN_IN_ERROR } from './actions';
 
 export const initialState = {
-    errorMessage: null
+    errorMessage: null,
+    needsRedirect: false
 };
 
 export default (state = initialState, action) => {
     const nextState = { ...state };
 
     switch (action.type) {
+    case SIGN_IN_SUCCESS: {
+        nextState.errorMessage = null;
+        nextState.needsRedirect = true;
+        break;
+    }
     case SIGN_IN_ERROR: {
         nextState.errorMessage = action.errorMessage;
         break;

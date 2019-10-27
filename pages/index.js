@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthRedirect } from '../src/components';
+import { AuthRedirect } from '../src/components/connections';
 
 export default function IndexPage() {
     return (

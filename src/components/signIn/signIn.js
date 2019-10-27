@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
-import { signIn } from './actions';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { signInUser } from './actions';
 
-export default function SignIn({ dispatch, user }) {
-    const { errorMessage } = user;
+export default function SignInComponent({ dispatch, signIn }) {
+    const { errorMessage } = signIn;
+    const router = useRouter();
 
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
+    useEffect(() => {
+        if (signIn.needsRedirect) router.push('/');
+    }, [signIn.needsRedirect]);
+
     const onSignIn = (e) => {
-        dispatch(signIn({ userName, password }));
+        dispatch(signInUser({ userName, password }));
 
         e.preventDefault();
     };
