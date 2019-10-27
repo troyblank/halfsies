@@ -6,7 +6,6 @@ module.exports = function (grunt, options) {
             'bower',
             'ngtemplates',
             'uglify',
-            'sass',
             'icon'
         ],
 
