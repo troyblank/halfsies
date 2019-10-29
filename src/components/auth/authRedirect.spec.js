@@ -12,7 +12,7 @@ describe('Auth Redirect', () => {
     const chance = new Chance();
 
     it('should render', () => {
-        const wrapper = shallow(<AuthRedirect />);
+        const wrapper = shallow(<AuthRedirect authStore={{}} />);
 
         assert.isTrue(wrapper.contains(<x />));
     });
@@ -23,7 +23,7 @@ describe('Auth Redirect', () => {
 
         render(
           <RouterContext.Provider value={mockRouter}>
-            <AuthRedirect auth={{}} />
+            <AuthRedirect authStore={{}} />
           </RouterContext.Provider>
         );
 
@@ -35,7 +35,7 @@ describe('Auth Redirect', () => {
         const className = chance.word();
 
         const { container } = render(
-          <AuthRedirect auth={{ token: true }}>
+          <AuthRedirect authStore={{ token: true }}>
             <div className={className} />
           </AuthRedirect>
         );

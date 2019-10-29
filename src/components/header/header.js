@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default function HeadComponent({ auth }) {
-    const { userName } = auth;
+export default function HeadComponent({ authStore }) {
+    const { userName } = authStore;
 
     return (
       <header>

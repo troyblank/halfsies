@@ -1,0 +1,46 @@
+
+import React from 'react';
+import { assert } from 'chai';
+import { shallow } from 'enzyme';
+import sinon from 'sinon';
+import Chance from 'chance';
+import { render } from '@testing-library/react';
+import Log from './log';
+
+describe('Log', () => {
+    const chance = new Chance();
+    const userName = chance.word();
+
+    it('should render', () => {
+        const auth = { userName };
+        const logStore = {
+            log: [{
+                amount: chance.natural(),
+                description: chance.word(),
+                user: userName
+            }]
+        };
+        const wrapper = shallow(<Log logStore={logStore} authStore={auth} />);
+
+        assert.isTrue(wrapper.find('.log-list').exists());
+    });
+
+    it('should a message without a log', () => {
+        const auth = {};
+        const wrapper = shallow(<Log authStore={auth} logStore={{}} />);
+
+        assert.equal(wrapper.find('span').text(), 'No purchase log yet.');
+    });
+
+    it('should be able to fetch balance on mount', () => {
+        const logStore = { log: [] };
+        const auth = { userName };
+        const dispatch = sinon.spy();
+
+        render(
+          <Log logStore={logStore} authStore={auth} dispatch={dispatch} />
+        );
+
+        assert.isTrue(dispatch.calledOnce);
+    });
+});

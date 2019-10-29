@@ -13,8 +13,8 @@ const store = createStore(reducers, enhancers);
 
 store.subscribe(() => {
     // 90 day life JWT
-    const { auth } = store.getState();
-    const { userName, token, expireTime, refreshToken } = auth;
+    const { authStore } = store.getState();
+    const { userName, token, expireTime, refreshToken } = authStore;
     const data = JSON.stringify({ userName, token, expireTime, refreshToken });
 
     Cookies.set(USER_STORE_KEY, data, { expires: 90 });

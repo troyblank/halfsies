@@ -1,7 +1,6 @@
 {
     "name": "Halfsies",
     "version": "1.0.0",
-    "main": "server.js",
     "scripts": {
         "start": "next -p 8888",
         "startOld": "grunt build && node server",
@@ -10,7 +9,7 @@
         "clean": "rm -rf .next && rm -rf out",
         "testOld": "grunt test",
         "test": "npm run unit && npm run lint",
-        "unit": "./node_modules/nyc/bin/nyc.js --reporter=text-summary --reporter=lcov --reporter=cobertura mocha \"./src/**/*.spec.js\"",
+        "unit": "nyc --reporter=text-summary --reporter=lcov --reporter=cobertura mocha \"./src/**/*.spec.js\"",
         "lint": "npm run eslint && npm run sasslint",
         "eslint": "eslint './{pages,src}/**/*.js'",
         "eslintFix": "eslint --fix './{pages,src}/**/*.js'",

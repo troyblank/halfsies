@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head } from '../src/components';
-import { AuthRedirect, Header, Balance } from '../src/components/connections';
+import { AuthRedirect, Header, Balance, Log } from '../src/components/connections';
 
 export default function IndexPage() {
     const users = ['troy', 'lurita'];
@@ -10,6 +10,7 @@ export default function IndexPage() {
         <Head />
         <Header />
         <Balance users={users} />
+        <Log />
       </AuthRedirect>
     );
 }

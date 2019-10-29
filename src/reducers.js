@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
 
-import auth from './components/auth/reducer';
-import balance from './components/balance/reducer';
-import signIn from './components/signIn/reducer';
+import authStore from './components/auth/reducer';
+import balanceStore from './components/balance/reducer';
+import logStore from './components/log/reducer';
+import signInStore from './components/signIn/reducer';
 
-export default combineReducers({ auth, balance, signIn });
+export default combineReducers({ authStore, balanceStore, logStore, signInStore });
