@@ -1,8 +1,10 @@
 import { assert } from 'chai';
 import Chance from 'chance';
 import {
+    SIGN_IN_PENDING,
     SIGN_IN_SUCCESS,
     SIGN_IN_ERROR,
+    signInPending,
     signInSuccess,
     signInUser,
     signInError
@@ -27,6 +29,12 @@ describe('SignIn Actions', () => {
         const action = signInError(errorMessage);
 
         assert.deepEqual(action, { type: SIGN_IN_ERROR, errorMessage });
+    });
+
+    it('should be able to generate a sign in pending action', () => {
+        const action = signInPending();
+
+        assert.deepEqual(action, { type: SIGN_IN_PENDING });
     });
 
     it('should be able to sign in as a sanity check', () => {

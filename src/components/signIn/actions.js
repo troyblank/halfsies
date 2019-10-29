@@ -1,9 +1,11 @@
 import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 import { userPool } from '../../config/awsCognito';
 
+export const SIGN_IN_PENDING = 'SIGN_IN_PENDING';
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_IN_ERROR = 'SIGN_IN_ERROR';
 
+export const signInPending = () => ({ type: SIGN_IN_PENDING });
 export const signInSuccess = ({ userName, token, expireTime, refreshToken }) => ({ type: SIGN_IN_SUCCESS, userName, token, expireTime, refreshToken });
 export const signInError = (errorMessage) => ({ type: SIGN_IN_ERROR, errorMessage });
 
@@ -17,6 +19,8 @@ export const signInUser = ({ userName, password }) => (
         const authenticationDetails = new AuthenticationDetails(authenticationData);
         const userData = { Username: userName, Pool: userPool };
         const cognitoUser = new CognitoUser(userData);
+
+        dispatch(signInPending());
 
         cognitoUser.authenticateUser(authenticationDetails, {
             onSuccess: (result) => {

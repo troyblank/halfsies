@@ -71,6 +71,19 @@ describe('Sign In', () => {
         assert.isTrue(preventDefault.calledOnce);
     });
 
+    it('should note be able to sign in a user if a pending form submit is already in progress', () => {
+        const user = { pending: true };
+        const dispatch = sinon.spy();
+        const preventDefault = sinon.spy();
+        const wrapper = shallow(<SignIn signInStore={user} dispatch={dispatch} />);
+        const form = wrapper.find('form');
+
+        form.simulate('submit', { preventDefault });
+
+        assert.isFalse(dispatch.called);
+        assert.isTrue(preventDefault.calledOnce);
+    });
+
     it('should be able to redirect to root of website after successful sign in', () => {
         const signedInUser = { needsRedirect: true };
         const push = sinon.spy();

@@ -25,13 +25,6 @@ describe('Log', () => {
         assert.isTrue(wrapper.find('.log-list').exists());
     });
 
-    it('should a message without a log', () => {
-        const auth = {};
-        const wrapper = shallow(<Log authStore={auth} logStore={{}} />);
-
-        assert.equal(wrapper.find('span').text(), 'No purchase log yet.');
-    });
-
     it('should be able to fetch balance on mount', () => {
         const logStore = { log: [] };
         const auth = { userName };

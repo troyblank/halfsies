@@ -15,9 +15,8 @@ export default function LogComponent({ logStore, authStore, dispatch }) {
         { log &&
           <ul className={'log-list'}>
             { log.map((l) => (<LogItem log={l} userName={userName} key={l.date} />))}
-          </ul>}
-        { !log &&
-          <span>No purchase log yet.</span>}
+          </ul>
+        }
       </div>
     );
 }

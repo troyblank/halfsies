@@ -24,6 +24,7 @@ input, textarea {
 
         &.pending {
             background-image: image-url('svg/pending.svg');
+            color: transparent;
             cursor: default;
         }
     }
