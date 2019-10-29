@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Link from 'next/link';
 import LogItem from './logItem';
 import { getLog } from './actions';
 
@@ -13,10 +14,14 @@ export default function LogComponent({ logStore, authStore, dispatch }) {
     return (
       <div className={'page-wrap'}>
         { log &&
-          <ul className={'log-list'}>
-            { log.map((l) => (<LogItem log={l} userName={userName} key={l.date} />))}
-          </ul>
-        }
+          <x>
+            <Link href={'/create'}>
+              <a className={'btn'}>Create a halfsie</a>
+            </Link>
+            <ul className={'log-list'}>
+              { log.map((l) => (<LogItem log={l} userName={userName} key={l.date} />))}
+            </ul>
+          </x>}
       </div>
     );
 }
