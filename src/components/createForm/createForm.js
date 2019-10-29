@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { createHalfsie } from './actions';
 
 export default function CreateFormComponent({ createStore, dispatch }) {
-    const { pending } = createStore;
+    const { pending, errorMessage } = createStore;
 
     const onCreate = (e) => {
         if (!pending) dispatch(createHalfsie());
@@ -28,9 +28,10 @@ export default function CreateFormComponent({ createStore, dispatch }) {
               <textarea id={'description'} cols={30} rows={10} required={true} />
             </div>
           </div>
-          <div className={'alert alert__error icon-alert-error'}>
-            <strong>error goes here</strong>
-          </div>
+          { errorMessage &&
+            <div className={'alert alert__error icon-alert-error'}>
+              <strong>{ errorMessage }</strong>
+            </div>}
           <div>
             <input type={'submit'} value={'Submit'} className={classnames({ pending })} />
             <Link href={'/'}>

@@ -2,10 +2,13 @@
 import React from 'react';
 import { assert } from 'chai';
 import { shallow } from 'enzyme';
+import Chance from 'chance';
 import sinon from 'sinon';
 import CreateForm from './createForm';
 
 describe('Create Form', () => {
+    const chance = new Chance();
+
     it('should render', () => {
         const wrapper = shallow(<CreateForm createStore={{}} />);
 
@@ -25,7 +28,7 @@ describe('Create Form', () => {
         assert.isTrue(preventDefault.calledOnce);
     });
 
-    it('should note be able to create a halfsie if a pending form submit is already in progress', () => {
+    it('should not be able to create a halfsie if a pending form submit is already in progress', () => {
         const createStore = { pending: true };
         const dispatch = sinon.spy();
         const preventDefault = sinon.spy();
@@ -36,5 +39,13 @@ describe('Create Form', () => {
 
         assert.isFalse(dispatch.called);
         assert.isTrue(preventDefault.calledOnce);
+    });
+
+    it('should show an error message if the create form does not work', () => {
+        const errorMessage = chance.word();
+        const createStore = { pending: true, errorMessage };
+        const wrapper = shallow(<CreateForm createStore={createStore} />);
+
+        assert.equal(wrapper.find('.alert__error strong').text(), errorMessage);
     });
 });
