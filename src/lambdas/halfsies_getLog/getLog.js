@@ -5,8 +5,7 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
 function getLog() {
     return new Promise((resolve) => {
         const queryParams = {
-            TableName: 'halfsie_log',
-            limit: 100
+            TableName: 'halfsie_log'
         };
 
         dynamo.scan(queryParams, (error, data) => {
@@ -14,12 +13,14 @@ function getLog() {
             if (error) {
                 errorMessage = error.message;
             } else {
-                log = data.Items;
+                log = data.Items.sort((a, b) => {
+                    if (new Date(a.date) > new Date(b.date)) return -1;
+
+                    return 1;
+                });
             }
 
             resolve({ errorMessage, log });
         });
     });
 }
-
-module.exports = getLog;
