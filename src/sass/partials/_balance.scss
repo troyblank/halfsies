@@ -4,6 +4,16 @@
     background: $color-purple-dark;
     text-align: center;
 
+    .page-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include breakpoint($size-mobile) {
+            display: block;
+        }
+    }
+
     &__circle {
         display: inline-block;
         position: relative;
@@ -22,6 +32,7 @@
         @include breakpoint($size-mobile) {
             width: 125px;
             height: 125px;
+            margin-bottom: 20px;
         }
     }
 
@@ -29,6 +40,7 @@
         position: relative;
         top: 0;
         color: $color-purple-dark;
+        font-weight: 600;
         z-index: 2;
 
         .icon {
@@ -99,7 +111,7 @@
     &__vs {
         display: inline-block;
         margin: 0 5%;
-        padding-top: 80px;
+        padding-top: 40px;
         vertical-align: top;
 
         @include breakpoint($size-tablet) {

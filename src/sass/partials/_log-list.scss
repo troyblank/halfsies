@@ -1,8 +1,12 @@
 .log-list {
+    margin: 0;
+    padding: 0;
+
     li {
         margin-bottom: 5px;
         padding: 10px;
         background: $color-purple-dark;
+        list-style: none;
 
         &.negative {
             span:nth-child(1) {

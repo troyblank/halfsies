@@ -13,7 +13,7 @@ describe('Sign In', () => {
 
     it('should render', () => {
         const user = {};
-        const wrapper = shallow(<SignIn signIn={user} />);
+        const wrapper = shallow(<SignIn signInStore={user} />);
 
         assert.isTrue(wrapper.find('.sign-in').exists());
         assert.isFalse(wrapper.find('.alert__error').exists());
@@ -22,7 +22,7 @@ describe('Sign In', () => {
     it('should show sign in error message if there is one', () => {
         const errorMessage = chance.word();
         const user = { errorMessage };
-        const wrapper = shallow(<SignIn signIn={user} />);
+        const wrapper = shallow(<SignIn signInStore={user} />);
 
         assert.isTrue(wrapper.find('.alert__error').exists());
         assert.equal(errorMessage, wrapper.find('.alert__error strong').text());
@@ -31,8 +31,8 @@ describe('Sign In', () => {
     it('should keep user name in state', () => {
         const user = {};
         const value = chance.word();
-        const wrapper = shallow(<SignIn signIn={user} />);
-        const { getByLabelText } = render(<SignIn signIn={user} />);
+        const wrapper = shallow(<SignIn signInStore={user} />);
+        const { getByLabelText } = render(<SignIn signInStore={user} />);
         const userNameInputDummy = wrapper.find('#username');
         const userNameInput = getByLabelText('Username:');
 
@@ -46,8 +46,8 @@ describe('Sign In', () => {
     it('should keep user name in password', () => {
         const user = {};
         const value = chance.word();
-        const wrapper = shallow(<SignIn signIn={user} />);
-        const { getByLabelText } = render(<SignIn signIn={user} />);
+        const wrapper = shallow(<SignIn signInStore={user} />);
+        const { getByLabelText } = render(<SignIn signInStore={user} />);
         const passwordInputDummy = wrapper.find('#password');
         const passwordInput = getByLabelText('Password:');
 
@@ -62,7 +62,7 @@ describe('Sign In', () => {
         const user = {};
         const dispatch = sinon.spy();
         const preventDefault = sinon.spy();
-        const wrapper = shallow(<SignIn signIn={user} dispatch={dispatch} />);
+        const wrapper = shallow(<SignIn signInStore={user} dispatch={dispatch} />);
         const form = wrapper.find('form');
 
         form.simulate('submit', { preventDefault });
@@ -77,7 +77,7 @@ describe('Sign In', () => {
         const mockRouter = { push };
         render(
           <RouterContext.Provider value={mockRouter}>
-            <SignIn signIn={signedInUser} />
+            <SignIn signInStore={signedInUser} />
           </RouterContext.Provider>
         );
 

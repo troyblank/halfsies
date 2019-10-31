@@ -11,7 +11,7 @@ describe('Header', () => {
     it('should render', () => {
         const userName = chance.word();
         const auth = { userName };
-        const wrapper = shallow(<Header auth={auth} />);
+        const wrapper = shallow(<Header authStore={auth} />);
 
         assert.isTrue(wrapper.contains(<div className={'username'}>{ userName }</div>));
     });
