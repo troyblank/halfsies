@@ -26,7 +26,7 @@ describe('Log', () => {
     });
 
     it('should be able to fetch balance on mount', () => {
-        const logStore = { log: [] };
+        const logStore = {};
         const auth = { userName };
         const dispatch = sinon.spy();
 
@@ -35,5 +35,17 @@ describe('Log', () => {
         );
 
         assert.isTrue(dispatch.calledOnce);
+    });
+
+    it('should be able to fetch balance on mount if there is already a log in state', () => {
+        const logStore = { log: [] };
+        const auth = { userName };
+        const dispatch = sinon.spy();
+
+        render(
+          <Log logStore={logStore} authStore={auth} dispatch={dispatch} />
+        );
+
+        assert.isFalse(dispatch.called);
     });
 });

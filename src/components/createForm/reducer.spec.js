@@ -3,7 +3,8 @@ import Chance from 'chance';
 import reducer, { initialState } from './reducer';
 import {
     CREATE_HALFSIE_PENDING,
-    CREATE_HALFSIE_ERROR
+    CREATE_HALFSIE_ERROR,
+    CREATE_HALFSIE_SUCCESS
 } from './actions';
 
 describe('Create Form Reducer', () => {
@@ -12,23 +13,34 @@ describe('Create Form Reducer', () => {
     it('should return initial state', () => {
         assert.deepEqual(reducer(undefined, {}), {
             errorMessage: null,
-            pending: false
+            pending: false,
+            needsRedirect: false
         });
     });
 
-    it('should handle a sign in pending state', () => {
+    it('should handle a create form pending state', () => {
         assert.deepEqual(reducer(initialState, { type: CREATE_HALFSIE_PENDING }), {
             errorMessage: null,
-            pending: true
+            pending: true,
+            needsRedirect: false
         });
     });
 
-    it('should handle a sign in pending state', () => {
+    it('should handle a create form error message', () => {
         const errorMessage = chance.word();
 
         assert.deepEqual(reducer(initialState, { type: CREATE_HALFSIE_ERROR, errorMessage }), {
             errorMessage,
-            pending: false
+            pending: false,
+            needsRedirect: false
+        });
+    });
+
+    it('should handle when the form needs a redirect', () => {
+        assert.deepEqual(reducer(initialState, { type: CREATE_HALFSIE_SUCCESS }), {
+            errorMessage: null,
+            pending: false,
+            needsRedirect: true
         });
     });
 });

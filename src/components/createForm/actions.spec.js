@@ -3,9 +3,11 @@ import Chance from 'chance';
 import {
     CREATE_HALFSIE_PENDING,
     CREATE_HALFSIE_ERROR,
+    CREATE_HALFSIE_SUCCESS,
     createHalfsiePending,
     createHalfsie,
-    createHalfsieError
+    createHalfsieError,
+    createHalfsieSuccess
 } from './actions';
 
 describe('Creat Form Actions', () => {
@@ -26,5 +28,11 @@ describe('Creat Form Actions', () => {
         const action = createHalfsieError(errorMessage);
 
         assert.deepEqual(action, { type: CREATE_HALFSIE_ERROR, errorMessage });
+    });
+
+    it('should be able to generate a create success action', () => {
+        const action = createHalfsieSuccess();
+
+        assert.deepEqual(action, { type: CREATE_HALFSIE_SUCCESS });
     });
 });

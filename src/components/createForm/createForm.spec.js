@@ -4,6 +4,8 @@ import { assert } from 'chai';
 import { shallow } from 'enzyme';
 import Chance from 'chance';
 import sinon from 'sinon';
+import { render, fireEvent } from '@testing-library/react';
+import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import CreateForm from './createForm';
 
 describe('Create Form', () => {
@@ -47,5 +49,47 @@ describe('Create Form', () => {
         const wrapper = shallow(<CreateForm createStore={createStore} />);
 
         assert.equal(wrapper.find('.alert__error strong').text(), errorMessage);
+    });
+
+    it('should keep amount in state', () => {
+        const value = chance.natural();
+        const wrapper = shallow(<CreateForm createStore={{}} />);
+        const { getByLabelText } = render(<CreateForm createStore={{}} />);
+        const amountInputDummy = wrapper.find('#amount');
+        const amountInput = getByLabelText('Amount');
+
+        // Simulate for firing the handler, fireEvent for checking state.
+        amountInputDummy.simulate('change', { target: { value } });
+        fireEvent.change(amountInput, { target: { value } });
+
+        assert.equal(amountInput.value, value);
+    });
+
+    it('should keep description in state', () => {
+        const value = chance.word();
+        const wrapper = shallow(<CreateForm createStore={{}} />);
+        const { getByLabelText } = render(<CreateForm createStore={{}} />);
+        const descriptionTextAreaDummy = wrapper.find('#description');
+        const descriptionTextArea = getByLabelText('Description');
+
+        // Simulate for firing the handler, fireEvent for checking state.
+        descriptionTextAreaDummy.simulate('change', { target: { value } });
+        fireEvent.change(descriptionTextArea, { target: { value } });
+
+        assert.equal(descriptionTextArea.value, value);
+    });
+
+    it('should be able to redirect to root of website after successful creation', () => {
+        const createStore = { needsRedirect: true };
+        const push = sinon.spy();
+        const mockRouter = { push };
+        render(
+          <RouterContext.Provider value={mockRouter}>
+            <CreateForm createStore={createStore} />
+          </RouterContext.Provider>
+        );
+
+        assert.isTrue(push.calledOnce);
+        assert.isTrue(push.calledWith('/'));
     });
 });

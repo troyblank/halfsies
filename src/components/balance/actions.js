@@ -9,11 +9,11 @@ export const getBalance = () => (
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         })
-            .then((response) => response.json())
-            .then((response) => {
-                const { balance } = JSON.parse(response.body);
+        .then((response) => response.json())
+        .then((response) => {
+            const { balance } = JSON.parse(response.body);
 
-                dispatch(balanceReceived(balance));
-            });
+            dispatch(balanceReceived(balance));
+        });
     }
 );

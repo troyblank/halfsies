@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import classnames from 'classnames';
 import { createHalfsie } from './actions';
 
 export default function CreateFormComponent({ createStore, dispatch }) {
     const { pending, errorMessage } = createStore;
+    const router = useRouter();
+
+    const [amount, setAmount] = useState('');
+    const [description, setDescription] = useState('');
+
+    useEffect(() => {
+        if (createStore.needsRedirect) router.push('/');
+    }, [createStore.needsRedirect]);
 
     const onCreate = (e) => {
-        if (!pending) dispatch(createHalfsie());
+        if (!pending) dispatch(createHalfsie({ amount, description }));
 
         e.preventDefault();
     };
@@ -19,13 +28,26 @@ export default function CreateFormComponent({ createStore, dispatch }) {
           <div>
             <label htmlFor={'amount'}>Amount</label>
             <div>
-              <input type={'number'} id={'amount'} required={true} />
+              <input
+                type={'number'}
+                id={'amount'}
+                required={true}
+                value={amount}
+                onChange={(e) => setAmount(Number(e.target.value))}
+              />
             </div>
           </div>
           <div>
             <label htmlFor={'description'}>Description</label>
             <div>
-              <textarea id={'description'} cols={30} rows={10} required={true} />
+              <textarea
+                id={'description'}
+                cols={30}
+                rows={10}
+                required={true}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
             </div>
           </div>
           { errorMessage &&
