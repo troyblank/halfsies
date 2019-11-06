@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { signInUser } from './actions';
+import classnames from 'classnames';
 
 export default function SignInComponent({ dispatch, signInStore }) {
-    const { errorMessage } = signInStore;
+    const { errorMessage, pending } = signInStore;
     const router = useRouter();
 
     const [userName, setUserName] = useState('');
@@ -14,7 +15,7 @@ export default function SignInComponent({ dispatch, signInStore }) {
     }, [signInStore.needsRedirect]);
 
     const onSignIn = (e) => {
-        dispatch(signInUser({ userName, password }));
+        if(!pending) dispatch(signInUser({ userName, password }));
 
         e.preventDefault();
     };
@@ -50,7 +51,12 @@ export default function SignInComponent({ dispatch, signInStore }) {
               <strong>{ errorMessage }</strong>
             </div>}
           <div>
-            <input type={'submit'} value={'Login'} data-pending-value={''} />
+            <input
+              className={classnames({ 'pending': pending })}
+              type={'submit'}
+              value={'Login'}
+              data-pending-value={''}
+            />
           </div>
         </form>
       </div>
