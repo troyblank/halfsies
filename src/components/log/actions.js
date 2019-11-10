@@ -1,6 +1,8 @@
 export const LOG_RECEIVED = 'LOG_RECEIVED';
+export const ADD_LOG = 'ADD_LOG';
 
 export const logReceived = (log) => ({ type: LOG_RECEIVED, log });
+export const addLog = (log) => ({ type: ADD_LOG, log });
 
 export const getLog = () => (
     /* istanbul ignore next */
