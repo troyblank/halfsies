@@ -6,7 +6,9 @@ import { configure } from 'enzyme';
 configure({ adapter: new Adapter() });
 
 // JSDOM
-const { window } = new JSDOM('<!doctype html><html><body></body></html>');
+const { window } = new JSDOM('<!doctype html><html><body></body></html>', {
+    url: 'https://halfsies.troyblank.com/'
+});
 const { document } = window;
 
 global.document = document;
