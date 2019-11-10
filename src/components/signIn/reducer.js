@@ -1,4 +1,4 @@
-import { 
+import {
     SIGN_IN_PENDING,
     SIGN_IN_SUCCESS,
     SIGN_IN_ERROR
