@@ -53,8 +53,9 @@ describe('Create Form', () => {
 
     it('should keep amount in state', () => {
         const value = chance.natural();
-        const wrapper = shallow(<CreateForm createStore={{}} />);
-        const { getByLabelText } = render(<CreateForm createStore={{}} />);
+        const dispatch = sinon.spy();
+        const wrapper = shallow(<CreateForm createStore={{}} dispatch={dispatch} />);
+        const { getByLabelText } = render(<CreateForm createStore={{}} dispatch={dispatch} />);
         const amountInputDummy = wrapper.find('#amount');
         const amountInput = getByLabelText('Amount');
 
@@ -67,8 +68,9 @@ describe('Create Form', () => {
 
     it('should keep description in state', () => {
         const value = chance.word();
-        const wrapper = shallow(<CreateForm createStore={{}} />);
-        const { getByLabelText } = render(<CreateForm createStore={{}} />);
+        const dispatch = sinon.spy();
+        const wrapper = shallow(<CreateForm createStore={{}} dispatch={dispatch} />);
+        const { getByLabelText } = render(<CreateForm createStore={{}} dispatch={dispatch} />);
         const descriptionTextAreaDummy = wrapper.find('#description');
         const descriptionTextArea = getByLabelText('Description');
 
@@ -80,16 +82,18 @@ describe('Create Form', () => {
     });
 
     it('should be able to redirect to root of website after successful creation', () => {
+        const dispatch = sinon.spy();
         const createStore = { needsRedirect: true };
         const push = sinon.spy();
         const mockRouter = { push };
         render(
           <RouterContext.Provider value={mockRouter}>
-            <CreateForm createStore={createStore} />
+            <CreateForm createStore={createStore} dispatch={dispatch} />
           </RouterContext.Provider>
         );
 
         assert.isTrue(push.calledOnce);
         assert.isTrue(push.calledWith('/'));
+        assert.isTrue(dispatch.calledOnce);
     });
 });

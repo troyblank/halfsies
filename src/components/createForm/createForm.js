@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import classnames from 'classnames';
-import { createHalfsie } from './actions';
+import { createHalfsie, resetCreateForm } from './actions';
 
 export default function CreateFormComponent({ createStore, dispatch }) {
     const { pending, errorMessage } = createStore;
@@ -13,6 +13,8 @@ export default function CreateFormComponent({ createStore, dispatch }) {
 
     useEffect(() => {
         if (createStore.needsRedirect) router.push('/');
+
+        dispatch(resetCreateForm());
     }, [createStore.needsRedirect]);
 
     const onCreate = (e) => {
