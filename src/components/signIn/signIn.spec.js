@@ -71,7 +71,7 @@ describe('Sign In', () => {
         assert.isTrue(preventDefault.calledOnce);
     });
 
-    it('should note be able to sign in a user if a pending form submit is already in progress', () => {
+    it('should not be able to sign in a user if a pending form submit is already in progress', () => {
         const user = { pending: true };
         const dispatch = sinon.spy();
         const preventDefault = sinon.spy();

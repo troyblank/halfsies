@@ -8,7 +8,7 @@ export default function LogComponent({ logStore, authStore, dispatch }) {
     const { userName } = authStore;
 
     useEffect(() => {
-        dispatch(getLog());
+        if (!log) dispatch(getLog());
     }, []);
 
     return (

@@ -3,11 +3,11 @@ import classnames from 'classnames';
 import { getBalance } from './actions';
 
 export default function BalanceComponent({ users, balanceStore, dispatch }) {
-    useEffect(() => {
-        dispatch(getBalance());
-    }, []);
-
     const { amount } = balanceStore;
+
+    useEffect(() => {
+        if (!amount) dispatch(getBalance());
+    }, []);
 
     if (amount === undefined) return null;
 

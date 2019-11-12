@@ -50,4 +50,15 @@ describe('Balance', () => {
 
         assert.isTrue(dispatch.calledOnce);
     });
+
+    it('should not fetch balance on mount if there is already a balance', () => {
+        const balance = { amount: chance.natural() };
+        const dispatch = sinon.spy();
+
+        render(
+          <Balance users={users} balanceStore={balance} dispatch={dispatch} />
+        );
+
+        assert.isFalse(dispatch.called);
+    });
 });
