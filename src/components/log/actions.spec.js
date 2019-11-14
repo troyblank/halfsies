@@ -2,8 +2,10 @@ import { assert } from 'chai';
 import Chance from 'chance';
 import {
     LOG_RECEIVED,
+    ADD_LOG,
     logReceived,
-    getLog
+    getLog,
+    addLog
 } from './actions';
 
 describe('Log Actions', () => {
@@ -18,5 +20,12 @@ describe('Log Actions', () => {
 
     it('should be able to get a log', () => {
         assert.equal('function', typeof getLog());
+    });
+
+    it('should be able to add a log', () => {
+        const log = {};
+        const action = addLog(log);
+
+        assert.deepEqual(action, { type: ADD_LOG, log });
     });
 });

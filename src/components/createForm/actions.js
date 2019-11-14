@@ -1,5 +1,6 @@
 import { getUpToDateToken } from '../auth/actions';
 import { balanceReceived } from '../balance/actions';
+import { addLog } from '../log/actions';
 
 export const CREATE_HALFSIE_PENDING = 'CREATE_HALFSIE_PENDING';
 export const CREATE_HALFSIE_ERROR = 'CREATE_HALFSIE_ERROR';
@@ -34,7 +35,9 @@ export const createHalfsie = (formData) => (
                     .then((response) => response.json())
                     .then((response) => {
                         const { balance } = JSON.parse(response.body);
+                        const { userName: user } = authStore;
 
+                        dispatch(addLog({ user, ...log }));
                         dispatch(balanceReceived(balance));
                         dispatch(createHalfsieSuccess());
                     });
