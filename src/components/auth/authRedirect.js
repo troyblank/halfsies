@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router'; <== This appears to be broken in next.js
 
 export default function AuthRedirect({ authStore, children }) {
-    const router = useRouter();
+    // const router = useRouter(); <== This appears to be broken in next.js
     const { token } = authStore;
 
     const [display, setDisplay] = useState(false);
 
     useEffect(() => {
         if (!token) {
-            router.push('/signin');
+            // router.push('/signin'); <== This appears to be broken in next.js
+            window.location.assign('signin');
         } else {
             setDisplay(true);
         }
