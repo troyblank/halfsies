@@ -4,9 +4,9 @@ import { SignIn } from '../src/components/connections';
 
 export default function SignInPage() {
     return (
-      <x>
+      <React.Fragment>
         <Head />
         <SignIn />
-      </x>
+      </React.Fragment>
     );
 }

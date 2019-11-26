@@ -1,6 +1,7 @@
 import { LOG_RECEIVED, ADD_LOG } from './actions';
+import { LogState } from './interfaces';
 
-export const initialState = {};
+export const initialState: LogState = {};
 
 export default (state = initialState, action) => {
     const nextState = { ...state };
