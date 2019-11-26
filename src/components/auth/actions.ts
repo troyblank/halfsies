@@ -24,7 +24,7 @@ export const getUpToDateToken = (dispatch, auth) => new Promise((resolve, reject
                 reject(err);
             } else {
                 const t = session.getAccessToken();
-                const refreshedToken = t.getJwtToken();
+                const refreshedToken: string = t.getJwtToken();
                 const refreshedExpireTime = new Date(t.payload.exp * 1000);
 
                 dispatch(tokenRefresh({ token: refreshedToken, expireTime: refreshedExpireTime }));

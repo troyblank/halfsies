@@ -1,6 +1,7 @@
 import { BALANCE_RECEIVED } from './actions';
+import { BalanceState } from './interfaces';
 
-export const initialState = {};
+export const initialState: BalanceState = {};
 
 export default (state = initialState, action) => {
     const nextState = { ...state };

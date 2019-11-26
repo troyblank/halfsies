@@ -8,8 +8,8 @@ export default function CreateFormComponent({ createStore, dispatch }) {
     const { pending, errorMessage } = createStore;
     const router = useRouter();
 
-    const [amount, setAmount] = useState('');
-    const [description, setDescription] = useState('');
+    const [amount, setAmount] = useState< string >('');
+    const [description, setDescription] = useState< string >('');
 
     useEffect(() => {
         if (createStore.needsRedirect) router.push('/');
@@ -18,7 +18,7 @@ export default function CreateFormComponent({ createStore, dispatch }) {
     }, [createStore.needsRedirect]);
 
     const onCreate = (e) => {
-        if (!pending) dispatch(createHalfsie({ amount, description }));
+        if (!pending) dispatch(createHalfsie({ amount: Number(amount), description }));
 
         e.preventDefault();
     };
@@ -35,7 +35,7 @@ export default function CreateFormComponent({ createStore, dispatch }) {
                 id={'amount'}
                 required={true}
                 value={amount}
-                onChange={(e) => setAmount(Number(e.target.value))}
+                onChange={(e) => setAmount(e.target.value)}
               />
             </div>
           </div>

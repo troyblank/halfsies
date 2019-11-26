@@ -14,14 +14,14 @@ export default function LogComponent({ logStore, authStore, dispatch }) {
     return (
       <div className={'page-wrap'}>
         { log &&
-          <x>
+          <React.Fragment>
             <Link href={'/create'}>
               <a className={'btn'}>Create a halfsie</a>
             </Link>
             <ul className={'log-list'}>
               { log.map((l) => (<LogItem log={l} userName={userName} key={l.date} />))}
             </ul>
-          </x>}
+          </React.Fragment>}
       </div>
     );
 }

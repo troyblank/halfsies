@@ -17,8 +17,8 @@ export default function AuthRedirect({ authStore, children }) {
     }, []);
 
     return (
-      <x>
-        { display && <x>{ children }</x> }
-      </x>
+      <React.Fragment>
+        { display && <React.Fragment>{ children }</React.Fragment> }
+      </React.Fragment>
     );
 }

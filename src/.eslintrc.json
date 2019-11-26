@@ -1,5 +1,8 @@
 {
-    "extends": "@troyblank/eslint-config-troyblank/configs/react.js",
+    "extends": [
+        "@troyblank/eslint-config-troyblank/configs/typescript.js",
+        "@troyblank/eslint-config-troyblank/configs/react.js"
+    ],
 
     "rules": {
         "import/no-extraneous-dependencies": 0,
@@ -11,5 +14,13 @@
         "beforeEach": true,
         "describe": true,
         "it": true
+    },
+
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
     }
 }

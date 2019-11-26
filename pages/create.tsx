@@ -4,9 +4,9 @@ import { CreateForm } from '../src/components/connections';
 
 export default function SignInPage() {
     return (
-      <x>
+      <React.Fragment>
         <Head />
         <CreateForm />
-      </x>
+      </React.Fragment>
     );
 }
