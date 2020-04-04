@@ -12,7 +12,7 @@ To build all front end assets run:
 
     npm run build
   
-In order to run the project be sure redis is running and then run:
+In order to run the project run:
 
     npm start
 
