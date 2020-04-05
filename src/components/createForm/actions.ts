@@ -40,6 +40,8 @@ export const createHalfsie = (formData) => (
                         dispatch(addLog({ user, ...log }));
                         dispatch(balanceReceived(balance));
                         dispatch(createHalfsieSuccess());
+                    }).catch(() => {
+                        dispatch(createHalfsieError('There was an issue saving your Halfise.'));
                     });
             });
     }
