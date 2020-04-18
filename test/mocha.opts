@@ -1,3 +1,0 @@
--r ts-node/register
--r @babel/register
--r ./test/mocha-setup.js

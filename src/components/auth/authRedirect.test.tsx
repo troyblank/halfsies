@@ -2,7 +2,6 @@
 import React from 'react';
 import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import { assert } from 'chai';
-import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import { render } from '@testing-library/react';
 import Chance from 'chance';
@@ -14,33 +13,33 @@ describe('Auth Redirect', () => {
     it('should render', () => {
         const wrapper = shallow(<AuthRedirect authStore={{}} />);
 
-        assert.isTrue(wrapper.contains(<x />));
+        assert.isTrue(wrapper.contains(<React.Fragment />));
     });
 
-    it('should redirect to signin page if there is no auth', () => {
-        const push = sinon.spy();
+    test('should redirect to signin page if there is no auth', () => {
+        const push = jest.fn();
         const mockRouter = { push };
 
         render(
+          // @ts-ignore testing if AuthRedirect interacts with NextRouter
           <RouterContext.Provider value={mockRouter}>
             <AuthRedirect authStore={{}} />
           </RouterContext.Provider>
         );
 
-        // assert.isTrue(push.calledOnce); <== This appears to be broken in next.js
-        // assert.isTrue(push.calledWith('/signin')); <== This appears to be broken in next.js
-        assert.equal(window.location.href, 'https://halfsies.troyblank.com/');
+        expect(push).toHaveBeenCalledTimes(1);
+        expect(push).toHaveBeenLastCalledWith('/signin');
     });
 
-    it('should show children if there is auth', () => {
+    test('should show children if there is auth', () => {
         const className = chance.word();
 
         const { container } = render(
-          <AuthRedirect authStore={{ token: true }}>
+          <AuthRedirect authStore={{ token: 'someToken' }}>
             <div className={className} />
           </AuthRedirect>
         );
 
-        assert.exists(container.querySelector(`.${className}`));
+        expect(container.querySelector(`.${className}`)).toBeTruthy();
     });
 });

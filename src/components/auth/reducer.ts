@@ -7,6 +7,13 @@ export const USER_STORE_KEY = 'user';
 const userCookie = Cookies.get(USER_STORE_KEY);
 const cookieUser = userCookie ? /* istanbul ignore next */ (JSON.parse(userCookie) || {}) : {};
 
+export type Auth = {
+    userName?: string,
+    token?: string,
+    expireTime?: string,
+    refreshToken?: string
+}
+
 export const initialState = {
     userName: cookieUser.userName,
     token: cookieUser.token,
