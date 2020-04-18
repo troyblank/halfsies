@@ -17,7 +17,8 @@ describe('Log', () => {
             log: [{
                 amount: chance.natural(),
                 description: chance.word(),
-                user: userName
+                user: userName,
+                date: '2020-04-18T16:57:31.447Z'
             }]
         };
         const wrapper = shallow(<Log logStore={logStore} authStore={auth} />);

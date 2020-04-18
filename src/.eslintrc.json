@@ -1,26 +1,13 @@
 {
     "extends": [
-        "@troyblank/eslint-config-troyblank/configs/typescript.js",
-        "@troyblank/eslint-config-troyblank/configs/react.js"
+        "@troyblank/eslint-config-troyblank/configs/jest.js",
+        "@troyblank/eslint-config-troyblank/configs/react.js",
+        "@troyblank/eslint-config-troyblank/configs/typescript.js"
     ],
-
     "rules": {
-        "import/no-extraneous-dependencies": 0,
-        "import/no-cycle" : 0
+        "import/no-extraneous-dependencies": 0
     },
-
     "globals": {
-        "after": true,
-        "beforeEach": true,
-        "describe": true,
         "it": true
-    },
-
-    "settings": {
-        "import/resolver": {
-            "node": {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
-            }
-        }
     }
 }
