@@ -1,4 +1,8 @@
 # Halfsies
+
+[![Build Status](https://travis-ci.org/troyblank/halfsies.svg?branch=master)](https://travis-ci.org/troyblank/halfsies)
+[![Coverage Status](https://coveralls.io/repos/github/troyblank/halfsies/badge.svg?branch=master)](https://coveralls.io/github/troyblank/halfsies?branch=master)
+
 Halfies is an Serverless web app that keeps track of money owed between two moderately specific people. Utilizes AWS Cognito, and Lambdas.
 
 ## Setup
