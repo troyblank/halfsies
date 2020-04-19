@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { Auth } from './reducer';
 
 type Props = {
@@ -7,14 +6,15 @@ type Props = {
 }
 
 export const AuthRedirect: React.FC<Props> = ({ authStore, children }) => {
-    const router = useRouter();
     const { token } = authStore;
 
     const [display, setDisplay] = useState(false);
 
+
     useEffect(() => {
         if (!token) {
-            router.push('/signin');
+            // ideal router of using Next.js router.push does not work here for unknown reasons
+            window.location.assign('signin');
         } else {
             setDisplay(true);
         }

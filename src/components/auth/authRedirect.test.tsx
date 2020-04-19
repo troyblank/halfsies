@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { RouterContext } from 'next/dist/next-server/lib/router-context';
 import { assert } from 'chai';
 import { shallow } from 'enzyme';
 import { render } from '@testing-library/react';
@@ -10,25 +9,18 @@ import AuthRedirect from './authRedirect';
 describe('Auth Redirect', () => {
     const chance = new Chance();
 
-    it('should render', () => {
+    test('should render', () => {
         const wrapper = shallow(<AuthRedirect authStore={{}} />);
 
         assert.isTrue(wrapper.contains(<React.Fragment />));
     });
 
     test('should redirect to signin page if there is no auth', () => {
-        const push = jest.fn();
-        const mockRouter = { push };
-
         render(
-          // @ts-ignore testing if AuthRedirect interacts with NextRouter
-          <RouterContext.Provider value={mockRouter}>
-            <AuthRedirect authStore={{}} />
-          </RouterContext.Provider>
+          <AuthRedirect authStore={{}} />
         );
 
-        expect(push).toHaveBeenCalledTimes(1);
-        expect(push).toHaveBeenLastCalledWith('/signin');
+        expect(window.location.assign).toBeCalledWith('signin');
     });
 
     test('should show children if there is auth', () => {
