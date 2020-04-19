@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { assert } from 'chai';
 import { shallow } from 'enzyme';
 import { render } from '@testing-library/react';
 import Chance from 'chance';
@@ -12,7 +11,7 @@ describe('Auth Redirect', () => {
     test('should render', () => {
         const wrapper = shallow(<AuthRedirect authStore={{}} />);
 
-        assert.isTrue(wrapper.contains(<React.Fragment />));
+        expect(wrapper.contains(<React.Fragment />)).toBe(true);
     });
 
     test('should redirect to signin page if there is no auth', () => {
