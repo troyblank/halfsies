@@ -1,3 +1,6 @@
 module.exports = {
-    setupFilesAfterEnv: ['<rootDir>/testSetup/react.js']
+    setupFilesAfterEnv: [
+        '<rootDir>/testSetup/url.js',
+        '<rootDir>/testSetup/react.js'
+    ]
 };
