@@ -1,4 +1,3 @@
-import { assert } from 'chai';
 import Chance from 'chance';
 import reducer, { initialState } from './reducer';
 import { TOKEN_REFRESH } from './actions';
@@ -15,20 +14,20 @@ describe('Auth Reducer', () => {
         refreshToken: undefined
     };
 
-    it('should return initial state', () => {
-        assert.deepEqual(reducer(undefined, {}), nonCookieState);
+    test('should return initial state', () => {
+        expect(reducer(undefined, {})).toEqual(nonCookieState);
     });
 
-    it('should handle a sign in success', () => {
+    test('should handle a sign in success', () => {
         const userName = chance.word();
         const refreshToken = chance.word();
         const user = { userName, token, expireTime, refreshToken };
 
-        assert.deepEqual(reducer(initialState, { type: SIGN_IN_SUCCESS, ...user }), { ...user });
+        expect(reducer(initialState, { type: SIGN_IN_SUCCESS, ...user })).toEqual({ ...user });
     });
 
-    it('should handle a token refresh', () => {
+    test('should handle a token refresh', () => {
         const refreshedToken = { ...initialState, token, expireTime };
-        assert.deepEqual(reducer(initialState, { type: TOKEN_REFRESH, ...refreshedToken }), { ...refreshedToken });
+        expect(reducer(initialState, { type: TOKEN_REFRESH, ...refreshedToken })).toEqual({ ...refreshedToken });
     });
 });

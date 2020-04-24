@@ -43,7 +43,7 @@
         "@troyblank/mocha-base-troyblank": "1.0.0",
         "@troyblank/jest-base": "0.1.0",
         "@troyblank/sasslint-config-troyblank": "1.0.0",
-        "coveralls": "3.0.11",
+        "coveralls": "3.0.14",
         "eslint": "6.6.0",
         "serve": "11.3.0"
     },
