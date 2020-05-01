@@ -18,6 +18,7 @@ out
 
 # OS GENERATED FILES #
 ######################
+.history
 .DS_Store
 .DS_Store?
 ._*
