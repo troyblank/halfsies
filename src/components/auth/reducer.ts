@@ -2,10 +2,16 @@ import Cookies from 'js-cookie';
 import { TOKEN_REFRESH } from './actions';
 import { SIGN_IN_SUCCESS } from '../signIn/actions';
 
-export const USER_STORE_KEY = 'user';
+export const TOKEN_STORE_KEY = 'token';
+export const REFRESH_TOKEN_STORE_KEY = 'refreshToken';
 
-const userCookie = Cookies.get(USER_STORE_KEY);
-const cookieUser = userCookie ? /* istanbul ignore next */ (JSON.parse(userCookie) || {}) : {};
+// Loosely coupled server setting of JWT_EXPIRE_DAYS.
+const JWT_EXPIRE_DAYS = 90;
+
+const tokenCookie = Cookies.get(TOKEN_STORE_KEY);
+const refreshTokenCookie = Cookies.get(REFRESH_TOKEN_STORE_KEY);
+const initialToken = tokenCookie ? /* istanbul ignore next */ (JSON.parse(tokenCookie) || {}) : {};
+const initialRefreshToken = refreshTokenCookie ? /* istanbul ignore next */ (JSON.parse(refreshTokenCookie) || {}) : {};
 
 export type Auth = {
     userName?: string,
@@ -14,27 +20,49 @@ export type Auth = {
     refreshToken?: string
 }
 
+export type Action = {
+    type: string,
+    userName?: string,
+    token?: string,
+    expireTime?: string,
+    refreshToken?: string
+}
+
 export const initialState = {
-    userName: cookieUser.userName,
-    token: cookieUser.token,
-    expireTime: cookieUser.expireTime,
-    refreshToken: cookieUser.refreshToken
+    userName: initialToken.userName,
+    token: initialToken.token,
+    expireTime: initialRefreshToken.expireTime,
+    refreshToken: initialRefreshToken.refreshToken
 };
 
-export default (state = initialState, action) => {
-    const nextState = { ...state };
+export default (state: Auth = initialState, action: Action): Auth => {
+    const { userName, token, expireTime, refreshToken } = action;
+    let nextState = { ...state };
 
     switch (action.type) {
     case SIGN_IN_SUCCESS: {
-        nextState.userName = action.userName;
-        nextState.token = action.token;
-        nextState.expireTime = action.expireTime;
-        nextState.refreshToken = action.refreshToken;
+        const tokenData = { userName, token };
+        const refershTokenData = { expireTime, refreshToken };
+
+        nextState = {
+            ...nextState,
+            ...tokenData,
+            ...refershTokenData
+        };
+
+        Cookies.set(TOKEN_STORE_KEY, tokenData, { expires: JWT_EXPIRE_DAYS });
+        Cookies.set(REFRESH_TOKEN_STORE_KEY, refershTokenData, { expires: JWT_EXPIRE_DAYS });
         break;
     }
     case TOKEN_REFRESH: {
-        nextState.token = action.token;
-        nextState.expireTime = action.expireTime;
+        const refershTokenData = { expireTime, refreshToken };
+
+        nextState = {
+            ...nextState,
+            ...refershTokenData
+        };
+
+        Cookies.set(REFRESH_TOKEN_STORE_KEY, refershTokenData, { expires: JWT_EXPIRE_DAYS });
         break;
     }
     default:

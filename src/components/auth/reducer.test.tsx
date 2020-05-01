@@ -5,7 +5,9 @@ import { SIGN_IN_SUCCESS } from '../signIn/actions';
 
 describe('Auth Reducer', () => {
     const chance = new Chance();
+    const userName = chance.word();
     const token = chance.word();
+    const refreshToken = chance.word();
     const expireTime = chance.word();
     const nonCookieState = {
         userName: undefined,
@@ -15,19 +17,17 @@ describe('Auth Reducer', () => {
     };
 
     test('should return initial state', () => {
-        expect(reducer(undefined, {})).toEqual(nonCookieState);
+        expect(reducer(undefined, { type: '' })).toEqual(nonCookieState);
     });
 
     test('should handle a sign in success', () => {
-        const userName = chance.word();
-        const refreshToken = chance.word();
         const user = { userName, token, expireTime, refreshToken };
 
         expect(reducer(initialState, { type: SIGN_IN_SUCCESS, ...user })).toEqual({ ...user });
     });
 
     test('should handle a token refresh', () => {
-        const refreshedToken = { ...initialState, token, expireTime };
+        const refreshedToken = { ...initialState, refreshToken, expireTime };
         expect(reducer(initialState, { type: TOKEN_REFRESH, ...refreshedToken })).toEqual({ ...refreshedToken });
     });
 });
