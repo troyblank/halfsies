@@ -6,13 +6,13 @@ type Props = {
 }
 
 export const AuthRedirect: React.FC<Props> = ({ authStore, children }) => {
-    const { token } = authStore;
+    const { refreshToken } = authStore;
 
     const [display, setDisplay] = useState(false);
 
 
     useEffect(() => {
-        if (!token) {
+        if (!refreshToken) {
             // ideal router of using Next.js router.push does not work here for unknown reasons
             window.location.assign('signin');
         } else {

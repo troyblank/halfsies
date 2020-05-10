@@ -26,7 +26,7 @@ describe('Auth Redirect', () => {
         const className = chance.word();
 
         const { container } = render(
-          <AuthRedirect authStore={{ token: 'someToken' }}>
+          <AuthRedirect authStore={{ refreshToken: 'someToken' }}>
             <div className={className} />
           </AuthRedirect>
         );

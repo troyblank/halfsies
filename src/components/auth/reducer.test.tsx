@@ -27,7 +27,7 @@ describe('Auth Reducer', () => {
     });
 
     test('should handle a token refresh', () => {
-        const refreshedToken = { ...initialState, refreshToken, expireTime };
+        const refreshedToken = { ...initialState, token, expireTime };
         expect(reducer(initialState, { type: TOKEN_REFRESH, ...refreshedToken })).toEqual({ ...refreshedToken });
     });
 });

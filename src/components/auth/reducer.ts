@@ -29,9 +29,9 @@ export type Action = {
 }
 
 export const initialState = {
-    userName: initialToken.userName,
+    userName: initialRefreshToken.userName,
     token: initialToken.token,
-    expireTime: initialRefreshToken.expireTime,
+    expireTime: initialToken.expireTime,
     refreshToken: initialRefreshToken.refreshToken
 };
 
@@ -41,28 +41,28 @@ export default (state: Auth = initialState, action: Action): Auth => {
 
     switch (action.type) {
     case SIGN_IN_SUCCESS: {
-        const tokenData = { userName, token };
-        const refershTokenData = { expireTime, refreshToken };
+        const tokenData = { token, expireTime };
+        const refreshTokenData = { refreshToken, userName };
 
         nextState = {
             ...nextState,
             ...tokenData,
-            ...refershTokenData
+            ...refreshTokenData
         };
 
         Cookies.set(TOKEN_STORE_KEY, tokenData, { expires: JWT_EXPIRE_DAYS });
-        Cookies.set(REFRESH_TOKEN_STORE_KEY, refershTokenData, { expires: JWT_EXPIRE_DAYS });
+        Cookies.set(REFRESH_TOKEN_STORE_KEY, refreshTokenData, { expires: JWT_EXPIRE_DAYS });
         break;
     }
     case TOKEN_REFRESH: {
-        const refershTokenData = { expireTime, refreshToken };
+        const tokenData = { token, expireTime };
 
         nextState = {
             ...nextState,
-            ...refershTokenData
+            ...tokenData
         };
 
-        Cookies.set(REFRESH_TOKEN_STORE_KEY, refershTokenData, { expires: JWT_EXPIRE_DAYS });
+        Cookies.set(TOKEN_STORE_KEY, tokenData, { expires: JWT_EXPIRE_DAYS });
         break;
     }
     default:

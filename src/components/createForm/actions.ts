@@ -32,7 +32,13 @@ export const createHalfsie = (formData) => (
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body)
                 })
-                    .then((response) => response.json())
+                    .then((response) => {
+                        if (response.ok) {
+                            return response.json();
+                        }
+
+                        throw new Error('There was an issue saving your Halfise.');
+                    })
                     .then((response) => {
                         const { balance } = JSON.parse(response.body);
                         const { userName: user } = authStore;
@@ -43,6 +49,8 @@ export const createHalfsie = (formData) => (
                     }).catch(() => {
                         dispatch(createHalfsieError('There was an issue saving your Halfise.'));
                     });
+            }).catch(() => {
+                dispatch(createHalfsieError('There was an issue saving your Halfise.'));
             });
     }
 );
