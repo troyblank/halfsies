@@ -1,7 +1,9 @@
 const getBalance = require('./getBalance');
 
+const TABLE_NAME = 'halfsie_balance';
+
 exports.handler = async () => {
-    const { balance, errorMessage } = await getBalance();
+    const { balance, errorMessage } = await getBalance(TABLE_NAME);
     const body = JSON.stringify({ balance, errorMessage });
     let statusCode = 200;
 

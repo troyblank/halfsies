@@ -2,12 +2,9 @@ const AWS = require('aws-sdk');
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
-function addLog(Item) {
+function addLog(Item, TableName) {
     return new Promise((resolve) => {
-        const putParams = {
-            TableName: 'halfsie_log',
-            Item
-        };
+        const putParams = { TableName, Item };
         let errorMessage;
 
         dynamo.put(putParams, (error) => {

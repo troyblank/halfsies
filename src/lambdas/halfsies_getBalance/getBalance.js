@@ -2,10 +2,10 @@ const AWS = require('aws-sdk');
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
-function getBalance() {
+function getBalance(TableName) {
     return new Promise((resolve) => {
         const queryParams = {
-            TableName: 'halfsie_balance',
+            TableName,
             Key: { id: 0 }
         };
 
