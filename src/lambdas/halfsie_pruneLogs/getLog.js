@@ -2,11 +2,9 @@ const AWS = require('aws-sdk');
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
-function getLog() {
+function getLog(TableName) {
     return new Promise((resolve) => {
-        const queryParams = {
-            TableName: 'halfsie_log'
-        };
+        const queryParams = { TableName };
 
         dynamo.scan(queryParams, (error, data) => {
             let log, errorMessage;

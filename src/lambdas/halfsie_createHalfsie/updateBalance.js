@@ -2,13 +2,13 @@ const AWS = require('aws-sdk');
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
-const updateBalance = async (userName, amount, oldBalance) => new Promise((resolve) => {
+const updateBalance = async (userName, amount, oldBalance, TableName) => new Promise((resolve) => {
     const directionalAmount = 'troy' === userName ? amount : amount * -1;
     const newBalance = oldBalance + directionalAmount;
     let errorMessage;
 
     const updateParams = {
-        TableName: 'halfsie_balance',
+        TableName,
         Key: { id: 0 },
         UpdateExpression: 'set balance = :num',
         ExpressionAttributeValues: {

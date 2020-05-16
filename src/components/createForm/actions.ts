@@ -1,6 +1,7 @@
 import { getUpToDateToken } from '../auth/actions';
 import { balanceReceived } from '../balance/actions';
 import { addLog } from '../log/actions';
+import { getAPIURL } from '../../util/apiCommunication';
 
 export const CREATE_HALFSIE_PENDING = 'CREATE_HALFSIE_PENDING';
 export const CREATE_HALFSIE_ERROR = 'CREATE_HALFSIE_ERROR';
@@ -27,7 +28,7 @@ export const createHalfsie = (formData) => (
             .then((accessToken) => {
                 const body = { accessToken, log };
 
-                fetch('https://uifz55jtu0.execute-api.us-west-2.amazonaws.com/prod/createHalfsie', {
+                fetch(`${getAPIURL()}/createHalfsie`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(body)

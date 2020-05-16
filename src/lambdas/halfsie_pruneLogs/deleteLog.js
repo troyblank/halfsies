@@ -2,10 +2,10 @@ const AWS = require('aws-sdk');
 
 const dynamo = new AWS.DynamoDB.DocumentClient();
 
-function deleteLog(id, date) {
+function deleteLog(id, date, TableName) {
     return new Promise((resolve) => {
         const deleteParams = {
-            TableName: 'halfsie_log',
+            TableName,
             Key: { id, date }
         };
 
