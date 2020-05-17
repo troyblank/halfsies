@@ -14,8 +14,8 @@ export const getLog = () => (
             headers: { 'Content-Type': 'application/json' }
         })
             .then((response) => response.json())
-            .then((response) => {
-                const { log } = JSON.parse(response.body);
+            .then((body) => {
+                const { log } = body;
 
                 dispatch(logReceived(log));
             });
