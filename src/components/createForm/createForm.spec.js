@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { assert } from 'chai';
 import { shallow } from 'enzyme';
@@ -10,18 +9,25 @@ import CreateForm from './createForm';
 
 describe('Create Form', () => {
     const chance = new Chance();
+    const logStore = { log: [] };
 
     it('should render', () => {
-        const wrapper = shallow(<CreateForm createStore={{}} />);
+        const wrapper = shallow(<CreateForm createStore={{}} logStore={logStore} />);
 
         assert.equal(wrapper.find('h1').text(), 'Create a new Halfsie');
+    });
+
+    it('should not render without a log', () => {
+        const wrapper = shallow(<CreateForm createStore={{}} logStore={{}} />);
+
+        assert.equal(wrapper.html(), null);
     });
 
     it('should be able to sign in a user', () => {
         const createStore = { pending: false };
         const dispatch = sinon.spy();
         const preventDefault = sinon.spy();
-        const wrapper = shallow(<CreateForm createStore={createStore} dispatch={dispatch} />);
+        const wrapper = shallow(<CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />);
         const form = wrapper.find('form');
 
         form.simulate('submit', { preventDefault });
@@ -34,7 +40,7 @@ describe('Create Form', () => {
         const createStore = { pending: true };
         const dispatch = sinon.spy();
         const preventDefault = sinon.spy();
-        const wrapper = shallow(<CreateForm createStore={createStore} dispatch={dispatch} />);
+        const wrapper = shallow(<CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />);
         const form = wrapper.find('form');
 
         form.simulate('submit', { preventDefault });
@@ -46,7 +52,7 @@ describe('Create Form', () => {
     it('should show an error message if the create form does not work', () => {
         const errorMessage = chance.word();
         const createStore = { pending: true, errorMessage };
-        const wrapper = shallow(<CreateForm createStore={createStore} />);
+        const wrapper = shallow(<CreateForm createStore={createStore} logStore={logStore} />);
 
         assert.equal(wrapper.find('.alert__error strong').text(), errorMessage);
     });
@@ -54,8 +60,8 @@ describe('Create Form', () => {
     it('should keep amount in state', () => {
         const value = chance.natural();
         const dispatch = sinon.spy();
-        const wrapper = shallow(<CreateForm createStore={{}} dispatch={dispatch} />);
-        const { getByLabelText } = render(<CreateForm createStore={{}} dispatch={dispatch} />);
+        const wrapper = shallow(<CreateForm createStore={{}} logStore={logStore} dispatch={dispatch} />);
+        const { getByLabelText } = render(<CreateForm createStore={{}} logStore={logStore} dispatch={dispatch} />);
         const amountInputDummy = wrapper.find('#amount');
         const amountInput = getByLabelText('Amount');
 
@@ -69,8 +75,8 @@ describe('Create Form', () => {
     it('should keep description in state', () => {
         const value = chance.word();
         const dispatch = sinon.spy();
-        const wrapper = shallow(<CreateForm createStore={{}} dispatch={dispatch} />);
-        const { getByLabelText } = render(<CreateForm createStore={{}} dispatch={dispatch} />);
+        const wrapper = shallow(<CreateForm createStore={{}} logStore={logStore} dispatch={dispatch} />);
+        const { getByLabelText } = render(<CreateForm createStore={{}} logStore={logStore} dispatch={dispatch} />);
         const descriptionTextAreaDummy = wrapper.find('#description');
         const descriptionTextArea = getByLabelText('Description');
 
@@ -88,12 +94,19 @@ describe('Create Form', () => {
         const mockRouter = { push };
         render(
           <RouterContext.Provider value={mockRouter}>
-            <CreateForm createStore={createStore} dispatch={dispatch} />
+            <CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />
           </RouterContext.Provider>
         );
 
         assert.isTrue(push.calledOnce);
         assert.isTrue(push.calledWith('/'));
         assert.isTrue(dispatch.calledOnce);
+    });
+
+    it('should fech log if there is no log to be found', () => {
+        const dispatch = sinon.spy();
+        render(<CreateForm createStore={{}} logStore={{}} dispatch={dispatch} />);
+
+        assert.isTrue(dispatch.calledTwice);
     });
 });

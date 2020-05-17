@@ -3,13 +3,19 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import classnames from 'classnames';
 import { createHalfsie, resetCreateForm } from './actions';
+import { getLog } from '../log/actions';
 
-export default function CreateFormComponent({ createStore, dispatch }) {
+export default function CreateFormComponent({ createStore, logStore, dispatch }) {
     const { pending, errorMessage } = createStore;
+    const { log } = logStore;
     const router = useRouter();
 
     const [amount, setAmount] = useState< string >('');
     const [description, setDescription] = useState< string >('');
+
+    useEffect(() => {
+        if (!log) dispatch(getLog());
+    }, []);
 
     useEffect(() => {
         if (createStore.needsRedirect) router.push('/');
@@ -22,6 +28,8 @@ export default function CreateFormComponent({ createStore, dispatch }) {
 
         e.preventDefault();
     };
+
+    if (!log) return null;
 
     return (
       <section className={'page-wrap'}>
