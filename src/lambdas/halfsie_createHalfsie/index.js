@@ -10,7 +10,7 @@ exports.handler = async (newHalfsieData) => {
     let newBalance;
     let statusCode = 200;
     let errorMessage;
-    const { accessToken, log } = newHalfsieData;
+    const { accessToken, log } = JSON.parse(newHalfsieData.body);
     const { user, errorMessage: userErrorMessage } = await getUser(accessToken);
 
     if (user) {
@@ -35,5 +35,14 @@ exports.handler = async (newHalfsieData) => {
     }
 
     const body = JSON.stringify({ newBalance, errorMessage });
-    return { statusCode, body };
+    const response = {
+        statusCode,
+        headers: {
+            'Access-Control-Allow-Origin': 'https://halfsies.troyblank.com',
+            'Content-Type': 'application/json'
+        },
+        body
+    };
+
+    return response;
 };

@@ -40,8 +40,8 @@ export const createHalfsie = (formData) => (
 
                         throw new Error('There was an issue saving your Halfise.');
                     })
-                    .then((response) => {
-                        const { balance } = JSON.parse(response.body);
+                    .then((responseBody) => {
+                        const { balance } = responseBody;
                         const { userName: user } = authStore;
 
                         dispatch(addLog({ user, ...log }));
