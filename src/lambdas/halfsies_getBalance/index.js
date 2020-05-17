@@ -11,6 +11,10 @@ exports.handler = async () => {
 
     const response = {
         statusCode,
+        headers: {
+            'Access-Control-Allow-Origin': 'https://halfsies.troyblank.com/',
+            'Content-Type': 'application/json'
+        },
         body
     };
 

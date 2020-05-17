@@ -12,8 +12,8 @@ export const getBalance = () => (
             headers: { 'Content-Type': 'application/json' }
         })
             .then((response) => response.json())
-            .then((response) => {
-                const { balance } = JSON.parse(response.body);
+            .then((body) => {
+                const { balance } = body;
 
                 dispatch(balanceReceived(balance));
             });
