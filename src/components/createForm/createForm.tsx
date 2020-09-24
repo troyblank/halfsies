@@ -39,6 +39,7 @@ export default function CreateFormComponent({ createStore, logStore, dispatch })
             <label htmlFor={'amount'}>Amount</label>
             <div>
               <input
+                autoComplete={'off'}
                 type={'number'}
                 id={'amount'}
                 required={true}
