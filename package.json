@@ -30,7 +30,7 @@
         "js-cookie": "2.2.1",
         "load-grunt-config": "0.17.1",
         "lodash": "4.17.19",
-        "next": "9.3.5",
+        "next": "12.1.0",
         "node-sass": "4.13.1",
         "normalize.css": "8.0.1",
         "react": "16.13.1",
