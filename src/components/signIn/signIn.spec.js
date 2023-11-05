@@ -1,100 +1,107 @@
 
-import React from 'react';
-import Chance from 'chance';
-import { assert } from 'chai';
-import { shallow } from 'enzyme';
-import sinon from 'sinon';
-import { render, fireEvent } from '@testing-library/react';
-import { RouterContext } from 'next/dist/next-server/lib/router-context';
-import SignIn from './signIn';
+import React from 'react'
+import Chance from 'chance'
+import { assert } from 'chai'
+import { shallow } from 'enzyme'
+import sinon from 'sinon'
+import { render, fireEvent } from '@testing-library/react'
+import { useRouter } from 'next/router'
+
+import SignIn from './signIn'
+
+jest.mock('next/router')
 
 describe('Sign In', () => {
-    const chance = new Chance();
+	const chance = new Chance()
 
-    it('should render', () => {
-        const user = {};
-        const wrapper = shallow(<SignIn signInStore={user} />);
+	beforeEach(() => {
+		jest.mocked(useRouter).mockReturnValue({
+			push: jest.fn(),
+		})
+	})
 
-        assert.isTrue(wrapper.find('.sign-in').exists());
-        assert.isFalse(wrapper.find('.alert__error').exists());
-    });
+	it('should render', () => {
+		const user = {}
+		const wrapper = shallow(<SignIn signInStore={user} />)
 
-    it('should show sign in error message if there is one', () => {
-        const errorMessage = chance.word();
-        const user = { errorMessage };
-        const wrapper = shallow(<SignIn signInStore={user} />);
+		assert.isTrue(wrapper.find('.sign-in').exists())
+		assert.isFalse(wrapper.find('.alert__error').exists())
+	})
 
-        assert.isTrue(wrapper.find('.alert__error').exists());
-        assert.equal(errorMessage, wrapper.find('.alert__error strong').text());
-    });
+	it('should show sign in error message if there is one', () => {
+		const errorMessage = chance.word()
+		const user = { errorMessage }
+		const wrapper = shallow(<SignIn signInStore={user} />)
 
-    it('should keep user name in state', () => {
-        const user = {};
-        const value = chance.word();
-        const wrapper = shallow(<SignIn signInStore={user} />);
-        const { getByLabelText } = render(<SignIn signInStore={user} />);
-        const userNameInputDummy = wrapper.find('#username');
-        const userNameInput = getByLabelText('Username:');
+		assert.isTrue(wrapper.find('.alert__error').exists())
+		assert.equal(errorMessage, wrapper.find('.alert__error strong').text())
+	})
 
-        // Simulate for firing the handler, fireEvent for checking state.
-        userNameInputDummy.simulate('change', { target: { value } });
-        fireEvent.change(userNameInput, { target: { value } });
+	it('should keep user name in state', () => {
+		const user = {}
+		const value = chance.word()
+		const wrapper = shallow(<SignIn signInStore={user} />)
+		const { getByLabelText } = render(<SignIn signInStore={user} />)
+		const userNameInputDummy = wrapper.find('#username')
+		const userNameInput = getByLabelText('Username:')
 
-        assert.equal(userNameInput.value, value);
-    });
+		// Simulate for firing the handler, fireEvent for checking state.
+		userNameInputDummy.simulate('change', { target: { value } })
+		fireEvent.change(userNameInput, { target: { value } })
 
-    it('should keep user name in password', () => {
-        const user = {};
-        const value = chance.word();
-        const wrapper = shallow(<SignIn signInStore={user} />);
-        const { getByLabelText } = render(<SignIn signInStore={user} />);
-        const passwordInputDummy = wrapper.find('#password');
-        const passwordInput = getByLabelText('Password:');
+		assert.equal(userNameInput.value, value)
+	})
 
-        // Simulate for firing the handler, fireEvent for checking state.
-        passwordInputDummy.simulate('change', { target: { value } });
-        fireEvent.change(passwordInput, { target: { value } });
+	it('should keep user name in password', () => {
+		const user = {}
+		const value = chance.word()
+		const wrapper = shallow(<SignIn signInStore={user} />)
+		const { getByLabelText } = render(<SignIn signInStore={user} />)
+		const passwordInputDummy = wrapper.find('#password')
+		const passwordInput = getByLabelText('Password:')
 
-        assert.equal(passwordInput.value, value);
-    });
+		// Simulate for firing the handler, fireEvent for checking state.
+		passwordInputDummy.simulate('change', { target: { value } })
+		fireEvent.change(passwordInput, { target: { value } })
 
-    it('should be able to sign in a user', () => {
-        const user = {};
-        const dispatch = sinon.spy();
-        const preventDefault = sinon.spy();
-        const wrapper = shallow(<SignIn signInStore={user} dispatch={dispatch} />);
-        const form = wrapper.find('form');
+		assert.equal(passwordInput.value, value)
+	})
 
-        form.simulate('submit', { preventDefault });
+	it('should be able to sign in a user', () => {
+		const user = {}
+		const dispatch = sinon.spy()
+		const preventDefault = sinon.spy()
+		const wrapper = shallow(<SignIn signInStore={user} dispatch={dispatch} />)
+		const form = wrapper.find('form')
 
-        assert.isTrue(dispatch.calledOnce);
-        assert.isTrue(preventDefault.calledOnce);
-    });
+		form.simulate('submit', { preventDefault })
 
-    it('should not be able to sign in a user if a pending form submit is already in progress', () => {
-        const user = { pending: true };
-        const dispatch = sinon.spy();
-        const preventDefault = sinon.spy();
-        const wrapper = shallow(<SignIn signInStore={user} dispatch={dispatch} />);
-        const form = wrapper.find('form');
+		assert.isTrue(dispatch.calledOnce)
+		assert.isTrue(preventDefault.calledOnce)
+	})
 
-        form.simulate('submit', { preventDefault });
+	it('should not be able to sign in a user if a pending form submit is already in progress', () => {
+		const user = { pending: true }
+		const dispatch = sinon.spy()
+		const preventDefault = sinon.spy()
+		const wrapper = shallow(<SignIn signInStore={user} dispatch={dispatch} />)
+		const form = wrapper.find('form')
 
-        assert.isFalse(dispatch.called);
-        assert.isTrue(preventDefault.calledOnce);
-    });
+		form.simulate('submit', { preventDefault })
 
-    it('should be able to redirect to root of website after successful sign in', () => {
-        const signedInUser = { needsRedirect: true };
-        const push = sinon.spy();
-        const mockRouter = { push };
-        render(
-          <RouterContext.Provider value={mockRouter}>
-            <SignIn signInStore={signedInUser} />
-          </RouterContext.Provider>
-        );
+		assert.isFalse(dispatch.called)
+		assert.isTrue(preventDefault.calledOnce)
+	})
 
-        assert.isTrue(push.calledOnce);
-        assert.isTrue(push.calledWith('/'));
-    });
-});
+	it('should be able to redirect to root of website after successful sign in', () => {
+		const signedInUser = { needsRedirect: true }
+		const push = sinon.spy()
+
+		jest.mocked(useRouter).mockReturnValue({ push })
+
+		render(<SignIn signInStore={signedInUser} />)
+
+		assert.isTrue(push.calledOnce)
+		assert.isTrue(push.calledWith('/'))
+	})
+})

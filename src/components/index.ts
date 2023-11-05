@@ -1,5 +1,5 @@
-import Head from './head/head';
+import Head from './head/head'
 
-export { Head };
+export { Head }
 
-export default null;
+export default null

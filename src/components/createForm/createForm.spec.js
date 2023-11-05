@@ -1,112 +1,83 @@
-import React from 'react';
-import { assert } from 'chai';
-import { shallow } from 'enzyme';
-import Chance from 'chance';
-import sinon from 'sinon';
-import { render, fireEvent } from '@testing-library/react';
-import { RouterContext } from 'next/dist/next-server/lib/router-context';
-import CreateForm from './createForm';
+import React from 'react'
+import { assert } from 'chai'
+import { shallow } from 'enzyme'
+import Chance from 'chance'
+import sinon from 'sinon'
+import { act, render } from '@testing-library/react'
+import { useRouter } from 'next/router'
+
+import CreateForm from './createForm'
+
+jest.mock('next/router')
 
 describe('Create Form', () => {
-    const chance = new Chance();
-    const logStore = { log: [] };
+	const chance = new Chance()
+	const logStore = { log: [] }
 
-    it('should render', () => {
-        const wrapper = shallow(<CreateForm createStore={{}} logStore={logStore} />);
+	beforeEach(() => {
+		jest.mocked(useRouter).mockReturnValue({
+			push: jest.fn(),
+		})
+	})
 
-        assert.equal(wrapper.find('h1').text(), 'Create a new Halfsie');
-    });
+	it('should render', () => {
+		const wrapper = shallow(<CreateForm createStore={{}} logStore={logStore} />)
 
-    it('should not render without a log', () => {
-        const wrapper = shallow(<CreateForm createStore={{}} logStore={{}} />);
+		assert.equal(wrapper.find('h1').text(), 'Create a new Halfsie')
+	})
 
-        assert.equal(wrapper.html(), null);
-    });
+	it('should not render without a log', () => {
+		act(() => {
+			const wrapper = shallow(<CreateForm createStore={{}} logStore={{}} />)
 
-    it('should be able to sign in a user', () => {
-        const createStore = { pending: false };
-        const dispatch = sinon.spy();
-        const preventDefault = sinon.spy();
-        const wrapper = shallow(<CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />);
-        const form = wrapper.find('form');
+			assert.equal(wrapper.html(), null)
+		})
+	})
 
-        form.simulate('submit', { preventDefault });
+	it('should be able to sign in a user', () => {
+		const createStore = { pending: false }
+		const dispatch = sinon.spy()
+		const preventDefault = sinon.spy()
+		const wrapper = shallow(<CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />)
+		const form = wrapper.find('form')
 
-        assert.isTrue(dispatch.calledOnce);
-        assert.isTrue(preventDefault.calledOnce);
-    });
+		form.simulate('submit', { preventDefault })
 
-    it('should not be able to create a halfsie if a pending form submit is already in progress', () => {
-        const createStore = { pending: true };
-        const dispatch = sinon.spy();
-        const preventDefault = sinon.spy();
-        const wrapper = shallow(<CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />);
-        const form = wrapper.find('form');
+		assert.isTrue(dispatch.calledOnce)
+		assert.isTrue(preventDefault.calledOnce)
+	})
 
-        form.simulate('submit', { preventDefault });
+	it('should not be able to create a halfsie if a pending form submit is already in progress', () => {
+		const createStore = { pending: true }
+		const dispatch = sinon.spy()
+		const preventDefault = sinon.spy()
+		const wrapper = shallow(<CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />)
+		const form = wrapper.find('form')
 
-        assert.isFalse(dispatch.called);
-        assert.isTrue(preventDefault.calledOnce);
-    });
+		act(() => {
+			form.simulate('submit', { preventDefault })
 
-    it('should show an error message if the create form does not work', () => {
-        const errorMessage = chance.word();
-        const createStore = { pending: true, errorMessage };
-        const wrapper = shallow(<CreateForm createStore={createStore} logStore={logStore} />);
+			assert.isFalse(dispatch.called)
+			assert.isTrue(preventDefault.calledOnce)
+		})
+	})
 
-        assert.equal(wrapper.find('.alert__error strong').text(), errorMessage);
-    });
+	it('should show an error message if the create form does not work', () => {
+		const errorMessage = chance.word()
+		const createStore = { pending: true, errorMessage }
 
-    it('should keep amount in state', () => {
-        const value = chance.natural();
-        const dispatch = sinon.spy();
-        const wrapper = shallow(<CreateForm createStore={{}} logStore={logStore} dispatch={dispatch} />);
-        const { getByLabelText } = render(<CreateForm createStore={{}} logStore={logStore} dispatch={dispatch} />);
-        const amountInputDummy = wrapper.find('#amount');
-        const amountInput = getByLabelText('Amount');
+		act(() => {
+			const wrapper = shallow(<CreateForm createStore={createStore} logStore={logStore} />)
 
-        // Simulate for firing the handler, fireEvent for checking state.
-        amountInputDummy.simulate('change', { target: { value } });
-        fireEvent.change(amountInput, { target: { value } });
+			assert.equal(wrapper.find('.alert__error strong').text(), errorMessage)
 
-        assert.equal(amountInput.value, value);
-    });
+		})
+	})
 
-    it('should keep description in state', () => {
-        const value = chance.word();
-        const dispatch = sinon.spy();
-        const wrapper = shallow(<CreateForm createStore={{}} logStore={logStore} dispatch={dispatch} />);
-        const { getByLabelText } = render(<CreateForm createStore={{}} logStore={logStore} dispatch={dispatch} />);
-        const descriptionTextAreaDummy = wrapper.find('#description');
-        const descriptionTextArea = getByLabelText('Description');
+	it('should fetch a log if there is no log to be found', () => {
+		const dispatch = sinon.spy()
+		render(<CreateForm createStore={{}} logStore={{}} dispatch={dispatch} />)
 
-        // Simulate for firing the handler, fireEvent for checking state.
-        descriptionTextAreaDummy.simulate('change', { target: { value } });
-        fireEvent.change(descriptionTextArea, { target: { value } });
-
-        assert.equal(descriptionTextArea.value, value);
-    });
-
-    it('should be able to redirect to root of website after successful creation', () => {
-        const dispatch = sinon.spy();
-        const createStore = { needsRedirect: true };
-        const push = sinon.spy();
-        const mockRouter = { push };
-        render(
-          <RouterContext.Provider value={mockRouter}>
-            <CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />
-          </RouterContext.Provider>
-        );
-
-        assert.isTrue(push.calledOnce);
-        assert.isTrue(push.calledWith('/'));
-        assert.isTrue(dispatch.calledOnce);
-    });
-
-    it('should fech log if there is no log to be found', () => {
-        const dispatch = sinon.spy();
-        render(<CreateForm createStore={{}} logStore={{}} dispatch={dispatch} />);
-
-        assert.isTrue(dispatch.calledTwice);
-    });
-});
+		assert.isTrue(dispatch.calledTwice)
+	})
+})

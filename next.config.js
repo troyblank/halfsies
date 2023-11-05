@@ -1,7 +1,3 @@
 module.exports = {
-    exportPathMap: () => ({
-        '/': { page: '/' },
-        '/create': { page: '/create' },
-        '/signin': { page: '/signIn' }
-    })
-};
+	webpack5: true,
+}

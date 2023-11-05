@@ -1,22 +1,22 @@
-const AWS = require('aws-sdk');
+const AWS = require('aws-sdk')
 
-const CISP = new AWS.CognitoIdentityServiceProvider();
+const CISP = new AWS.CognitoIdentityServiceProvider()
 
 function getUser(AccessToken) {
-    return new Promise((resolve) => {
-        CISP.getUser({ AccessToken }, (err, result) => {
-            let errorMessage;
-            let user;
+	return new Promise((resolve) => {
+		CISP.getUser({ AccessToken }, (err, result) => {
+			let errorMessage
+			let user
 
-            if (err) {
-                errorMessage = err.message;
-            } else {
-                user = result;
-            }
+			if (err) {
+				errorMessage = err.message
+			} else {
+				user = result
+			}
 
-            resolve({ user, errorMessage });
-        });
-    });
+			resolve({ user, errorMessage })
+		})
+	})
 }
 
-module.exports = getUser;
+module.exports = getUser
