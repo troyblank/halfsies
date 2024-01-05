@@ -1,22 +1,33 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import classnames from 'classnames'
+import { UserType } from '../../types'
+import { useAuth } from '../../contexts'
+import { HOME_PATH } from '../../utils'
 import { AlertGraphic, LogoGraphic } from '../../graphics'
-import { signInUser } from './actions'
 
-export const SignInComponent = ({ dispatch, signInStore }) => {
-	const { errorMessage, pending } = signInStore
-	const router = useRouter()
-
-	const [userName, setUserName] = useState('')
-	const [password, setPassword] = useState('')
-
-	useEffect(() => {
-		if (signInStore.needsRedirect) router.push('/')
-	}, [signInStore.needsRedirect])
+export const SignInComponent = () => {
+	const { push } = useRouter()
+	const { attemptToSignIn } = useAuth()
+	const [userName, setUserName] = useState<string>('')
+	const [password, setPassword] = useState<string>('')
+	const [pending, setPending] = useState<boolean>(false)
+	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
 	const onSignIn = (e) => {
-		if (!pending) dispatch(signInUser({ userName, password }))
+		setPending(true)
+
+		attemptToSignIn(userName, password).then((user: UserType | null) => {
+			if (user !== null && user?.isValid) {
+				push(HOME_PATH)
+			} else {
+				setErrorMessage('User is invalid.')
+			}
+		}).catch((error) => {
+			setErrorMessage(String(error))
+		}).finally(() => {
+			setPending(false)
+		})
 
 		e.preventDefault()
 	}
@@ -35,6 +46,7 @@ export const SignInComponent = ({ dispatch, signInStore }) => {
 						id={'username'}
 						type={'text'}
 						name={'username'}
+						aria-label={'username'}
 						value={userName}
 						onChange={(e) => setUserName(e.target.value)}
 					/>
@@ -45,6 +57,7 @@ export const SignInComponent = ({ dispatch, signInStore }) => {
 						id={'password'}
 						type={'password'}
 						name={'password'}
+						aria-label={'password'}
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 					/>
@@ -62,6 +75,7 @@ export const SignInComponent = ({ dispatch, signInStore }) => {
 						className={classnames({ pending })}
 						type={'submit'}
 						value={'Login'}
+						aria-label={'submit'}
 						data-pending-value={''}
 					/>
 				</div>

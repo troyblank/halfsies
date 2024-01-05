@@ -11,7 +11,6 @@ export type AttemptToSignInType = (userName: string, password: string) => Promis
 export type AttemptToCompleteNewUserType = (password: string, attributes: RequiredNewUserAttributesType) => Promise<any>
 
 export type AuthContextType = {
-    attemptToCompleteNewUser: AttemptToCompleteNewUserType
     attemptToSignIn: AttemptToSignInType,
     user: UserType | null,
 }

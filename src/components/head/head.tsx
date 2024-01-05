@@ -1,9 +1,9 @@
-import React from 'react'
-import Head from 'next/head'
+import React, { FunctionComponent } from 'react'
+import NextHead from 'next/head'
 
-export default function HeadComponent() {
+export const Head: FunctionComponent = () => {
 	return (
-		<Head>
+		<NextHead>
 			<meta httpEquiv={'Content-Type'} content={'text/html; charset=utf-8'} />
 			<meta name={'viewport'} content={'width=device-width, initial-scale=1'} />
 			<title>Halfsies</title>
@@ -22,6 +22,6 @@ export default function HeadComponent() {
 			<link rel={'image_src'} type={'image/jpeg'} href={'/static/icons/facebook.jpg'} />
 			{/* Landscape share social media icon */}
 			<meta property={'og:image'} content={'/static/icons/social-1200x627.png'} />
-		</Head>
+		</NextHead>
 	)
 }

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
+import { useAuth } from '../../contexts'
 import { LogoGraphic } from '../../graphics'
 
-export default function HeadComponent({ authStore }) {
-	const { userName } = authStore
+export const Header: FunctionComponent = () => {
+	const { user } = useAuth()
 
 	return (
 		<header>
@@ -10,7 +11,7 @@ export default function HeadComponent({ authStore }) {
 				<div className={'icon-logo'}>
 					<LogoGraphic />
 				</div>
-				<div className={'username'}>{ userName }</div>
+				<div className={'username'}>{ user.userName }</div>
 			</div>
 		</header>
 	)

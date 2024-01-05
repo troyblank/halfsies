@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
+import { useAuth } from '../../contexts'
 import LogItem from './logItem'
 import { getLog } from './actions'
 
-export default function LogComponent({ logStore, authStore, dispatch }) {
+export default function LogComponent({ logStore, dispatch }) {
 	const { log } = logStore
-	const { userName } = authStore
+	const { user } = useAuth()
+
+	const { userName } = user
 
 	useEffect(() => {
 		if (!log) dispatch(getLog())

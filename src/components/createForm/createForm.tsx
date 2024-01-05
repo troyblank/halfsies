@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import classnames from 'classnames'
+import { useAuth } from '../../contexts'
 import { createHalfsie, resetCreateForm } from './actions'
 import { AlertGraphic } from '../../graphics'
 import { getLog } from '../log/actions'
 
-export const CreateFormComponent = ({ createStore, logStore, dispatch }) => {
+export const CreateFormComponent = ({
+	createStore,
+	logStore,
+	dispatch,
+}) => {
+	const { user } = useAuth()
 	const { pending, errorMessage } = createStore
 	const { log } = logStore
 	const router = useRouter()
@@ -25,7 +31,7 @@ export const CreateFormComponent = ({ createStore, logStore, dispatch }) => {
 	}, [createStore.needsRedirect])
 
 	const onCreate = (e) => {
-		if (!pending) dispatch(createHalfsie({ amount: Number(amount), description }))
+		if (!pending) dispatch(createHalfsie(user, { amount: Number(amount), description }))
 
 		e.preventDefault()
 	}
@@ -35,7 +41,7 @@ export const CreateFormComponent = ({ createStore, logStore, dispatch }) => {
 	return (
 		<section className={'page-wrap'}>
 			<h1>Create a new Halfsie</h1>
-			<form onSubmit={onCreate}>
+			<form method={'post'} onSubmit={onCreate}>
 				<div>
 					<label htmlFor={'amount'}>Amount</label>
 					<div>
@@ -71,7 +77,12 @@ export const CreateFormComponent = ({ createStore, logStore, dispatch }) => {
 					</div>
 				}
 				<div>
-					<input type={'submit'} value={'Submit'} className={classnames({ pending })} />
+					<input
+						type={'submit'}
+						value={'Submit'}
+						className={classnames({ pending })}
+						aria-label={'submit'}
+					/>
 					<Link href={'/'}>
 						<button className={'btn btn--alt'}>Cancel</button>
 					</Link>

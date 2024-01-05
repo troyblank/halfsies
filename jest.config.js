@@ -11,6 +11,7 @@ const customJestConfig = {
 	setupFilesAfterEnv: [
 		'<rootDir>/testSetup/url.js',
 		'<rootDir>/testSetup/react.js',
+		'<rootDir>/config/jest.js',
 	],
 	collectCoverage: true,
 	coverageReporters: ['lcov', 'text-summary'],

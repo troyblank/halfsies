@@ -1,0 +1,9 @@
+[[redirects]]
+from = "https://halfsies.netlify.com/*"
+to = "https://halfsies.troyblank.com/:splat"
+status = 301
+
+[[redirects]]
+from = "https://halfsies.netlify.app/*"
+to = "https://halfsies.troyblank.com/:splat"
+status = 301

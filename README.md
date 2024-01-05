@@ -1,5 +1,6 @@
 # Halfsies
 
+
 [![Build Status](https://travis-ci.org/troyblank/halfsies.svg?branch=master)](https://travis-ci.org/troyblank/halfsies)
 [![Coverage Status](https://coveralls.io/repos/github/troyblank/halfsies/badge.svg?branch=master)](https://coveralls.io/github/troyblank/halfsies?branch=master)
 
@@ -11,11 +12,11 @@ You will need two users to use the app. This is done by creating two users in AW
 You will then want to install all node packages run:
 
     npm install
-  
+
 To build all front end assets run:
 
     npm run build
-  
+
 In order to run the project run:
 
     npm start
@@ -23,7 +24,7 @@ In order to run the project run:
 To lint and test run:
 
     npm test
-    
+
 ##License
 
 (The MIT License)
