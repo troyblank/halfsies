@@ -9,7 +9,6 @@ npm-debug.log
 ########
 .next
 dist
-out
 
 # SASS #
 ########

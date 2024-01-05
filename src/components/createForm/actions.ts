@@ -1,4 +1,6 @@
-import { getUpToDateToken } from '../auth/actions'
+
+/* istanbul ignore next */
+import { UserType } from '../../types'
 import { balanceReceived } from '../balance/actions'
 import { addLog } from '../log/actions'
 import { getAPIURL } from '../../util/apiCommunication'
@@ -13,10 +15,10 @@ export const createHalfsieError = (errorMessage) => ({ type: CREATE_HALFSIE_ERRO
 export const createHalfsieSuccess = () => ({ type: CREATE_HALFSIE_SUCCESS })
 export const resetCreateForm = () => ({ type: CREATE_HALFSIE_RESET })
 
-export const createHalfsie = (formData) => (
+export const createHalfsie = (user: UserType, formData) => (
 	/* istanbul ignore next */
-	(dispatch, getState) => {
-		const { authStore } = getState()
+	(dispatch) => {
+		const { userName, jwtToken } = user
 		const log = {
 			date: new Date().toUTCString(),
 			...formData,
@@ -24,34 +26,26 @@ export const createHalfsie = (formData) => (
 
 		dispatch(createHalfsiePending())
 
-		getUpToDateToken(dispatch, authStore)
-			.then((accessToken) => {
-				const body = { accessToken, log }
+		const body = { accessToken: jwtToken, log }
 
-				fetch(`${getAPIURL()}/createHalfsie`, {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(body),
-				})
-					.then((response) => {
-						if (response.ok) {
-							return response.json()
-						}
+		fetch(`${getAPIURL()}/createHalfsie`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(body),
+		}).then((response) => {
+			if (response.ok) {
+				return response.json()
+			}
 
-						throw new Error('There was an issue saving your Halfise.')
-					})
-					.then((responseBody) => {
-						const { balance } = responseBody
-						const { userName: user } = authStore
+			throw new Error('There was an issue saving your Halfise.')
+		}).then((responseBody) => {
+			const { balance } = responseBody
 
-						dispatch(addLog({ user, ...log }))
-						dispatch(balanceReceived(balance))
-						dispatch(createHalfsieSuccess())
-					}).catch(() => {
-						dispatch(createHalfsieError('There was an issue saving your Halfise.'))
-					})
-			}).catch(() => {
-				dispatch(createHalfsieError('There was an issue saving your Halfise.'))
-			})
+			dispatch(addLog({ user: userName, ...log }))
+			dispatch(balanceReceived(balance))
+			dispatch(createHalfsieSuccess())
+		}).catch(() => {
+			dispatch(createHalfsieError('There was an issue saving your Halfise.'))
+		})
 	}
 )
