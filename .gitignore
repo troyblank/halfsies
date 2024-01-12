@@ -15,6 +15,10 @@ dist
 .sass-cache
 *.css.map
 
+# TYPESCRIPT #
+########
+tsconfig.tsbuildinfo
+
 # OS GENERATED FILES #
 ######################
 .history
