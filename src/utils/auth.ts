@@ -1,9 +1,9 @@
-import { Auth, CognitoUser } from '@aws-amplify/auth'
-import { CognitoUserSessionType, UserType } from '../types'
+import { Auth } from '@aws-amplify/auth'
+import { CognitoUserType, CognitoUserSessionType, UserType } from '../types'
 
 export const NEEDS_NEW_PASSWORD_CHALLENGE_NAME = 'NEW_PASSWORD_REQUIRED'
 
-export const extractUserInformationFromCognito = (user: any, refreshedAccessToken?: string): UserType => {
+export const extractUserInformationFromCognito = (user: CognitoUserType, refreshedAccessToken?: string): UserType => {
 	const {
 		attributes,
 		challengeName,
@@ -26,12 +26,11 @@ export const extractUserInformationFromCognito = (user: any, refreshedAccessToke
 	}
 }
 
-// if this works need to remove tokens from the context and update the admin repo with this.
 export const getRefreshedAuthenticationSession = async (AWSAmplifyAuth: typeof Auth): Promise<UserType | null> => {
 	let user: UserType | null = null
 
 	try {
-		const cognitoUser: CognitoUser = await AWSAmplifyAuth.currentAuthenticatedUser()
+		const cognitoUser: CognitoUserType = await AWSAmplifyAuth.currentAuthenticatedUser()
 		// currentSession takes care of refreshing the token if it is expired.
 		const { accessToken }: CognitoUserSessionType = await AWSAmplifyAuth.currentSession() as unknown as CognitoUserSessionType
 

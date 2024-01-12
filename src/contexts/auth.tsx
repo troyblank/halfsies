@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState, ReactElement } from 'react'
-import { CognitoUser } from '@aws-amplify/auth'
 import { Auth } from 'aws-amplify'
 import {
 	AuthContextType,
 	AttemptToSignInType,
+	CognitoUserType,
 	UserType,
 } from '../types'
 import { extractUserInformationFromCognito } from '../utils'
@@ -25,7 +25,7 @@ export const AuthProvider: React.FC<PropsType> = ({ user: userToSet, children })
 		let extractedUser: UserType | null = null
 
 		try {
-			const signedIncognitoUser: CognitoUser = await Auth.signIn(userName, password)
+			const signedIncognitoUser: CognitoUserType = await Auth.signIn(userName, password)
 			extractedUser = extractUserInformationFromCognito(signedIncognitoUser)
 
 			setUser(extractedUser)
