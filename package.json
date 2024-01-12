@@ -50,8 +50,7 @@
         "typescript": "5.2.2"
     },
     "devDependencies": {
-        "@babel/register": "7.22.15",
-        "coveralls": "3.0.14"
+        "@babel/register": "7.22.15"
     },
     "author": "Troy Blank",
     "license": "BSD-3-Clause"

@@ -1,5 +1,5 @@
 
-/* istanbul ignore next */
+/* istanbul ignore file */
 import { UserType } from '../../types'
 import { balanceReceived } from '../balance/actions'
 import { addLog } from '../log/actions'
