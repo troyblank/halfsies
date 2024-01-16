@@ -5,25 +5,34 @@ import {
 	isUserAuthenticated,
 	NEEDS_NEW_PASSWORD_CHALLENGE_NAME,
 } from './auth'
-import { UserType, REQUIRED_USER_FIELDS } from '../types'
+import { CognitoUserType, UserType, REQUIRED_USER_FIELDS } from '../types'
 
 describe('Auth Utils', () => {
 	const chance = new Chance()
 
 	it('should extract a user object that needs a new password and required fields', () => {
 		const username = chance.name()
-		const cognitoLikeUser: any = {
+		const jwtToken: string = chance.guid()
+		const cognitoLikeUser: CognitoUserType = {
+			attributes: {
+				given_name: chance.first(),
+				family_name: chance.last(),
+			},
 			challengeName: NEEDS_NEW_PASSWORD_CHALLENGE_NAME,
 			challengeParam: {
-				requiredAttributes: Object.values(REQUIRED_USER_FIELDS),
+				requiredAttributes: Object.values(REQUIRED_USER_FIELDS) as REQUIRED_USER_FIELDS[],
+			},
+			signInUserSession: {
+				idToken: {
+					jwtToken,
+				},
 			},
 			username,
 		}
-
 		expect(extractUserInformationFromCognito(cognitoLikeUser)).toStrictEqual({
 			fullName: ``,
 			isValid: false,
-			jwtToken: undefined,
+			jwtToken,
 			needsNewPassword: true,
 			requiredAttributes: Object.values(REQUIRED_USER_FIELDS),
 			userName: username,
@@ -35,7 +44,7 @@ describe('Auth Utils', () => {
 		const firstName: string = chance.first()
 		const lastName: string = chance.last()
 		const jwtToken: string = chance.guid()
-		const cognitoLikeUser: any = {
+		const cognitoLikeUser: CognitoUserType = {
 			attributes: {
 				given_name: firstName,
 				family_name: lastName,

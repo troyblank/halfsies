@@ -7,7 +7,7 @@ import { Head, Header } from '../components'
 import { getServerSidePropsOrRedirect } from '../utils'
 import { Balance, Log } from '../components/connections'
 
-export const getServerSideProps: any = async (serverSideContext: GetServerSidePropsContext) => getServerSidePropsOrRedirect(serverSideContext)
+export const getServerSideProps = async (serverSideContext: GetServerSidePropsContext) => getServerSidePropsOrRedirect(serverSideContext)
 
 export const HomePage = ({ user }: { user: UserType }) => {
 	const users = ['troy', 'lurita']

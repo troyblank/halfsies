@@ -1,4 +1,3 @@
-import { assert } from 'chai'
 import Chance from 'chance'
 import {
 	LOG_RECEIVED,
@@ -15,17 +14,17 @@ describe('Log Actions', () => {
 		const log = [chance.word()]
 		const action = logReceived(log)
 
-		assert.deepEqual(action, { type: LOG_RECEIVED, log })
+		expect(action).toStrictEqual({ type: LOG_RECEIVED, log })
 	})
 
 	it('should be able to get a log', () => {
-		assert.equal('function', typeof getLog())
+		expect(typeof getLog()).toEqual('function')
 	})
 
 	it('should be able to add a log', () => {
 		const log = {}
 		const action = addLog(log)
 
-		assert.deepEqual(action, { type: ADD_LOG, log })
+		expect(action).toStrictEqual({ type: ADD_LOG, log })
 	})
 })

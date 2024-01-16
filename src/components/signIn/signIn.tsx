@@ -14,7 +14,7 @@ export const SignInComponent = () => {
 	const [pending, setPending] = useState<boolean>(false)
 	const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
-	const onSignIn = (e) => {
+	const onSignIn = (event) => {
 		setPending(true)
 
 		attemptToSignIn(userName, password).then((user: UserType | null) => {
@@ -29,7 +29,7 @@ export const SignInComponent = () => {
 			setPending(false)
 		})
 
-		e.preventDefault()
+		event.preventDefault()
 	}
 
 	return (

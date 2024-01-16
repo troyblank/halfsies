@@ -1,3 +1,4 @@
+// @ts-nocheck - reducer code is not typed and is planned to be removed
 import { LOG_RECEIVED, ADD_LOG } from './actions'
 import { LogState } from './interfaces'
 

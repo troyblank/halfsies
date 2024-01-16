@@ -7,7 +7,7 @@ import { getServerSidePropsOrRedirect } from '../utils'
 import { Head } from '../components'
 import { CreateForm } from '../components/connections'
 
-export const getServerSideProps: any = async (serverSideContext: GetServerSidePropsContext) => getServerSidePropsOrRedirect(serverSideContext)
+export const getServerSideProps = async (serverSideContext: GetServerSidePropsContext) => getServerSidePropsOrRedirect(serverSideContext)
 
 export default function SignInPage({ user }: { user: UserType }) {
 	return (

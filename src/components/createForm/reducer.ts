@@ -1,3 +1,4 @@
+// @ts-nocheck - reducer code is not typed and is planned to be removed
 import {
 	CREATE_HALFSIE_PENDING,
 	CREATE_HALFSIE_ERROR,

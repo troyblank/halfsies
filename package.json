@@ -2,15 +2,14 @@
     "name": "Halfsies",
     "version": "1.1.0",
     "scripts": {
-        "start": "next -p 8888",
+        "start": "npm run clean && npm run watch",
+		"clean": "rm -rf dist && rm -rf coverage",
+		"watch": "next dev",
         "build": "next build",
-        "test": "npm run lint && npm run unit",
-        "test:once": "npm run lint && npm run unit:once",
-        "unit": "jest --watch --coverage",
-        "unit:once": "jest --coverage",
-        "lint": "tsc && npm run eslint && npm run sasslint",
-        "eslint": "eslint './{pages,src}/**/*.{js,ts,tsx}'",
-        "eslintFix": "eslint --fix './{pages,src}/**/*.{js,ts,tsx}'",
+        "test": "npm run lint && npm run unit:once",
+        "unit": "jest --watch",
+        "unit:once": "jest --maxWorkers=25%",
+        "lint": "tsc --noEmit && eslint src --ext .ts,.tsx && npm run sasslint",
         "sasslint": "./node_modules/sass-lint/bin/sass-lint.js -c ./node_modules/@troyblank/sasslint-config-troyblank/.sass-lint.yml './src/**/*.scss' -v -q"
     },
     "dependencies": {
@@ -22,19 +21,16 @@
         "@testing-library/react-hooks": "8.0.1",
         "@testing-library/user-event": "14.5.1",
         "@troyblank/eslint-config-troyblank": "2.4.0",
-        "@troyblank/mocha-base-troyblank": "1.0.0",
         "@troyblank/sasslint-config-troyblank": "1.0.0",
         "@types/babel__traverse": "7.17.1",
         "@types/chance": "1.1.6",
         "@types/jest": "29.5.8",
         "@types/node": "14.0.26",
-        "@types/react": "16.9.12",
-        "@wojtekmaj/enzyme-adapter-react-17": "0.8.0",
+		"@types/react": "17.0.14",
         "amazon-cognito-identity-js": "4.2.1",
         "aws-amplify": "5.3.11",
         "chance": "1.1.11",
         "classnames": "2.2.6",
-        "enzyme": "3.11.0",
         "jest": "29.7.0",
         "jest-environment-jsdom": "29.7.0",
         "js-cookie": "2.2.1",
@@ -47,7 +43,7 @@
         "redux": "4.0.5",
         "redux-thunk": "2.3.0",
         "sass": "1.69.5",
-        "typescript": "5.2.2"
+        "typescript": "5.3.3"
     },
     "devDependencies": {
         "@babel/register": "7.22.15"

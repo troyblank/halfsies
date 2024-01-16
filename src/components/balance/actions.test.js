@@ -1,4 +1,4 @@
-import { assert } from 'chai'
+// @ts-nocheck - reducer code is not typed and is planned to be removed
 import Chance from 'chance'
 import {
 	BALANCE_RECEIVED,
@@ -13,10 +13,10 @@ describe('Balance Actions', () => {
 		const amount = chance.natural()
 		const action = balanceReceived(amount)
 
-		assert.deepEqual(action, { type: BALANCE_RECEIVED, amount })
+		expect(action).toStrictEqual({ type: BALANCE_RECEIVED, amount })
 	})
 
 	it('should be able to get a balance', () => {
-		assert.equal('function', typeof getBalance())
+		expect(typeof getBalance()).toEqual('function')
 	})
 })

@@ -7,8 +7,8 @@ export type CognitoUserType = {
 		family_name: string,
 	},
 	challengeName: string,
-	challengeParam: {
-		requiredAttributes: REQUIRED_USER_FIELDS[],
+	challengeParam?: {
+		requiredAttributes?: REQUIRED_USER_FIELDS[],
 	},
 	signInUserSession: { idToken: { jwtToken: string } },
 	username: string,

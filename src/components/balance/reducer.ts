@@ -1,3 +1,4 @@
+// @ts-nocheck - reducer code is not typed and is planned to be removed
 import { BALANCE_RECEIVED } from './actions'
 import { BalanceState } from './interfaces'
 

@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<PropsType> = ({ user: userToSet, children })
 
 			setUser(extractedUser)
 		} catch (error) {
-			throw new Error(error)
+			throw new Error(String(error))
 		}
 
 		return extractedUser
