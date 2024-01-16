@@ -1,4 +1,3 @@
-import { assert } from 'chai'
 import Chance from 'chance'
 import reducer, { initialState } from './reducer'
 import {
@@ -12,15 +11,11 @@ describe('Create Form Reducer', () => {
 	const chance = new Chance()
 
 	it('should return initial state', () => {
-		assert.deepEqual(reducer(undefined, {}), {
-			errorMessage: null,
-			pending: false,
-			needsRedirect: false,
-		})
+		expect(reducer(undefined, {})).toStrictEqual(initialState)
 	})
 
 	it('should handle a create form pending state', () => {
-		assert.deepEqual(reducer(initialState, { type: CREATE_HALFSIE_PENDING }), {
+		expect(reducer(initialState, { type: CREATE_HALFSIE_PENDING })).toStrictEqual({
 			errorMessage: null,
 			pending: true,
 			needsRedirect: false,
@@ -30,7 +25,7 @@ describe('Create Form Reducer', () => {
 	it('should handle a create form error message', () => {
 		const errorMessage = chance.word()
 
-		assert.deepEqual(reducer(initialState, { type: CREATE_HALFSIE_ERROR, errorMessage }), {
+		expect(reducer(initialState, { type: CREATE_HALFSIE_ERROR, errorMessage })).toStrictEqual({
 			errorMessage,
 			pending: false,
 			needsRedirect: false,
@@ -38,7 +33,7 @@ describe('Create Form Reducer', () => {
 	})
 
 	it('should handle when the form needs a redirect', () => {
-		assert.deepEqual(reducer(initialState, { type: CREATE_HALFSIE_SUCCESS }), {
+		expect(reducer(initialState, { type: CREATE_HALFSIE_SUCCESS })).toStrictEqual({
 			errorMessage: null,
 			pending: false,
 			needsRedirect: true,
@@ -52,6 +47,6 @@ describe('Create Form Reducer', () => {
 			needsRedirect: chance.bool(),
 		}
 
-		assert.deepEqual(reducer(dirtyState, { type: CREATE_HALFSIE_RESET }), initialState)
+		expect(reducer(dirtyState, { type: CREATE_HALFSIE_RESET })).toStrictEqual(initialState)
 	})
 })

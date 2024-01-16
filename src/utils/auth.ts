@@ -12,11 +12,10 @@ export const extractUserInformationFromCognito = (user: CognitoUserType, refresh
 		username,
 	} = user
 	const needsNewPassword: boolean = challengeName === NEEDS_NEW_PASSWORD_CHALLENGE_NAME
-	const hasRequiredFieldsToComplete: boolean = challengeParam?.requiredAttributes?.length > 0
+	const hasRequiredFieldsToComplete: boolean = challengeParam?.requiredAttributes ? challengeParam.requiredAttributes.length > 0 : false
 	const isValid: boolean = !needsNewPassword || !hasRequiredFieldsToComplete
 
 	return {
-		// eslint-disable-next-line camelcase
 		fullName: isValid ? `${attributes?.given_name} ${attributes?.family_name}` : '',
 		isValid,
 		jwtToken: refreshedAccessToken ? refreshedAccessToken : signInUserSession?.idToken?.jwtToken,

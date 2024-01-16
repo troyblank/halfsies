@@ -1,3 +1,4 @@
+// @ts-nocheck - reducer code is not typed and is planned to be removed
 import { getAPIURL } from '../../util/apiCommunication'
 
 export const LOG_RECEIVED = 'LOG_RECEIVED'

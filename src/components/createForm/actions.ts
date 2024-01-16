@@ -1,4 +1,5 @@
 
+// @ts-nocheck - reducer code is not typed and is planned to be removed
 /* istanbul ignore file */
 import { UserType } from '../../types'
 import { balanceReceived } from '../balance/actions'

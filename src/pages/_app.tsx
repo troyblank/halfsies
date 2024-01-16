@@ -1,4 +1,5 @@
 import React from 'react'
+import { AppProps } from 'next/app'
 import { Amplify } from 'aws-amplify'
 import { Provider } from 'react-redux'
 import Store from '../store'
@@ -18,7 +19,7 @@ Amplify.configure({
 	ssr: true,
 })
 
-export const App = ({ Component, pageProps }) => (
+export const App = ({ Component, pageProps }: AppProps) => (
 	<Provider store={Store}>
 		<Component {...pageProps} />
 	</Provider>

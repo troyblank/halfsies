@@ -1,7 +1,6 @@
 
 import React from 'react'
-import { assert } from 'chai'
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 import Chance from 'chance'
 import LogItem from './logItem'
 
@@ -9,15 +8,15 @@ describe('Log Item', () => {
 	const chance = new Chance()
 
 	it('should render a negative item', () => {
-		const userName = chance.word()
+		const userName: string = chance.word()
 		const log = {
 			amount: chance.natural(),
 			description: chance.word(),
 			user: `${userName}${chance.word()}`,
 		}
-		const wrapper = shallow(<LogItem log={log} userName={userName} />)
+		const { container } = render(<LogItem log={log} userName={userName} />)
 
-		assert.isTrue(wrapper.find('li').hasClass('negative'))
+		expect(container.firstChild).toHaveClass('negative')
 	})
 
 	it('should render a positive item', () => {
@@ -27,9 +26,10 @@ describe('Log Item', () => {
 			description: chance.word(),
 			user: userName,
 		}
-		const wrapper = shallow(<LogItem log={log} userName={userName} />)
 
-		assert.isFalse(wrapper.find('li').hasClass('negative'))
+		const { container } = render(<LogItem log={log} userName={userName} />)
+
+		expect(container.firstChild).not.toHaveClass('negative')
 	})
 
 	it('should render a negative negative making it positive item', () => {
@@ -39,9 +39,10 @@ describe('Log Item', () => {
 			description: chance.word(),
 			user: `${userName}${chance.word()}`,
 		}
-		const wrapper = shallow(<LogItem log={log} userName={userName} />)
 
-		assert.isFalse(wrapper.find('li').hasClass('negative'))
+		const { container } = render(<LogItem log={log} userName={userName} />)
+
+		expect(container.firstChild).not.toHaveClass('negative')
 	})
 
 	it('should render a positive negative item making it a negative', () => {
@@ -51,8 +52,9 @@ describe('Log Item', () => {
 			description: chance.word(),
 			user: userName,
 		}
-		const wrapper = shallow(<LogItem log={log} userName={userName} />)
 
-		assert.isTrue(wrapper.find('li').hasClass('negative'))
+		const { container } = render(<LogItem log={log} userName={userName} />)
+
+		expect(container.firstChild).toHaveClass('negative')
 	})
 })
