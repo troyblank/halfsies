@@ -11,7 +11,7 @@ export const Header: FunctionComponent = () => {
 				<div className={'icon-logo'}>
 					<LogoGraphic />
 				</div>
-				<div className={'username'}>{ user.userName }</div>
+				<div className={'username'}>{ user.username }</div>
 			</div>
 		</header>
 	)

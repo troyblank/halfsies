@@ -1,7 +1,7 @@
 
 // @ts-nocheck - reducer code is not typed and is planned to be removed
 /* istanbul ignore file */
-import { UserType } from '../../types'
+import { type User } from '../../types'
 import { balanceReceived } from '../balance/actions'
 import { addLog } from '../log/actions'
 import { getAPIURL } from '../../util/apiCommunication'
@@ -16,10 +16,10 @@ export const createHalfsieError = (errorMessage) => ({ type: CREATE_HALFSIE_ERRO
 export const createHalfsieSuccess = () => ({ type: CREATE_HALFSIE_SUCCESS })
 export const resetCreateForm = () => ({ type: CREATE_HALFSIE_RESET })
 
-export const createHalfsie = (user: UserType, formData) => (
+export const createHalfsie = (user: User, formData) => (
 	/* istanbul ignore next */
 	(dispatch) => {
-		const { userName, jwtToken } = user
+		const { username, jwtToken } = user
 		const log = {
 			date: new Date().toUTCString(),
 			...formData,
@@ -42,7 +42,7 @@ export const createHalfsie = (user: UserType, formData) => (
 		}).then((responseBody) => {
 			const { balance } = responseBody
 
-			dispatch(addLog({ user: userName, ...log }))
+			dispatch(addLog({ user: username, ...log }))
 			dispatch(balanceReceived(balance))
 			dispatch(createHalfsieSuccess())
 		}).catch(() => {

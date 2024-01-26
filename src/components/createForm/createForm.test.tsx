@@ -4,7 +4,7 @@ import Chance from 'chance'
 import { act, fireEvent, render, waitFor } from '@testing-library/react'
 import { useRouter } from 'next/router'
 import { nextTick } from 'process'
-import { UserType } from '../../types'
+import { type User } from '../../types'
 import { mockAuthContext, mockUser } from '../../testing'
 import { useAuth } from '../../contexts'
 import CreateForm from './createForm'
@@ -44,7 +44,7 @@ describe('Create Form', () => {
 	it('should be able to create a halfsie', async() => {
 		const createStore = { pending: false }
 		const dispatch = jest.fn()
-		const user: UserType = mockUser()
+		const user: User = mockUser()
 
 		jest.mocked(useAuth).mockReturnValue(mockAuthContext({ user }))
 		jest.spyOn(actions, 'createHalfsie')

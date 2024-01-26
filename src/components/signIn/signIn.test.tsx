@@ -3,7 +3,7 @@ import React from 'react'
 import Chance from 'chance'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { useRouter } from 'next/router'
-import { mockAuthContext, mockUser } from '../../testing'
+import { mockAuthContext } from '../../testing'
 import { useAuth } from '../../contexts'
 import { SignInComponent } from './signIn'
 import { HOME_PATH } from '../../utils'
@@ -67,7 +67,7 @@ describe('Sign In', () => {
 
 	it('Should be able to sign in a user and redirect them to the home page.', async() => {
 		const push = jest.fn()
-		const attemptToSignIn = jest.fn().mockResolvedValue(mockUser({ isValid: true }))
+		const attemptToSignIn = jest.fn().mockResolvedValue({ isUserComplete: true })
 
 		jest.mocked(useRouter).mockReturnValue({ push } as any)
 		jest.mocked(useAuth).mockReturnValue(mockAuthContext({
@@ -87,7 +87,7 @@ describe('Sign In', () => {
 	})
 
 	it('Should not be able to sign in a user if a the user is invalid.', async () => {
-		const attemptToSignIn = jest.fn().mockResolvedValue(mockUser({ isValid: false }))
+		const attemptToSignIn = jest.fn().mockResolvedValue({ isUserComplete: false })
 
 		jest.mocked(useAuth).mockReturnValue(mockAuthContext({
 			attemptToSignIn,
