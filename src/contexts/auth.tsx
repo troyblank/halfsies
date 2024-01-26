@@ -1,43 +1,65 @@
-import React, { createContext, useContext, useState, ReactElement } from 'react'
-import { Auth } from 'aws-amplify'
+import React, { createContext, useContext, ReactElement } from 'react'
 import {
-	AuthContextType,
-	AttemptToSignInType,
-	CognitoUserType,
-	UserType,
+	signIn,
+	type SignInInput,
+	type SignInOutput,
+} from 'aws-amplify/auth'
+import {
+	type AuthContextType,
+	type AttemptToSignIn,
+	type User,
 } from '../types'
-import { extractUserInformationFromCognito } from '../utils'
 
 export const AuthContext = createContext<AuthContextType>({
-	attemptToSignIn: /* istanbul ignore next */ () => new Promise((_, reject) => reject(new Error('Auth Context not initiated'))),
+	attemptToSignIn: /* istanbul ignore next */ () => new Promise((_, reject) => reject('Auth Context not initiated')),
 	user: null,
 })
 
 type PropsType = {
-    user: UserType | null,
+	user: User | null,
     children: ReactElement,
 }
 
-export const AuthProvider: React.FC<PropsType> = ({ user: userToSet, children }) => {
-	const [user, setUser] = useState<UserType | null>(userToSet)
+const USER_COMPLETE_STEP: string = 'DONE'
+const USER_NOT_COMPLETED_STEPS: string[] = ['CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED']
+const DEFAULT_ERROR_MESSAGE: string = 'Something went wrong.'
 
-	const attemptToSignIn: AttemptToSignInType = async (userName, password) => {
-		let extractedUser: UserType | null = null
+export const AuthProvider: React.FC<PropsType> = ({ user, children }) => {
+	const attemptToSignIn: AttemptToSignIn = async({ username, password }: SignInInput) => {
+		let isUserComplete: boolean = false
+		let isError: boolean = false
+		let errorMessage: string = DEFAULT_ERROR_MESSAGE
 
 		try {
-			const signedIncognitoUser: CognitoUserType = await Auth.signIn(userName, password)
-			extractedUser = extractUserInformationFromCognito(signedIncognitoUser)
+			const { isSignedIn, nextStep }: SignInOutput = await signIn({ username, password })
+			const { signInStep } = nextStep
+			const isUserRequiredToComplete: boolean = USER_NOT_COMPLETED_STEPS.includes(signInStep)
 
-			setUser(extractedUser)
+			isUserComplete = signInStep === USER_COMPLETE_STEP
+
+			const isStepUnaccountedFor: boolean = !isUserComplete && !isUserRequiredToComplete
+
+			isError = !isSignedIn && !isUserRequiredToComplete
+
+			if (isStepUnaccountedFor) {
+				errorMessage = `UI flow is missing a step: ${signInStep}. This is not your fault; please contact support.`
+			}
 		} catch (error) {
-			throw new Error(String(error))
+			isError = true
+			errorMessage = String(error)
 		}
 
-		return extractedUser
+		if (isError) {
+			// alert is only because there is no ui error handling in place yet
+			alert(errorMessage)
+			throw new Error(errorMessage)
+		}
+
+		return { isUserComplete }
 	}
 
 	return (
-		<AuthContext.Provider value={{ attemptToSignIn, user }}>
+		<AuthContext.Provider value={{attemptToSignIn, user}}>
 			{children}
 		</AuthContext.Provider>
 	)

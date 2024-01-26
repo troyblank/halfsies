@@ -8,7 +8,7 @@ export default function LogComponent({ logStore, dispatch }) {
 	const { log } = logStore
 	const { user } = useAuth()
 
-	const { userName } = user
+	const { username } = user
 
 	useEffect(() => {
 		if (!log) dispatch(getLog())
@@ -22,7 +22,7 @@ export default function LogComponent({ logStore, dispatch }) {
 					<button className={'btn'}>Create a halfsie</button>
 				</Link>
 				<ul className={'log-list'}>
-					{ log.map((l) => (<LogItem log={l} userName={userName} key={l.date} />))}
+					{ log.map((l) => (<LogItem log={l} userName={username} key={l.date} />))}
 				</ul>
 			</React.Fragment>}
 		</div>

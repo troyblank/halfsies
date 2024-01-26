@@ -12,12 +12,12 @@ describe('Header', () => {
 	const chance = new Chance()
 
 	it('should render', () => {
-		const userName: string = chance.word()
+		const username: string = chance.word()
 
-		jest.mocked(useAuth).mockReturnValue(mockAuthContext({ user:mockUser({ userName }) }))
+		jest.mocked(useAuth).mockReturnValue(mockAuthContext({ user:mockUser({ username }) }))
 
 		const { getByText } = render(<Header />)
 
-		expect(getByText(userName)).toBeInTheDocument()
+		expect(getByText(username)).toBeInTheDocument()
 	})
 })

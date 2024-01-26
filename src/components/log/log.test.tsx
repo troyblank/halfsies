@@ -10,20 +10,20 @@ jest.mock('../../contexts')
 
 describe('Log', () => {
 	const chance = new Chance()
-	const userName: string = chance.word()
+	const username: string = chance.word()
 
 	it('should render', () => {
 		const logStore = {
 			log: [{
 				amount: chance.natural(),
 				description: chance.word(),
-				user: userName,
+				user: username,
 				date: '2020-04-18T16:57:31.447Z',
 			}],
 		}
 
 		jest.mocked(useAuth).mockReturnValue(mockAuthContext({
-			user: mockUser({ userName }),
+			user: mockUser({ username }),
 		}))
 
 		const { getByText } = render(<Log logStore={logStore} dispatch={jest.fn()} />)
@@ -47,7 +47,7 @@ describe('Log', () => {
 		const dispatch = jest.fn()
 
 		jest.mocked(useAuth).mockReturnValue(mockAuthContext({
-			user: mockUser({ userName }),
+			user: mockUser({ username }),
 		}))
 
 		render(<Log logStore={logStore} dispatch={dispatch} />)

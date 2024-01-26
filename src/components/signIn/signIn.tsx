@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import classnames from 'classnames'
-import { UserType } from '../../types'
+import { type SignInOutput } from '../../types'
 import { useAuth } from '../../contexts'
 import { HOME_PATH } from '../../utils'
 import { AlertGraphic, LogoGraphic } from '../../graphics'
@@ -9,7 +9,7 @@ import { AlertGraphic, LogoGraphic } from '../../graphics'
 export const SignInComponent = () => {
 	const { push } = useRouter()
 	const { attemptToSignIn } = useAuth()
-	const [userName, setUserName] = useState<string>('')
+	const [username, setUsername] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 	const [pending, setPending] = useState<boolean>(false)
 	const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -17,8 +17,8 @@ export const SignInComponent = () => {
 	const onSignIn = (event) => {
 		setPending(true)
 
-		attemptToSignIn(userName, password).then((user: UserType | null) => {
-			if (user !== null && user?.isValid) {
+		attemptToSignIn({ username, password }).then(({ isUserComplete }: SignInOutput) => {
+			if (isUserComplete) {
 				push(HOME_PATH)
 			} else {
 				setErrorMessage('User is invalid.')
@@ -47,8 +47,8 @@ export const SignInComponent = () => {
 						type={'text'}
 						name={'username'}
 						aria-label={'username'}
-						value={userName}
-						onChange={(e) => setUserName(e.target.value)}
+						value={username}
+						onChange={(e) => setUsername(e.target.value)}
 					/>
 				</div>
 				<div>
