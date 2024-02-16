@@ -5,7 +5,7 @@ import { render, fireEvent, waitFor } from '@testing-library/react'
 import { useRouter } from 'next/router'
 import { mockAuthContext } from '../../testing'
 import { useAuth } from '../../contexts'
-import { SignInComponent } from './signIn'
+import { SignIn } from './signIn'
 import { HOME_PATH } from '../../utils'
 
 jest.mock('../../contexts')
@@ -25,7 +25,7 @@ describe('Sign In', () => {
 	})
 
 	it('Should render.', () => {
-		const { getByText } = render(<SignInComponent />)
+		const { getByText } = render(<SignIn />)
 
 		expect(getByText('Username:')).toBeInTheDocument()
 		expect(getByText('Password:')).toBeInTheDocument()
@@ -38,7 +38,7 @@ describe('Sign In', () => {
 			attemptToSignIn: jest.fn().mockRejectedValue(new Error(errorMessage)),
 		}))
 
-		const { getByText } = render(<SignInComponent />)
+		const { getByText } = render(<SignIn />)
 
 		await waitFor(async() => {
 			await fireEvent.click(getByText('Login'))
@@ -51,7 +51,7 @@ describe('Sign In', () => {
 		const newUserName = chance.name()
 		const newPassword = chance.word()
 
-		const { getByLabelText } = render(<SignInComponent />)
+		const { getByLabelText } = render(<SignIn />)
 
 		const userNameInput = getByLabelText('Username:') as HTMLInputElement
 		const passwordInput = getByLabelText('Password:') as HTMLInputElement
@@ -74,7 +74,7 @@ describe('Sign In', () => {
 			attemptToSignIn,
 		}))
 
-		const { getByLabelText } = render(<SignInComponent />)
+		const { getByLabelText } = render(<SignIn />)
 
 		const submitInput = getByLabelText('submit')
 
@@ -93,7 +93,7 @@ describe('Sign In', () => {
 			attemptToSignIn,
 		}))
 
-		const { getByLabelText, getByText } = render(<SignInComponent />)
+		const { getByLabelText, getByText } = render(<SignIn />)
 
 		const submitInput = getByLabelText('submit')
 
