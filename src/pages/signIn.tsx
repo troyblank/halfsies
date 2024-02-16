@@ -2,8 +2,7 @@
 import React from 'react'
 import { type User } from '../types'
 import { AuthProvider } from '../contexts'
-import { Head } from '../components'
-import { SignIn } from '../components/connections'
+import { Head, SignIn } from '../components'
 
 export const SignInPage = ({ user }: { user: User }) => (
 	<AuthProvider user={user}>

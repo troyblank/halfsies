@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import classnames from 'classnames'
 import { type SignInOutput } from '../../types'
@@ -6,13 +6,14 @@ import { useAuth } from '../../contexts'
 import { HOME_PATH } from '../../utils'
 import { AlertGraphic, LogoGraphic } from '../../graphics'
 
-export const SignInComponent = () => {
+export const SignIn = () => {
 	const { push } = useRouter()
 	const { attemptToSignIn } = useAuth()
 	const [username, setUsername] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 	const [pending, setPending] = useState<boolean>(false)
 	const [errorMessage, setErrorMessage] = useState<string | null>(null)
+	const [forgotPasswordRedirect, setForgotPasswordRedirect] = useState<string>('')
 
 	const onSignIn = (event) => {
 		setPending(true)
@@ -31,6 +32,10 @@ export const SignInComponent = () => {
 
 		event.preventDefault()
 	}
+
+	useEffect(() => {
+		setForgotPasswordRedirect(window.location.href)
+	}, [])
 
 	return (
 		<div className={'page-wrap sign-in'}>
@@ -79,9 +84,10 @@ export const SignInComponent = () => {
 						data-pending-value={''}
 					/>
 				</div>
+				<div className={'forgot-password-link'}>
+					<a href={`https://admin.troyblank.com/forgotPassword?redirect=${forgotPasswordRedirect}`}>Forgot password?</a>
+				</div>
 			</form>
 		</div>
 	)
 }
-
-export default SignInComponent

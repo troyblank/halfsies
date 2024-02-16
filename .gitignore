@@ -38,3 +38,6 @@ app/public/css
 app/public/js
 app/assets/js/bower
 static/grunticons
+
+# Local Netlify folder
+.netlify

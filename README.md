@@ -1,6 +1,5 @@
 # Halfsies
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/8df5e6e8-41ef-4033-bb94-66be32dd29dd/deploy-status)](https://app.netlify.com/sites/halfsies/deploys)
+[![test](https://github.com/troyblank/halfsies/actions/workflows/test.yml/badge.svg)](https://github.com/troyblank/halfsies/actions/workflows/test.yml)
 
 Halfies is a web app that keeps track of money owed between two moderately specific people.
 
@@ -74,6 +73,6 @@ npm run test:watch
 
 We maintain 100% test coverage on this project. Coverage percentages will be printed to the terminal when you run `npm run test`. This makes it easier for a code reviewer to determine if tests need to be worked on. Feel free to add coverage ignores for files or lines that given no value in unit testing.  If the coverage is less than 100% on your branch, here's how you can find out which code is not yet being tested:
 
-* after running `npm run test` you will see that an untracked `coverage` directory has been added to the root of the project. Copy the _full_ path to the `index.html` file within the `lcov-report` (it can be found somewhere like `file:///Users/your_name/projects_directory/admin/coverage/lcov-report/index.html`).
+* after running `npm run test` you will see that an untracked `coverage` directory has been added to the root of the project. Copy the _full_ path to the `index.html` file within the `lcov-report` (it can be found somewhere like `file:///Users/your_name/projects_directory/halfsies/coverage/lcov-report/index.html`).
 
 * using the coverage report in the browser, identify which files have less than 100% coverage for statements, branches, functions, or lines and write tests to cover those cases
