@@ -6,7 +6,7 @@ import { useAuth } from '../../contexts'
 import { HOME_PATH } from '../../utils'
 import { AlertGraphic, LogoGraphic } from '../../graphics'
 
-export const SignInComponent = () => {
+export const SignIn = () => {
 	const { push } = useRouter()
 	const { attemptToSignIn } = useAuth()
 	const [username, setUsername] = useState<string>('')
@@ -83,5 +83,3 @@ export const SignInComponent = () => {
 		</div>
 	)
 }
-
-export default SignInComponent
