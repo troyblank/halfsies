@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk')
 
-const CISP = new AWS.CognitoIdentityServiceProvider()
+const CISP = new AWS.CognitoIdentityServiceProvider({ region: 'us-east-2' })
 
 function getUser(AccessToken) {
 	return new Promise((resolve) => {
