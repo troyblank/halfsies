@@ -1,5 +1,5 @@
-// @ts-nocheck - reducer code is not typed and is planned to be removed
-import { getAPIURL } from '../../util/apiCommunication'
+import { type User } from '../../types'
+import { getAPIURL, getAndValidateResponseData, getHeaders } from '../../utils/apiCommunication'
 
 export const LOG_RECEIVED = 'LOG_RECEIVED'
 export const ADD_LOG = 'ADD_LOG'
@@ -7,18 +7,17 @@ export const ADD_LOG = 'ADD_LOG'
 export const logReceived = (log) => ({ type: LOG_RECEIVED, log })
 export const addLog = (log) => ({ type: ADD_LOG, log })
 
-export const getLog = () => (
+export const getLog = (user: User) => (
 	/* istanbul ignore next */
-	(dispatch) => {
-		fetch(`${getAPIURL()}/getlog`, {
-			method: 'GET',
-			headers: { 'Content-Type': 'application/json' },
-		})
-			.then((response) => response.json())
-			.then((body) => {
-				const { log } = body
+	async (dispatch) => {
+		const { jwtToken } = user
+		const { data }: { data: any } = await getAndValidateResponseData(
+			await fetch(`${getAPIURL()}/getLog`, {
+				method: 'GET',
+				headers: getHeaders(jwtToken),
+			}),
+		)
 
-				dispatch(logReceived(log))
-			})
+		dispatch(logReceived(data.log))
 	}
 )

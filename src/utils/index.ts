@@ -1,3 +1,4 @@
+export * from './apiCommunication'
 export * from './amplify'
 export * from './auth'
 export * from './pages'

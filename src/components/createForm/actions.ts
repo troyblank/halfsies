@@ -1,10 +1,10 @@
 
 // @ts-nocheck - reducer code is not typed and is planned to be removed
 /* istanbul ignore file */
-import { type User } from '../../types'
+import { type NewLog, type User } from '../../types'
 import { balanceReceived } from '../balance/actions'
 import { addLog } from '../log/actions'
-import { getAPIURL } from '../../util/apiCommunication'
+import { getAPIURL, getHeaders, getAndValidateResponseData } from '../../utils/apiCommunication'
 
 export const CREATE_HALFSIE_PENDING = 'CREATE_HALFSIE_PENDING'
 export const CREATE_HALFSIE_ERROR = 'CREATE_HALFSIE_ERROR'
@@ -16,33 +16,25 @@ export const createHalfsieError = (errorMessage) => ({ type: CREATE_HALFSIE_ERRO
 export const createHalfsieSuccess = () => ({ type: CREATE_HALFSIE_SUCCESS })
 export const resetCreateForm = () => ({ type: CREATE_HALFSIE_RESET })
 
-export const createHalfsie = (user: User, formData) => (
+export const createHalfsie = (user: User, newLog: NewLog) => (
 	/* istanbul ignore next */
-	(dispatch) => {
+	async (dispatch) => {
 		const { username, jwtToken } = user
-		const log = {
-			date: new Date().toUTCString(),
-			...formData,
-		}
+		const body = { ...newLog }
 
 		dispatch(createHalfsiePending())
 
-		const body = { accessToken: jwtToken, log }
+		getAndValidateResponseData(
+			await fetch(`${getAPIURL()}/createHalfsie`, {
+				method: 'POST',
+				headers: getHeaders(jwtToken),
+				body: JSON.stringify(body),
+			}),
+			'There was an issue saving your Halfise.',
+		).then(({ data }) => {
+			const { balance } = data
 
-		fetch(`${getAPIURL()}/createHalfsie`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(body),
-		}).then((response) => {
-			if (response.ok) {
-				return response.json()
-			}
-
-			throw new Error('There was an issue saving your Halfise.')
-		}).then((responseBody) => {
-			const { balance } = responseBody
-
-			dispatch(addLog({ user: username, ...log }))
+			dispatch(addLog({ user: username, ...newLog }))
 			dispatch(balanceReceived(balance))
 			dispatch(createHalfsieSuccess())
 		}).catch(() => {
