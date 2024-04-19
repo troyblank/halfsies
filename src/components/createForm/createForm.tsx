@@ -21,7 +21,7 @@ export const CreateFormComponent = ({
 	const [description, setDescription] = useState< string >('')
 
 	useEffect(() => {
-		if (!log) dispatch(getLog())
+		if (!log) dispatch(getLog(user))
 	}, [])
 
 	useEffect(() => {

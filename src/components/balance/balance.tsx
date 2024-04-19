@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
 import classnames from 'classnames'
+import { useAuth } from '../../contexts'
 import { BalanceSheepGraphic, BalanceSkullGraphic } from '../../graphics'
 import { getBalance } from './actions'
 
 export default function BalanceComponent({ users, balanceStore, dispatch }) {
 	const { amount } = balanceStore
+	const { user } = useAuth()
 
 	useEffect(() => {
-		if (!amount) dispatch(getBalance())
+		if (!amount) dispatch(getBalance(user))
 	}, [])
 
 	if (amount === undefined) return null

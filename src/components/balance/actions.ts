@@ -1,21 +1,21 @@
-import { getAPIURL } from '../../util/apiCommunication'
+import { type User } from '../../types'
+import { getAPIURL, getAndValidateResponseData, getHeaders } from '../../utils/apiCommunication'
 
 export const BALANCE_RECEIVED = 'BALANCE_RECEIVED'
 
-export const balanceReceived = (amount) => ({ type: BALANCE_RECEIVED, amount })
+export const balanceReceived = (amount : number) => ({ type: BALANCE_RECEIVED, amount })
 
-export const getBalance = () => (
+export const getBalance = (user: User) => (
 	/* istanbul ignore next */
-	(dispatch) => {
-		fetch(`${getAPIURL()}/getbalance`, {
-			method: 'GET',
-			headers: { 'Content-Type': 'application/json' },
-		})
-			.then((response) => response.json())
-			.then((body) => {
-				const { balance } = body
+	async (dispatch) => {
+		const { jwtToken } = user
+		const { data }: { data: any } = await getAndValidateResponseData(
+			await fetch(`${getAPIURL()}/getBalance`, {
+				method: 'GET',
+				headers: getHeaders(jwtToken),
+			}),
+		)
 
-				dispatch(balanceReceived(balance))
-			})
+		dispatch(balanceReceived(data.balance))
 	}
 )

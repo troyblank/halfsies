@@ -11,7 +11,7 @@ export default function LogComponent({ logStore, dispatch }) {
 	const { username } = user
 
 	useEffect(() => {
-		if (!log) dispatch(getLog())
+		if (!log) dispatch(getLog(user))
 	}, [])
 
 	return (
