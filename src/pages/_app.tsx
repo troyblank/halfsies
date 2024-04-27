@@ -1,6 +1,8 @@
 import React from 'react'
 import { AppProps } from 'next/app'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { Provider } from 'react-redux'
+import { queryClient } from '../data'
 import Store from '../store'
 
 // These scss imports are in this location because there is a bug
@@ -9,9 +11,11 @@ import Store from '../store'
 import '../components/head/head.scss'
 
 export const App = ({ Component, pageProps }: AppProps) => (
-	<Provider store={Store}>
-		<Component {...pageProps} />
-	</Provider>
+	<QueryClientProvider client={queryClient}>
+		<Provider store={Store}>
+			<Component {...pageProps} />
+		</Provider>
+	</QueryClientProvider>
 )
 
 export default App
