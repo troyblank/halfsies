@@ -5,6 +5,12 @@ import userEvent from '@testing-library/user-event'
 global.Request = jest.fn()
 global.Response = jest.fn()
 
+global.fetch = jest.fn(() =>
+	Promise.resolve({
+		json: () => Promise.resolve(),
+	}),
+)
+
 global.userEvent = userEvent.setup()
 
 global.afterEach(() => {

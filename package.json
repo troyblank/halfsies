@@ -1,6 +1,7 @@
 {
 	"name": "Halfsies",
 	"version": "1.2.0",
+	"packageManager": "yarn@1.22.21",
 	"scripts": {
 		"start": "npm run clean && npm run watch",
 		"clean": "rm -rf dist && rm -rf coverage",
@@ -16,6 +17,7 @@
 		"@aws-amplify/adapter-nextjs": "1.0.27",
 		"@aws-amplify/auth": "6.0.27",
 		"@babel/plugin-proposal-export-default-from": "7.24.1",
+		"@tanstack/react-query": "5.32.0",
 		"@testing-library/dom": "9.3.3",
 		"@testing-library/jest-dom": "6.1.5",
 		"@testing-library/react": "14.1.2",

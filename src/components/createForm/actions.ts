@@ -2,7 +2,7 @@
 // @ts-nocheck - reducer code is not typed and is planned to be removed
 /* istanbul ignore file */
 import { type NewLog, type User } from '../../types'
-import { balanceReceived } from '../balance/actions'
+import { queryClient, GET_BALANCE_QUERY_KEY } from '../../data'
 import { addLog } from '../log/actions'
 import { getAPIURL, getHeaders, getAndValidateResponseData } from '../../utils/apiCommunication'
 
@@ -32,10 +32,10 @@ export const createHalfsie = (user: User, newLog: NewLog) => (
 			}),
 			'There was an issue saving your Halfise.',
 		).then(({ data }) => {
-			const { balance } = data
+			const { newBalance } = data
+			queryClient.setQueryData([GET_BALANCE_QUERY_KEY], newBalance)
 
 			dispatch(addLog({ user: username, ...newLog }))
-			dispatch(balanceReceived(balance))
 			dispatch(createHalfsieSuccess())
 		}).catch(() => {
 			dispatch(createHalfsieError('There was an issue saving your Halfise.'))
