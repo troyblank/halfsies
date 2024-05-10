@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import Chance from 'chance'
 import { useGetBalance } from '../../data'
 import { SKULL_GRAPHIC_TITLE, SHEEP_GRAPHIC_TITLE } from '../../graphics'
-import Balance from './balance'
+import { Balance } from './balance'
 
 jest.mock('../../data', () => ({
 	...jest.requireActual('../../data'),
@@ -13,7 +13,6 @@ jest.mock('../../data', () => ({
 
 describe('Balance', () => {
 	const chance = new Chance()
-	const users: string[] = [chance.word(), chance.word()]
 
 	beforeEach(() => {
 		jest.mocked(useGetBalance).mockReturnValue({
@@ -30,7 +29,7 @@ describe('Balance', () => {
 			data: balance,
 		} as any)
 
-		const { findAllByText, getByTitle } = render(<Balance users={users} />)
+		const { findAllByText, getByTitle } = render(<Balance />)
 
 		await expect(await findAllByText(balance)).toHaveLength(2)
 		expect(getByTitle(SKULL_GRAPHIC_TITLE)).toBeInTheDocument()
@@ -43,7 +42,7 @@ describe('Balance', () => {
 			data: chance.natural(),
 		} as any)
 
-		const { getByTitle } = render(<Balance users={users} />)
+		const { getByTitle } = render(<Balance />)
 
 		expect(getByTitle(SKULL_GRAPHIC_TITLE)).toBeInTheDocument()
 	})
@@ -54,7 +53,7 @@ describe('Balance', () => {
 			data: chance.integer({ max: -5 }),
 		} as any)
 
-		const { getByTitle } = render(<Balance users={users} />)
+		const { getByTitle } = render(<Balance />)
 
 		expect(getByTitle(SHEEP_GRAPHIC_TITLE)).toBeInTheDocument()
 	})
@@ -67,7 +66,7 @@ describe('Balance', () => {
 			data: balance,
 		} as any)
 
-		const { queryByText } = render(<Balance users={users} />)
+		const { queryByText } = render(<Balance />)
 
 		await expect(await queryByText(balance)).not.toBeInTheDocument()
 	})

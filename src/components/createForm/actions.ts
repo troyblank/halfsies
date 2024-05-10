@@ -2,8 +2,7 @@
 // @ts-nocheck - reducer code is not typed and is planned to be removed
 /* istanbul ignore file */
 import { type NewLog, type User } from '../../types'
-import { queryClient, GET_BALANCE_QUERY_KEY } from '../../data'
-import { addLog } from '../log/actions'
+import { queryClient, GET_BALANCE_QUERY_KEY, GET_LOG_QUERY_KEY } from '../../data'
 import { getAPIURL, getHeaders, getAndValidateResponseData } from '../../utils/apiCommunication'
 
 export const CREATE_HALFSIE_PENDING = 'CREATE_HALFSIE_PENDING'
@@ -19,7 +18,7 @@ export const resetCreateForm = () => ({ type: CREATE_HALFSIE_RESET })
 export const createHalfsie = (user: User, newLog: NewLog) => (
 	/* istanbul ignore next */
 	async (dispatch) => {
-		const { username, jwtToken } = user
+		const { jwtToken } = user
 		const body = { ...newLog }
 
 		dispatch(createHalfsiePending())
@@ -32,10 +31,11 @@ export const createHalfsie = (user: User, newLog: NewLog) => (
 			}),
 			'There was an issue saving your Halfise.',
 		).then(({ data }) => {
-			const { newBalance } = data
-			queryClient.setQueryData([GET_BALANCE_QUERY_KEY], newBalance)
+			const { newBalance, newLogs } = data
 
-			dispatch(addLog({ user: username, ...newLog }))
+			queryClient.setQueryData([GET_BALANCE_QUERY_KEY], newBalance)
+			queryClient.setQueryData([GET_LOG_QUERY_KEY], newLogs)
+
 			dispatch(createHalfsieSuccess())
 		}).catch(() => {
 			dispatch(createHalfsieError('There was an issue saving your Halfise.'))

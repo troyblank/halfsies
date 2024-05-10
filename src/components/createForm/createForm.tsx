@@ -5,24 +5,17 @@ import classnames from 'classnames'
 import { useAuth } from '../../contexts'
 import { createHalfsie, resetCreateForm } from './actions'
 import { AlertGraphic } from '../../graphics'
-import { getLog } from '../log/actions'
 
 export const CreateFormComponent = ({
 	createStore,
-	logStore,
 	dispatch,
 }) => {
 	const { user } = useAuth()
 	const { pending, errorMessage } = createStore
-	const { log } = logStore
 	const router = useRouter()
 
 	const [amount, setAmount] = useState< string >('')
 	const [description, setDescription] = useState< string >('')
-
-	useEffect(() => {
-		if (!log) dispatch(getLog(user))
-	}, [])
 
 	useEffect(() => {
 		if (createStore.needsRedirect) router.push('/')
@@ -35,8 +28,6 @@ export const CreateFormComponent = ({
 
 		e.preventDefault()
 	}
-
-	if (!log) return null
 
 	return (
 		<section className={'page-wrap'}>

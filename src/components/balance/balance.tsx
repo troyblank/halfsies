@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react'
 import classnames from 'classnames'
+import { MAIN_USER, SECONDARY_USER } from '../../../config'
 import { useAuth } from '../../contexts'
 import { useGetBalance } from '../../data'
 import { BalanceSheepGraphic, BalanceSkullGraphic } from '../../graphics'
 
-export default function BalanceComponent({ users }) {
+export const Balance = () => {
 	const { user } = useAuth()
 	const { isFetching, data: amount } = useGetBalance(user)
 
@@ -29,7 +30,7 @@ export default function BalanceComponent({ users }) {
 								</div>
 								<div className={'dollar-icon'}>$</div>
 								<div className={'number'}>{ balanceDisplay }</div>
-								<div className={'user'}>{ users[0] }</div>
+								<div className={'user'}>{ MAIN_USER }</div>
 							</div>
 							<div className={'balance__circle-highlight'}><div /></div>
 						</Fragment>
@@ -52,7 +53,7 @@ export default function BalanceComponent({ users }) {
 								</div>
 								<div className={'dollar-icon'}>$</div>
 								<div className={'number'}>{ balanceDisplay }</div>
-								<div className={'user'}>{ users[1] }</div>
+								<div className={'user'}>{ SECONDARY_USER }</div>
 							</div>
 							<div className={'balance__circle-highlight'}><div /></div>
 						</Fragment>
