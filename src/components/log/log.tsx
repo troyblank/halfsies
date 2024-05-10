@@ -1,30 +1,25 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { useAuth } from '../../contexts'
+import { useGetLog } from '../../data'
 import LogItem from './logItem'
-import { getLog } from './actions'
 
-export default function LogComponent({ logStore, dispatch }) {
-	const { log } = logStore
+export const Log = () => {
 	const { user } = useAuth()
-
+	const { isFetching, data: log } = useGetLog(user)
 	const { username } = user
-
-	useEffect(() => {
-		if (!log) dispatch(getLog(user))
-	}, [])
 
 	return (
 		<div className={'page-wrap'}>
-			{ log &&
-			<React.Fragment>
-				<Link href={'/create'}>
-					<button className={'btn'}>Create a halfsie</button>
-				</Link>
+			<Link href={'/create'}>
+				<button className={'btn'}>Create a halfsie</button>
+			</Link>
+			{ isFetching && (<div className={'log-list__pending'} aria-label={'Log is loading.'} />) }
+			{ !isFetching && (
 				<ul className={'log-list'}>
 					{ log.map((l) => (<LogItem log={l} userName={username} key={l.date} />))}
 				</ul>
-			</React.Fragment>}
+			)}
 		</div>
 	)
 }

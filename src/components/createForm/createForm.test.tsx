@@ -19,7 +19,6 @@ jest.mock('../../contexts')
 
 describe('Create Form', () => {
 	const chance = new Chance()
-	const logStore = { log: [] }
 
 	beforeEach(() => {
 		jest.mocked(useAuth).mockReturnValue(mockAuthContext({
@@ -28,17 +27,9 @@ describe('Create Form', () => {
 	})
 
 	it('should render', () => {
-		const { getByText } = render(<CreateForm createStore={{}} logStore={logStore} dispatch={jest.fn()} />)
+		const { getByText } = render(<CreateForm createStore={{}} dispatch={jest.fn()} />)
 
 		expect(getByText('Create a new Halfsie')).toBeInTheDocument()
-	})
-
-	it('should not render without a log', () => {
-		act(() => {
-			const { container } = render(<CreateForm createStore={{}} logStore={{}} dispatch={jest.fn()} />)
-
-			expect(container).toBeEmptyDOMElement()
-		})
 	})
 
 	it('should be able to create a halfsie', async() => {
@@ -49,7 +40,7 @@ describe('Create Form', () => {
 		jest.mocked(useAuth).mockReturnValue(mockAuthContext({ user }))
 		jest.spyOn(actions, 'createHalfsie')
 
-		const { getByLabelText } = render(<CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />)
+		const { getByLabelText } = render(<CreateForm createStore={createStore} dispatch={dispatch} />)
 
 		await waitFor(async() => {
 			await fireEvent.submit(getByLabelText('submit'))
@@ -61,7 +52,7 @@ describe('Create Form', () => {
 	it('should not be able to create a halfsie if a pending form submit is already in progress', async() => {
 		const createStore = { pending: true, log: [] }
 		const dispatch = jest.fn()
-		const { getByLabelText } = render(<CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />)
+		const { getByLabelText } = render(<CreateForm createStore={createStore} dispatch={dispatch} />)
 
 		await waitFor(async() => {
 			await fireEvent.submit(getByLabelText('submit'))
@@ -75,23 +66,15 @@ describe('Create Form', () => {
 		const errorMessage = chance.word()
 		const createStore = { pending: true, errorMessage }
 
-		const { getByText } = render(<CreateForm createStore={createStore} logStore={logStore} dispatch={jest.fn()} />)
+		const { getByText } = render(<CreateForm createStore={createStore} dispatch={jest.fn()} />)
 
 		expect(getByText(errorMessage)).toBeInTheDocument()
-	})
-
-	it('should fetch a log if there is no log to be found', () => {
-		const dispatch = jest.fn()
-
-		render(<CreateForm createStore={{}} logStore={{}} dispatch={dispatch} />)
-
-		expect(typeof dispatch.mock.calls[0][0]).toBe('function')
 	})
 
 	it('should keep amount in state', () => {
 		const value = chance.natural()
 		const dispatch = jest.fn()
-		const { getByLabelText } = render(<CreateForm createStore={{}} logStore={logStore} dispatch={dispatch} />)
+		const { getByLabelText } = render(<CreateForm createStore={{}} dispatch={dispatch} />)
 		const amountInput = getByLabelText('Amount') as HTMLInputElement
 
 		fireEvent.change(amountInput, { target: { value } })
@@ -102,7 +85,7 @@ describe('Create Form', () => {
 	it('should keep description in state', async() => {
 		const value = chance.word()
 		const dispatch = jest.fn()
-		const { getByLabelText } = render(<CreateForm createStore={{}} logStore={logStore} dispatch={dispatch} />)
+		const { getByLabelText } = render(<CreateForm createStore={{}} dispatch={dispatch} />)
 		const descriptionTextArea = getByLabelText('Description') as HTMLInputElement
 
 		await act(async () => {
@@ -122,7 +105,7 @@ describe('Create Form', () => {
 		// @ts-ignore - not sure why typescript is complaining about this
 		jest.mocked(useRouter).mockReturnValue({ push })
 
-		render(<CreateForm createStore={createStore} logStore={logStore} dispatch={dispatch} />)
+		render(<CreateForm createStore={createStore} dispatch={dispatch} />)
 
 		await act(async () => {
 			expect(push).toHaveBeenCalledTimes(1)

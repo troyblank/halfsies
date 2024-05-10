@@ -2,56 +2,49 @@
 import React from 'react'
 import Chance from 'chance'
 import { render } from '@testing-library/react'
-import { mockAuthContext, mockUser } from '../../testing'
+import { mockAuthContext, mockLog, mockUser } from '../../testing'
 import { useAuth } from '../../contexts'
-import Log from './log'
+import { useGetLog } from '../../data'
+import { Log } from './log'
 
+jest.mock('../../data')
 jest.mock('../../contexts')
 
 describe('Log', () => {
 	const chance = new Chance()
-	const username: string = chance.word()
+	const log = mockLog()
 
-	it('should render', () => {
-		const logStore = {
-			log: [{
-				amount: chance.natural(),
-				description: chance.word(),
-				user: username,
-				date: '2020-04-18T16:57:31.447Z',
-			}],
-		}
-
+	beforeEach(() => {
 		jest.mocked(useAuth).mockReturnValue(mockAuthContext({
-			user: mockUser({ username }),
+			user: mockUser({ username:  chance.word() }),
 		}))
 
-		const { getByText } = render(<Log logStore={logStore} dispatch={jest.fn()} />)
+		jest.mocked(useGetLog).mockReturnValue({
+			isFetching: false,
+			data: log,
+		} as any)
+	})
+
+	it('Should render.', () => {
+		const { getByText } = render(<Log />)
 
 		expect(getByText('Create a halfsie')).toBeInTheDocument()
 	})
 
-	it('should be able to fetch log on mount', () => {
-		const logStore = {}
-		const dispatch = jest.fn()
+	it('Should be able to show a log.', () => {
+		const { getByText } = render(<Log />)
 
-		render(
-			<Log logStore={logStore} dispatch={dispatch} />,
-		)
-
-		expect(dispatch).toBeCalledTimes(1)
+		expect(getByText(log[chance.natural({ min: 0, max: log.length-1 })].description)).toBeInTheDocument()
 	})
 
-	it('should not fetch a log on mount if there is already a log in state', () => {
-		const logStore = { log: [] }
-		const dispatch = jest.fn()
+	it('Should show a pending state if the log is loading', () => {
+		jest.mocked(useGetLog).mockReturnValue({
+			isFetching: true,
+			data: log,
+		} as any)
 
-		jest.mocked(useAuth).mockReturnValue(mockAuthContext({
-			user: mockUser({ username }),
-		}))
+		const { getByLabelText } = render(<Log />)
 
-		render(<Log logStore={logStore} dispatch={dispatch} />)
-
-		expect(dispatch).toHaveBeenCalledTimes(0)
+		expect(getByLabelText('Log is loading.')).toBeInTheDocument()
 	})
 })

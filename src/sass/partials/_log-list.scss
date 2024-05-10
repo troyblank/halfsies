@@ -86,4 +86,15 @@
             }
         }
     }
+
+    &__pending {
+        position: relative;
+        top: 25px;
+        left: 50%;
+        width: 32px;
+        height: 32px;
+        margin: -16px 0 0 -16px;
+        background-image: image-url('svg/pendingWhite.svg');
+        opacity: .25;
+    }
 }

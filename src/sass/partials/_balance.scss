@@ -22,6 +22,7 @@
         height: 32px;
         margin: -16px 0 0 -16px;
         background-image: image-url('svg/pending.svg');
+        opacity: .25;
     }
 
     &__circle {

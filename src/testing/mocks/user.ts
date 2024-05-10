@@ -1,4 +1,5 @@
 import Chance from 'chance'
+import { USERS } from '../../../config'
 import { type User } from '../../types'
 
 const chance = new Chance()
@@ -9,7 +10,7 @@ export const mockUser = (overrides: Partial<User> = {}): User => {
 	return {
 		fullName,
 		jwtToken: chance.guid(),
-		username: chance.name(),
+		username: chance.pickone(USERS),
 		...overrides,
 	}
 }
