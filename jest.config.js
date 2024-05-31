@@ -1,19 +1,24 @@
-// next/jest will be needed in a future version of next.js.
-// const nextJest = require('next/jest');
-
-// const createJestConfig = nextJest({
-//     dir: './'
-// });
-const customJestConfig = {
-	moduleDirectories: ['node_modules', '<rootDir>/'],
-	testEnvironment: 'jest-environment-jsdom',
+/** @type {import('jest').Config} */
+const config = {
 	moduleNameMapper: { '^uuid$': 'uuid' },
-	setupFilesAfterEnv: [
-		'<rootDir>/testSetup/url.js',
-		'<rootDir>/config/jest.js',
-	],
+	setupFilesAfterEnv: [ './jest.setup.js' ],
+	testEnvironment: 'jest-environment-jsdom',
+	transform: {
+		'^.+\\.(t|j)sx?$': '@swc/jest',
+	},
+	verbose: true,
 	collectCoverage: true,
-	coverageReporters: ['lcov', 'text-summary'],
+	collectCoverageFrom: [ 'src/**/*.{ts,tsx}' ],
+	coverageDirectory: './coverage/',
+	coveragePathIgnorePatterns: [
+		'.constants.ts',
+		'index.ts',
+		'node_modules',
+		'src/testing',
+		'src/pages',
+		'utils/ds2',
+	],
+	coverageReporters: [ 'lcov', 'text-summary' ],
 	coverageThreshold: {
 		global: {
 			statements: 100,
@@ -22,13 +27,7 @@ const customJestConfig = {
 			lines: 100,
 		},
 	},
-	coveragePathIgnorePatterns: [
-		'index.ts',
-		'<rootDir>/src/mocks',
-		'<rootDir>/src/graphics',
-	],
-	// testMatch: [ '<rootDir>/src/someFile.test.tsx' ], //Left here intentionally to test single files easy
+	clearMocks: true,
 }
 
-// module.exports = createJestConfig(customJestConfig);
-module.exports = customJestConfig
+module.exports = config

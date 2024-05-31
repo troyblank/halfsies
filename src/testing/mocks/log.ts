@@ -2,7 +2,7 @@
 import Chance from 'chance'
 import { ISO8601Time } from '../../types'
 import { USERS } from '../../../config'
-import { type Log } from '../../types'
+import { type Log, type NewLog } from '../../types'
 
 const chance = new Chance()
 
@@ -22,3 +22,8 @@ export const mockLog = (): Log[] => {
 
 	return Array.from (Array(amountOfLogs)).map(() => mockALog())
 }
+
+export const mockNewLog = (): NewLog => ({
+	amount: chance.natural(),
+	description: chance.sentence(),
+})

@@ -3,28 +3,24 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import classnames from 'classnames'
 import { useAuth } from '../../contexts'
-import { createHalfsie, resetCreateForm } from './actions'
+import { useSaveHalfsie } from '../../data'
 import { AlertGraphic } from '../../graphics'
 
-export const CreateFormComponent = ({
-	createStore,
-	dispatch,
-}) => {
+export const CreateForm = () => {
 	const { user } = useAuth()
-	const { pending, errorMessage } = createStore
+	const { mutate: saveHalfsie, isPending, isSuccess, error } = useSaveHalfsie()
 	const router = useRouter()
-
 	const [amount, setAmount] = useState< string >('')
 	const [description, setDescription] = useState< string >('')
 
 	useEffect(() => {
-		if (createStore.needsRedirect) router.push('/')
-
-		dispatch(resetCreateForm())
-	}, [createStore.needsRedirect])
+		if (isSuccess) router.push('/')
+	}, [isSuccess])
 
 	const onCreate = (e) => {
-		if (!pending) dispatch(createHalfsie(user, { amount: Number(amount), description }))
+		if (!isPending) {
+			saveHalfsie({ user, newLog: { amount: Number(amount), description }})
+		}
 
 		e.preventDefault()
 	}
@@ -59,20 +55,21 @@ export const CreateFormComponent = ({
 						/>
 					</div>
 				</div>
-				{ errorMessage &&
+				{ error &&
 					<div className={'alert alert__error'}>
 						<div className={'icon-alert-error'}>
 							<AlertGraphic />
 						</div>
-						<strong>{ errorMessage }</strong>
+						<strong>{ error.toString() }</strong>
 					</div>
 				}
 				<div>
 					<input
 						type={'submit'}
 						value={'Submit'}
-						className={classnames({ pending })}
+						className={classnames({ pending: isPending })}
 						aria-label={'submit'}
+						disabled={isPending}
 					/>
 					<Link href={'/'}>
 						<button className={'btn btn--alt'}>Cancel</button>
@@ -82,5 +79,3 @@ export const CreateFormComponent = ({
 		</section>
 	)
 }
-
-export default CreateFormComponent
