@@ -6,14 +6,16 @@ import { useRouter } from 'next/router'
 import { nextTick } from 'process'
 import { type User } from '../../types'
 import { mockAuthContext, mockUser } from '../../testing'
+import { useSaveHalfsie } from '../../data'
 import { useAuth } from '../../contexts'
-import CreateForm from './createForm'
-import * as actions from './actions'
+import { CreateForm } from './createForm'
 
 jest.mock('next/router', () => ({
 	__esModule: true,
 	useRouter: jest.fn().mockImplementation(() => ({ push: jest.fn() })),
 }))
+
+jest.mock('../../data')
 
 jest.mock('../../contexts')
 
@@ -24,57 +26,78 @@ describe('Create Form', () => {
 		jest.mocked(useAuth).mockReturnValue(mockAuthContext({
 			user: mockUser(),
 		}))
+
+		jest.mocked(useSaveHalfsie).mockReturnValue({
+			mutate: jest.fn(),
+			isPending: false,
+			isSuccess: false,
+			error: undefined,
+		} as any)
 	})
 
 	it('should render', () => {
-		const { getByText } = render(<CreateForm createStore={{}} dispatch={jest.fn()} />)
+		const { getByText } = render(<CreateForm />)
 
 		expect(getByText('Create a new Halfsie')).toBeInTheDocument()
 	})
 
 	it('should be able to create a halfsie', async() => {
-		const createStore = { pending: false }
-		const dispatch = jest.fn()
 		const user: User = mockUser()
+		const saveHalfsie = jest.fn()
 
 		jest.mocked(useAuth).mockReturnValue(mockAuthContext({ user }))
-		jest.spyOn(actions, 'createHalfsie')
 
-		const { getByLabelText } = render(<CreateForm createStore={createStore} dispatch={dispatch} />)
+		jest.mocked(useSaveHalfsie).mockReturnValue({
+			mutate: saveHalfsie,
+			isPending: false,
+			isSuccess: false,
+		} as any)
+
+		const { getByLabelText } = render(<CreateForm />)
 
 		await waitFor(async() => {
 			await fireEvent.submit(getByLabelText('submit'))
 		})
 
-		expect(actions.createHalfsie).toHaveBeenLastCalledWith(user, {amount: 0, description: ''})
+		expect(saveHalfsie).toHaveBeenCalledWith({user, newLog: {amount: 0, description: ''}})
 	})
 
 	it('should not be able to create a halfsie if a pending form submit is already in progress', async() => {
-		const createStore = { pending: true, log: [] }
-		const dispatch = jest.fn()
-		const { getByLabelText } = render(<CreateForm createStore={createStore} dispatch={dispatch} />)
+		const saveHalfsie = jest.fn()
+
+		jest.mocked(useSaveHalfsie).mockReturnValue({
+			mutate: saveHalfsie,
+			isPending: true,
+			isSuccess: false,
+		} as any)
+
+		const { getByLabelText } = render(<CreateForm />)
 
 		await waitFor(async() => {
 			await fireEvent.submit(getByLabelText('submit'))
 		})
 
-		expect(dispatch).toHaveBeenCalledTimes(1)
-		expect(dispatch).toHaveBeenCalledWith({ type: 'CREATE_HALFSIE_RESET' })
+		expect(saveHalfsie).toHaveBeenCalledTimes(0)
 	})
 
 	it('should show an error message if the create form does not work', () => {
 		const errorMessage = chance.word()
-		const createStore = { pending: true, errorMessage }
 
-		const { getByText } = render(<CreateForm createStore={createStore} dispatch={jest.fn()} />)
+		jest.mocked(useSaveHalfsie).mockReturnValue({
+			mutate: jest.fn(),
+			isPending: false,
+			isSuccess: false,
+			error: errorMessage,
+		} as any)
+
+		const { getByText } = render(<CreateForm />)
 
 		expect(getByText(errorMessage)).toBeInTheDocument()
 	})
 
 	it('should keep amount in state', () => {
 		const value = chance.natural()
-		const dispatch = jest.fn()
-		const { getByLabelText } = render(<CreateForm createStore={{}} dispatch={dispatch} />)
+		const { getByLabelText } = render(<CreateForm />)
 		const amountInput = getByLabelText('Amount') as HTMLInputElement
 
 		fireEvent.change(amountInput, { target: { value } })
@@ -84,8 +107,7 @@ describe('Create Form', () => {
 
 	it('should keep description in state', async() => {
 		const value = chance.word()
-		const dispatch = jest.fn()
-		const { getByLabelText } = render(<CreateForm createStore={{}} dispatch={dispatch} />)
+		const { getByLabelText } = render(<CreateForm />)
 		const descriptionTextArea = getByLabelText('Description') as HTMLInputElement
 
 		await act(async () => {
@@ -98,19 +120,23 @@ describe('Create Form', () => {
 	})
 
 	it('should be able to redirect to root of website after successful creation', async() => {
-		const dispatch = jest.fn()
-		const createStore = { needsRedirect: true }
+		jest.mocked(useSaveHalfsie).mockReturnValue({
+			mutate: jest.fn(),
+			isPending: false,
+			isSuccess: true,
+			error: undefined,
+		} as any)
+
 		const push = jest.fn()
 
 		// @ts-ignore - not sure why typescript is complaining about this
 		jest.mocked(useRouter).mockReturnValue({ push })
 
-		render(<CreateForm createStore={createStore} dispatch={dispatch} />)
+		render(<CreateForm />)
 
 		await act(async () => {
 			expect(push).toHaveBeenCalledTimes(1)
 			expect(push).toHaveBeenCalledWith('/')
-			expect(dispatch).toHaveBeenCalledTimes(1)
 		})
 	})
 })

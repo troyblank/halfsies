@@ -4,8 +4,7 @@ import { GetServerSidePropsContext } from 'next'
 import { type User } from '../types'
 import { AuthProvider } from '../contexts'
 import { getServerSidePropsOrRedirect } from '../utils'
-import { Head } from '../components'
-import { CreateForm } from '../components/connections'
+import { CreateForm, Head } from '../components'
 
 export const getServerSideProps = async (serverSideContext: GetServerSidePropsContext) => getServerSidePropsOrRedirect(serverSideContext)
 
