@@ -14,7 +14,7 @@ export default class MyDocument extends Document {
 					content="
 						script-src 'self' 'unsafe-eval';
 						worker-src 'self' blob:;
-						connect-src *.troyblank.com ws://localhost:3000 'self';
+						connect-src *.troyblank.com cognito-idp.us-east-2.amazonaws.com ws://localhost:3000 'self';
 						font-src *.gstatic.com;
 					"
 				/>,
