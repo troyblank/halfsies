@@ -9,7 +9,10 @@ import { extractUserInformationFromAmplifyServerContext } from './'
 Amplify.configure(amplifyConfig as ResourcesConfig, { ssr: true })
 
 export const { runWithAmplifyServerContext } = createServerRunner({
-	config: amplifyConfig as ResourcesConfig,
+	// Type assertion needed due to AWS Amplify nested dependency type mismatch in CI
+	// The config is functionally correct, but TypeScript sees incompatible ResourcesConfig types
+	// from aws-amplify/node_modules/@aws-amplify/core vs root @aws-amplify/core
+	config: amplifyConfig as Parameters<typeof createServerRunner>[0]['config'],
 })
 
 export const getUserFromAmplify = async(serverSideContext: GetServerSidePropsContext): Promise<User | null> => {
