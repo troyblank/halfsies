@@ -8,6 +8,12 @@ export const Head: FunctionComponent = () => {
 			<meta name={'viewport'} content={'width=device-width, initial-scale=1'} />
 			<title>Halfsies</title>
 
+			{/* Web App Manifest for Android */}
+			<link rel={'manifest'} href={'/static/manifest.json'} />
+			<meta name={'theme-color'} content={'#B7B8BF'} />
+			<meta name={'mobile-web-app-capable'} content={'yes'} />
+			<meta name={'apple-mobile-web-app-capable'} content={'yes'} />
+
 			{/* Bookmark icons */}
 			<link rel={'shortcut icon'} href={'/static/icons/favicon.png'} type={'image/png'} />
 			{/* For third-generation iPad with high-resolution Retina display */}
