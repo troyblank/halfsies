@@ -10,7 +10,7 @@ export const Head: FunctionComponent = () => {
 
 			{/* Web App Manifest for Android */}
 			<link rel={'manifest'} href={'/static/manifest.json'} />
-			<meta name={'theme-color'} content={'#B7B8BF'} />
+			<meta name={'theme-color'} content={'#2e334a'} />
 			<meta name={'mobile-web-app-capable'} content={'yes'} />
 			<meta name={'apple-mobile-web-app-capable'} content={'yes'} />
 
