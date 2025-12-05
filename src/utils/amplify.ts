@@ -9,7 +9,7 @@ import { extractUserInformationFromAmplifyServerContext } from './'
 Amplify.configure(amplifyConfig as ResourcesConfig, { ssr: true })
 
 export const { runWithAmplifyServerContext } = createServerRunner({
-	config: amplifyConfig,
+	config: amplifyConfig as ResourcesConfig,
 })
 
 export const getUserFromAmplify = async(serverSideContext: GetServerSidePropsContext): Promise<User | null> => {
