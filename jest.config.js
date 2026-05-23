@@ -1,6 +1,7 @@
 /** @type {import('jest').Config} */
 const config = {
 	moduleNameMapper: { '^uuid$': 'uuid' },
+	setupFiles: [ './jest.polyfills.js' ],
 	setupFilesAfterEnv: [ './jest.setup.js' ],
 	testEnvironment: 'jest-environment-jsdom',
 	transform: {
