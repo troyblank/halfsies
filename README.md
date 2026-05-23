@@ -48,7 +48,7 @@ nvm use
 You will then want to install all node packages. Run:
 
 ```
-npm run install
+npm install
 ```
 
 In order to demo the project locally run:
